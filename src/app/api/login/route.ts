@@ -39,17 +39,17 @@ export async function POST(req: NextRequest) {
     }
 
     // Extract roles and ensure the user has the "ADMIN" role
-    const roles = data?.payload?.roles || [];
-    if (!roles.includes("ADMIN")) {
-        return NextResponse.json(
-            {
-                message: "Unauthorized: Admin access only.",
-            },
-            {
-                status: 403,
-            }
-        );
-    }
+    // const roles = data?.payload?.roles || [];
+    // if (!roles.includes("ADMIN")) {
+    //     return NextResponse.json(
+    //         {
+    //             message: "Unauthorized: Admin access only.",
+    //         },
+    //         {
+    //             status: 403,
+    //         }
+    //     );
+    // }
 
     // Extract tokens and other payload data
     // const accessToken = data?.payload?.access_token || null;

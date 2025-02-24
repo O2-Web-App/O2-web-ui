@@ -65,6 +65,7 @@ return result;
 
 // Create the API service with Redux Toolkit's `createApi`
 export const O2Api = createApi({
+	tagTypes:["userProfile"],
 	reducerPath: "O2Api",
 	baseQuery: baseQueryWithReAuth, // Use the custom base query with re-authentication logic
 	endpoints: () => ({}),
