@@ -1,59 +1,29 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
-    content: [
+  darkMode: ["class"],
+  content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  	extend: {
-		colors: {
-			primary: '#559F34',
-			secondary: '#7ECB2A',
-			accent: '#0494FC',
-			danger: '#D43B3B',
-			warning: '#F5C449',
-			bgColor: '#F8FAFC',
-			textdescription: '#A6A6A6',
-			yellowlish: '#FFD300',
-	
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+    extend: {
+      colors: {
+        primary: "#559F34",
+        secondary: "#7ECB2A",
+        accent: "#0494FC",
+        background_color: "#F8FAFC",
+        card_color: "#FFFFFF",
+        description: "#97A2B0",
+      },
+      fontSize: {
+        heading: ["30px", "36px"],
+        title: ["22px", "28px"],
+        body: ["18px", "24px"],
+        description: ["16px", "20px"],
+      },
+    },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
