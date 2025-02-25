@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import StoreProvider from "@/app/StoreProvider";
 
 // import { suwannaphum } from "../font";
-import "@/app/globals.css";
+//import "@/app/globals.css";
 import { Suwannaphum } from "next/font/google";
 
 export const suwannaphum = Suwannaphum({
