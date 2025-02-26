@@ -24,6 +24,11 @@ export default {
         description: ["16px", "20px"],
       },
     },
+    images: {
+  		domains: [
+  			'127.0.0.1'
+  		]
+  	}
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
