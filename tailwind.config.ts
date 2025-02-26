@@ -11,6 +11,11 @@ export default {
     extend: {
       colors: {
         primary: "#559F34",
+        "primary-light": {
+          DEFAULT: "#559F34",
+          10: "rgba(85, 159, 52, 0.1)", // Opacity version
+          70: "rgba(85, 159, 52, 0.7)",
+        },
         secondary: "#7ECB2A",
         accent: "#0494FC",
         background_color: "#F8FAFC",
