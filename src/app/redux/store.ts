@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {  O2Api } from './api'
+import {  o2API } from './api'
 import authSlice from './features/auth/authSlice'
+import tokenSlice from './features/auth/tokenSlice'
 // create store
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      [O2Api.reducerPath]: O2Api.reducer,
-        auth:authSlice
+      [o2API.reducerPath]: o2API.reducer,
+        auth:authSlice,
+        token:tokenSlice,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(O2Api.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(o2API.middleware),
   })
 }
 
