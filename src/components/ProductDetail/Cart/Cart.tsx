@@ -1,7 +1,8 @@
 import { CartProps } from "@/app/types/CartItemCount";
 import React from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
-export default function Cart({ total_cart_items }: CartProps) {
+export default function Cart() {
+  const total_cart_items: number = 3;
   return (
     <section>
       {total_cart_items === 0 ? (

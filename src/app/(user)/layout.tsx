@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import StoreProvider from "@/app/StoreProvider";
 
 // import { suwannaphum } from "../font";
-//import "@/app/globals.css";
+import "@/app/globals.css";
 import { Suwannaphum } from "next/font/google";
 
 export const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-suwannaphum",
   display: "swap",
-  subsets: ["khmer"]
+  subsets: ["khmer"],
 });
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,10 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     <body className={`${suwannaphum.className}`}>
-        <StoreProvider>
-          {children}
-        </StoreProvider>
+      <body className={`${suwannaphum.className} bg-background_color`}>
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );
