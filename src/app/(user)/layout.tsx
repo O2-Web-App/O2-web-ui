@@ -4,6 +4,7 @@ import StoreProvider from "@/app/StoreProvider";
 // import { suwannaphum } from "../font";
 import "@/app/globals.css";
 import { Suwannaphum } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 export const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
@@ -24,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suwannaphum.className} bg-background_color`}>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <main>{children}</main>
+          <Toaster closeButton />
+        </StoreProvider>
       </body>
     </html>
   );

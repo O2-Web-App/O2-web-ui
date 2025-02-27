@@ -13,7 +13,7 @@ import Button from "./ButtonComponentForAuth";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { useToast } from "@/hook/use-toast";
+// import { useToast } from "@/hook/use-toast";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import {
   selectToken,
@@ -44,7 +44,7 @@ const LoginComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(selectToken);
-  const { toast } = useToast();
+ // const { toast } = useToast();
   const router = useRouter();
 
   console.log("Access token: from Redux store", accessToken);
@@ -76,24 +76,24 @@ const LoginComponent = () => {
         // Save in localStorage for persistence
         localStorage.setItem("access_token", access_token);
   
-        toast({
-          title: "Login Successful 🎉",
-          description: "Redirecting to dashboard...",
-          variant: "success",
-          duration: 2000,
-        });
+        // toast({
+        //   title: "Login Successful 🎉",
+        //   description: "Redirecting to dashboard...",
+        //   variant: "success",
+        //   duration: 2000,
+        // });
   
         router.push(`/`);
       } else {
         throw new Error(result.message || "Login failed.");
       }
     } catch (error) {
-      toast({
-        title: "Login Failed",
+      // toast({
+      //   title: "Login Failed",
         
-        variant: "error",
-        duration: 3000,
-      });
+      //   variant: "error",
+      //   duration: 3000,
+      // });
       console.error("❌ Login Error:", error);
     } finally {
       setIsLoading(false);

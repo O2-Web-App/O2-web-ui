@@ -4,7 +4,6 @@ import StoreProvider from "@/app/StoreProvider";
 // import { suwannaphum } from "../font";
 import "./globals.css";
 
-
 import { Suwannaphum } from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 
@@ -12,7 +11,7 @@ export const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-suwannaphum",
   display: "swap",
-  subsets: ["khmer"]
+  subsets: ["khmer"],
 });
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,9 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     <body className={`${suwannaphum.className}`}>
+      <body className={`${suwannaphum.className} bg-background_color`}>
         <StoreProvider>
-        <NavbarPage/>
+          <NavbarPage />
           {children}
         </StoreProvider>
       </body>
