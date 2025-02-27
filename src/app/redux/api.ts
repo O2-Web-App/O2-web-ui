@@ -67,7 +67,7 @@ import {
   
 	  try {
 		const refreshResponse = await fetch(
-		  `${process.env.NEXT_PUBLIC_O2_API_URL}api/refresh`,
+		  `/api/refresh`,
 		  {
 			method: "POST",
 			credentials: "include",
@@ -92,7 +92,7 @@ import {
 		  //console.error("❌ Refresh token failed (401). Logging out...");
   
 		  // ✅ Attempt logout if refresh fails
-		  await fetch(`${process.env.NEXT_PUBLIC_O2_API_URL}api/logout`, {
+		  await fetch(`/api/logout`, {
 			method: "POST",
 			credentials: "include",
 		  });

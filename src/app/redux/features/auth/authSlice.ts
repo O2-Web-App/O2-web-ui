@@ -38,6 +38,6 @@ export const { setAccessToken, setAuthenticated } = authSlice.actions;
 export default authSlice.reducer;
 
 // customize selector for easy component access
-export const selectToken = (state: RootState) => state.auth.token;
+export const selectToken = (state: RootState) => state.auth.token; 
 export const selectAuthentication = (state: RootState) =>
   state.auth.isAuthenticated;

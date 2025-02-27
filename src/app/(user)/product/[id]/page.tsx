@@ -7,7 +7,7 @@ export type ParamProps = {
   params: Promise<{ id: string }>;
 };
 
-export default function page({ params }: ParamProps) {
+export default function Page({ params }: ParamProps) {
   const resolvedParams = React.use(params); // unwrap the promise
   const productId = resolvedParams.id;
   return (

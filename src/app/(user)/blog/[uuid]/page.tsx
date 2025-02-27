@@ -53,7 +53,7 @@ export const sliderData = [
 ]
 
 
-export default function page({ params }: ParamProps) {
+export default function Page({ params }: ParamProps) {
     const { uuid } = params
     const postId = parseInt(uuid, 10)
 

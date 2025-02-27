@@ -70,7 +70,7 @@ const sliderData = [
   },
 ]
 
-const page = () => {
+export default function Page() {
   return (
     <section>
       <div className="overflow-x-auto whitespace-nowrap space-x-4 p-4 gap-10">
@@ -99,4 +99,4 @@ const page = () => {
   )
 }
 
-export default page;
+

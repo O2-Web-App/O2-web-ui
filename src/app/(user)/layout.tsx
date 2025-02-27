@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import StoreProvider from "@/app/StoreProvider";
 
 // import { suwannaphum } from "../font";
 import "@/app/globals.css";
 import { Suwannaphum } from "next/font/google";
+import NavbarPage from "@/components/Navbar/NavbarPage";
 
 export const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
@@ -24,7 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suwannaphum.className} bg-background_color`}>
-        <StoreProvider>{children}</StoreProvider>
+        <NavbarPage />
+        <main className="w-full">{children}</main>
       </body>
     </html>
   );
