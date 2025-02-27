@@ -4,23 +4,22 @@ import Cart from "@/components/ProductDetail/Cart/Cart";
 import CarouselImage from "@/components/ProductDetail/CarouselImage/CarouselImage";
 import ProductDetail from "@/components/ProductDetail/ProductDetail";
 export type ParamProps = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
-export default function Page({ params }: ParamProps) {
-  const resolvedParams = React.use(params); // unwrap the promise
-  const productId = resolvedParams.id;
+export default function page({ params }: ParamProps) {
+  const productUUID = params.id;
   return (
-    <section className=" mt-[40px]  ">
+    <section >
       {/* header */}
       <div className="w-[90%] mx-auto flex justify-between items-center">
         <IoIosArrowBack className="text-primary text-[30px]" />
         <Cart />
       </div>
       {/* image section */}
-      <CarouselImage />
+      <CarouselImage uuid={productUUID} />
       {/* product detail */}
-      <ProductDetail />
+      <ProductDetail uuid={productUUID} />
     </section>
   );
 }

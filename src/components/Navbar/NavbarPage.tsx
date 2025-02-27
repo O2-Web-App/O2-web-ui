@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useGetUserQuery } from "@/app/redux/service/user";
-import { toast } from "@/hook/use-toast";
+
 import { setAccessToken } from "@/app/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/app/redux/hooks";
 import {
@@ -330,18 +330,18 @@ export default function NavbarPage() {
         dispatch(setAccessToken(null));
         localStorage.removeItem("access_token");
 
-        toast({ title: "Logged out successfully", variant: "success" });
+       // toast({ title: "Logged out successfully", variant: "success" });
         router.push("/");
         router.refresh(); // Ensures the new state takes effect
         window.location.reload();
       } else {
-        const errorData = await response.json();
+        //const errorData = await response.json();
         //console.error("Logout Failed:", errorData);
-        toast({ title: "Logout failed", variant: "destructive" });
+        //toast({ title: "Logout failed", variant: "destructive" });
       }
     } catch (error) {
-      console.error("Logout Error:", error);
-      toast({ title: "Error logging out", variant: "destructive" });
+      //console.error("Logout Error:", error);
+      //toast({ title: "Error logging out", variant: "destructive" });
     }
   };
 
