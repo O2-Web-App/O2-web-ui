@@ -66,13 +66,10 @@ const baseQueryWithReAuth = async (
     console.warn("🚨 Unauthorized! Attempting token refresh...");
 
     try {
-      const refreshResponse = await fetch(
-        `/api/refresh`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const refreshResponse = await fetch(`/api/refresh`, {
+        method: "POST",
+        credentials: "include",
+      });
 
       if (refreshResponse.ok) {
         const refreshData = await refreshResponse.json();
@@ -122,6 +119,7 @@ export const o2API = createApi({
     "AllTestAsess",
     "AllChats",
     "WishList",
+    "Carts",
   ],
   reducerPath: "o2API",
   baseQuery: baseQueryWithReAuth, // ✅ Use the custom base query with re-authentication
