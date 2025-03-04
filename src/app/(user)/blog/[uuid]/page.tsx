@@ -1,136 +1,203 @@
+"use client";
 
-import React from 'react'
-import Image from 'next/image'
-import { Bookmark, PlayCircle } from 'lucide-react'
-
+import React, { useState } from "react";
+import Image from "next/image";
+import { Bookmark, PlayCircle, MessageCircle, X, Send, ThumbsUp } from "lucide-react";
+import { useGetAllBlogsQuery } from "@/app/redux/service/blog";
+import { BlogPost } from "@/app/types/BlogType";
 
 export type ParamProps = {
     params: {
-        uuid: string
-    }
+        uuid: string;
+    };
+};
+interface Reaction {
+    id: string;
+    emoji: string;
+    label: string;
+}
+
+interface Comment {
+    id: number;
+    user: string;
+    profile: string;
+    text: string;
+    time: string;
+    reaction: Reaction | null;
 }
 
 
-export const sliderData = [
-    {
-        id: 1,
-        category: 'Healthy food',
-        title: 'Learn how to enjoy healthy meals without spending hours in the kitchen!',
-        image: '/assets/healthy-food.jpg',
-        author: 'Mason Eduard',
-        date: '23 Jan 2025',
-        views: 1049,
-        profile: '/assets/blog.jpg',
-        content:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ... (rest of article content)',
-        relatedVideos: [
-            {
-                id: 'vid1',
-                title: 'Healthy Breakfast Ideas',
-                thumbnail: '/assets/video-thumb1.jpg',
-            },
-            {
-                id: 'vid2',
-                title: '5 Easy Meal Preps',
-                thumbnail: '/assets/video-thumb2.jpg',
-            },
-        ],
-    },
-    {
-        id: 2,
-        category: 'Travel',
-        title: 'Discover lesser-known attractions and explore Europe like a local.',
-        image: '/assets/healthy-food.jpg',
-        author: 'Alexandra Doe',
-        date: '15 Feb 2025',
-        views: 876,
-        profile: '/assets/blog.jpg',
-        content:
-            'Let me be real with you all: I hate cooking. Every part of it. I hate grocery shopping, prepping, the actual cooking part, and cleaning up. I get so disappointed when I go through all the effort to try a new recipe, follow the directions perfectly, and what I get is meh But eating healthy is important to me because it helps me feel my best and fuels my athletic performance.In addition to working here at UVA Health, writing about healthcare, I am a certified fitness instructor. For the purposes of this post, I define healthy eating as getting a good mix of lean protein, whole grains, vegetables, and fruit. Here are my tips to eat healthy without cooking — or at least cooking very little.',
-        relatedVideos: [],
-    },
-    // ... add more items with the same structure
-]
+export default function Page({ params }: ParamProps) {
+    const { uuid } = params;
 
+    // Fetch blog data
+    const { data, isLoading, error } = useGetAllBlogsQuery();
 
-export default function page({ params }: ParamProps) {
-    const { uuid } = params
-    const postId = parseInt(uuid, 10)
+    // State for comment modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newComment, setNewComment] = useState("");
 
-    const post = sliderData.find((item) => item.id === postId)
+    if (isLoading) return <div className="p-4">Loading...</div>;
+    if (error) return <div className="p-4 text-red-500">Error fetching blog.</div>;
 
-    if (!post) {
-        return <div className="p-4">Post not found.</div>
+    // Find the blog post by UUID
+    const blogDetail = data?.data.data.find((blog: BlogPost) => blog.uuid === uuid);
+
+    if (!blogDetail) {
+        return <div className="p-4">Post not found.</div>;
     }
+
+    // Format date
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        });
+    };
+
+    // Convert YouTube URL to embeddable format
+    const getEmbedUrl = (url: string) => {
+        return url.replace("watch?v=", "embed/").split("&")[0];
+    };
+
+    // Reaction options
+    const REACTIONS = [
+        { id: "like", emoji: "👍", label: "Liked" },
+        { id: "love", emoji: "❤️", label: "Loved" },
+        { id: "haha", emoji: "😂", label: "Haha" },
+        { id: "wow", emoji: "😮", label: "Wow" },
+        { id: "sad", emoji: "😢", label: "Sad" },
+        { id: "angry", emoji: "😡", label: "Angry" },
+    ];
+
+    // Comments data
+    const [comments, setComments] = useState([
+        { id: 1, user: "Srorng Sokcheat", profile: "/user1.jpg", text: "❤️😍", time: "21h", reaction: null },
+        { id: 2, user: "Helen Leang", profile: "/user2.jpg", text: "Thank you so much🍀🙏🥰", time: "4h", reaction: null },
+    ]);
+
+    // State for reaction popups
+    const [activeReactionPopup, setActiveReactionPopup] = useState<number | null>(null);
+
+    // Handle selecting a reaction
+    const handleReactionSelect = (commentId: number, reactionId: string) => {
+        const reactionFound = REACTIONS.find(r => r.id === reactionId);
+        if (!reactionId) return;
+        setComments(comments.map((comment) =>
+            comment.id === commentId
+                ? { ...comment, reaction: REACTIONS.find(r => r.id === reactionId) || null }
+                : comment
+        ));
+        setActiveReactionPopup(null);
+    };
+
+    
+
+    // Handle new comment submission
+    const handleCommentSubmit = () => {
+        if (newComment.trim()) {
+            setComments([
+                ...comments,
+                {
+                    id: comments.length + 1,
+                    user: "You",
+                    profile: "/your-profile.jpg",
+                    text: newComment,
+                    time: "Just now",
+                    reaction: null,
+                },
+            ]);
+            setNewComment("");
+        }
+    };
 
     return (
         <article className="pb-20">
             {/* Header Info */}
             <div className="flex justify-between items-start p-4">
-                <span className="text-sm text-gray-500">{post.category}</span>
+                <span className="text-sm text-gray-500">Uncategorized</span>
                 <span className="text-sm text-gray-500">
-                    {post.date} • {post.views} views
+                    {formatDate(blogDetail.created_at)} • {blogDetail.views} views
                 </span>
             </div>
 
             {/* Main Image */}
             <div className="relative w-full aspect-[4/3]">
-                <Image
-                    src={post.image || '/placeholder.svg'}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                    priority
-                />
+                <Image src={blogDetail.image || "/placeholder.svg"} alt={blogDetail.title} fill className="object-cover" priority />
             </div>
 
-            {/* Related Videos Scroll */}
+            {/* Related Videos */}
             <div className="px-4 mt-4">
                 <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
-                    {post.relatedVideos?.map((video) => (
-                        <div key={video.id} className="flex-shrink-0 w-[120px]">
-                            <div className="relative aspect-square rounded-xl overflow-hidden mb-2">
-                                <Image
-                                    src={video.thumbnail || '/placeholder.svg'}
-                                    alt={video.title}
-                                    fill
-                                    className="object-cover"
-                                />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <PlayCircle className="w-8 h-8 text-white" />
-                                </div>
+                    {blogDetail.youtube_videos?.map((video: string, index: number) => (
+                        <div key={index} className="flex-shrink-0 w-[200px]">
+                            <div className="relative aspect-video rounded-xl overflow-hidden mb-2">
+                                <iframe src={getEmbedUrl(video)} className="w-full h-full rounded-xl" allowFullScreen />
                             </div>
-                            <p className="text-xs line-clamp-2">{video.title}</p>
+                            <p className="text-xs line-clamp-2">Video {index + 1}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Article Content */}
-            <div className="px-4 space-y-4">
-                <h1 className="text-2xl font-bold mt-4">{post.title}</h1>
-
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 ">
-                        <Image
-                            src={post.profile || '/placeholder.svg'}
-                            alt={post.author}
-                            width={24}
-                            height={24}
-                            className="rounded-lg object-cover w-16 h-16"
-                        />
-                        <div className="text-md">
-                            <span className="text-gray-500">By: </span>
-                            <span className="font-semibold underline">{post.author}</span>
-                        </div>
-                    </div>
-                    <button className="p-2">
-                        <Bookmark className="w-5 h-5" />
-                    </button>
+            {/* Author & Icons Section */}
+            <div className="flex items-center justify-between px-4">
+                <div className="flex items-center gap-2">
+                    <Image src={blogDetail.admin?.avatar || "/placeholder.svg"} alt={blogDetail.admin?.name || "Author"} width={40} height={40} className="rounded-full object-cover w-10 h-10" />
+                    <span className="font-semibold underline">{blogDetail.admin?.name || "Unknown"}</span>
                 </div>
-
-                <p className="text-gray-700">{post.content}</p>
+                <button className="p-2 hover:text-gray-600 transition" onClick={() => setIsModalOpen(true)}>
+                    <MessageCircle className="w-5 h-5" />
+                </button>
             </div>
+
+            {/* Comment Modal (Sticky Bottom on Mobile) */}
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end z-50">
+                    <div className="bg-white w-full md:w-[400px] rounded-t-lg p-6 animate-slide-up">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-lg font-semibold">Comments</h2>
+                            <button onClick={() => setIsModalOpen(false)}>
+                                <X className="w-6 h-6 text-gray-500 hover:text-gray-700" />
+                            </button>
+                        </div>
+
+                        {comments.map((comment) => (
+                            <div key={comment.id} className="flex gap-3 mb-4 relative">
+                                <Image src={comment.profile} alt={comment.user} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
+
+                                <div className="flex-1">
+                                    <div className="bg-gray-100 p-3 rounded-2xl">
+                                        <span className="font-semibold text-sm">{comment.user}</span>
+                                        <p className="text-sm text-gray-800">{comment.text}</p>
+                                    </div>
+
+                                    <div className="flex items-center text-xs text-gray-500 gap-4 mt-1">
+                                        <div className="relative">
+                                            <span className="cursor-pointer hover:underline" onClick={() => setActiveReactionPopup(comment.id)}>
+                                                {comment.reaction ? comment.reaction.label : "Like"}
+                                            </span>
+                                            {activeReactionPopup === comment.id && (
+                                                <div className="absolute bottom-6 left-0 bg-white shadow-md rounded-full flex gap-2 px-2 py-1 border">
+                                                    {REACTIONS.map((reaction) => (
+                                                        <span key={reaction.id} className="cursor-pointer text-xl hover:scale-125 transition-transform" onClick={() => handleReactionSelect(comment.id, reaction.id)}>
+                                                            {reaction.emoji}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <span className="cursor-pointer hover:underline">Reply</span>
+                                        <span>{comment.time}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </article>
-    )
+    );
 }

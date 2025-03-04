@@ -1,7 +1,11 @@
+"use client";
+
 import React from 'react'
 import CardBlogComponent from '@/components/Components/CardComponents/CardBlogComponent'
 import Categories from '@/components/Components/CardComponents/CategoryComponent'
 import CardBlogHorizontal from '@/components/Components/CardComponents/CardBlogHorizontal'
+import { useGetAllBlogsQuery } from '@/app/redux/service/blog';
+import { BlogPost } from '@/app/types/BlogType';
 
 
 const categoriesList = [
@@ -71,9 +75,13 @@ const sliderData = [
 ]
 
 const page = () => {
+
+const blogList = useGetAllBlogsQuery()
+const blogs = blogList.data?.data.data || [];
+
   return (
-    <section>
-      <div className="overflow-x-auto whitespace-nowrap space-x-4 p-4 gap-10">
+    <section className='max-w-7xl mx-auto '>
+      <div className="overflow-x-auto whitespace-nowrap space-x-4 p-4 gap-8 md:gap-14">
         {sliderData.map((card) => (
           <div className="inline-block" key={card.id}>
             <CardBlogComponent {...card} />
@@ -84,13 +92,13 @@ const page = () => {
         <Categories categories={categoriesList} />
       </div>
       <div className="p-4 ">
-        {sliderData.map((card) => (
+        {blogs.map((card : BlogPost) => (
           <CardBlogHorizontal
-            id={card.id}
-            tag={card.tag}
-            date={card.date}
-            view={card.view}
-            title={card.description}
+            id={card.uuid}
+            tag={"Food"}
+            date={card.created_at}
+            view={card.views}
+            title={card.title}
             image={card.image}
           />
         ))}

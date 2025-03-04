@@ -1,5 +1,5 @@
-import { O2Api } from "../api";
-export const productApi = O2Api.injectEndpoints({
+import { o2API} from "../api";
+export const productApi = o2API.injectEndpoints({
   endpoints: (builder) => ({
     // get product detail
     getProductDetailByUUID: builder.query<any, { uuid: string }>({
