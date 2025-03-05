@@ -89,6 +89,7 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
     <div className="bg-card_color  p-4 my-5 rounded-tr-[40px] rounded-tl-[40px] overflow-y-auto scrollbar-hide">
       {/* first section */}
       <div className="flex justify-between">
+        
         {/* price */}
         {result?.discounted_price === null ? (
           <div className="flex justify-center items-center ">
