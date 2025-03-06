@@ -67,7 +67,8 @@ export default function SheetSide() {
   const responseDataCoupon = result?.data;
 
   // payment function
-  const payment = Payment(responseDataCoupon?.total_price || 0);
+  //responseDataCoupon?.total_price || 0
+  const payment = Payment(1000);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputCoupon(event.target.value);
@@ -331,13 +332,17 @@ export default function SheetSide() {
           {/* អុីមែល */}
           <div>
             <p className="text-body text-description py-2">អុីមែល</p>
-            <p className="text-body ">{formData?.email || "មិនបានបញ្ចូលអ៊ីមែល"}</p>
+            <p className="text-body ">
+              {formData?.email || "មិនបានបញ្ចូលអ៊ីមែល"}
+            </p>
           </div>
 
           {/* ចំណាំ */}
           <div className="">
             <p className="text-body text-description py-2">ចំណាំ</p>
-            <p className="text-body ">{formData?.remarks || "មិនបានបញ្ចូលចំណាំ"}</p>
+            <p className="text-body ">
+              {formData?.remarks || "មិនបានបញ្ចូលចំណាំ"}
+            </p>
           </div>
 
           {/* ​check box */}
@@ -456,7 +461,21 @@ export default function SheetSide() {
             );
           })}
 
-          <div className="space-y-2 my-5">
+          {/* delivery fee */}
+
+          <div className=" my-5  ">
+            <p className="pb-5 text-body text-description">
+              សេវាដឹកជញ្ជូននៅក្នងទីក្រុងភ្នំពេញតម្លៃ{" "}
+              <span className="text-accent">1.25$</span>{" "}
+            </p>
+            <p className="text-body text-description">
+              សេវាដឹកជញ្ជូននៅក្នងតាមបណ្តាលខេត្តតម្លៃ{" "}
+              <span className="text-accent"> 2.00$</span>
+            </p>
+          </div>
+
+          {/* coupon */}
+          <div className="space-y-2 my-6">
             <label className="block text-body font-medium text-gray-700">
               លេខកូដការដូរ
             </label>
@@ -520,19 +539,27 @@ export default function SheetSide() {
 
       {/* when coupon success  */}
       <AlertDialog open={openCoupon} onOpenChange={setOpenCoupon}>
-        <AlertDialogContent className="bg-card_color w-[90%] rounded-[10px] p-6">
+        <AlertDialogContent
+          onClick={() => setOpenCoupon(false)}
+          className="bg-card_color w-[90%] rounded-[10px] p-6"
+        >
           <AlertDialogTitle>
-            <div className="h-[300px] w-[300px] ">
-              <DotLottieReact
-                src="https://lottie.host/bc93b02d-38ad-49ea-8559-9bb492290162/13K8FDy8jf.lottie"
-                loop
-                autoplay
-                className="w-full h-full"
-              />
-            </div>
+            <p className="text-title text-primary text-center">
+              ការបញ្ចូលគូប៉ុងបានជោគជ័យ
+            </p>
+            <DotLottieReact
+              src="https://lottie.host/bc93b02d-38ad-49ea-8559-9bb492290162/13K8FDy8jf.lottie"
+              loop
+              autoplay
+              className="w-[300px] h-[300px] mx-auto"
+            />
           </AlertDialogTitle>
           <p className="text-title text-primary text-center">
-            ការបញ្ចូលគូប៉ុងបានជោគជ័យ
+            អ្នកបានសន្សំ{" "}
+            <span className="text-accent">
+              {result?.data?.coupon_discount}{" "}
+            </span>{" "}
+            ជាមួយនឹងការបញ្ចុះតម្លៃគូប៉ុងនេះ!
           </p>
           <div
             onClick={() => handlePayment()}

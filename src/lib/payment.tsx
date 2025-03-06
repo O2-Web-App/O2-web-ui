@@ -4,7 +4,7 @@ export function Payment(amount: number) {
   const { BakongKHQR, khqrData, IndividualInfo } = require("bakong-khqr");
 
   const optionalData = {
-    currency: khqrData.currency.usd,
+    currency: khqrData.currency.khr,
     amount: amount,
     mobileNumber: "85561517679",
     storeLabel: "CAM-02",
