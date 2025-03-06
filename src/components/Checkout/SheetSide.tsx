@@ -9,6 +9,8 @@ import { FaCheckSquare } from "react-icons/fa";
 import { useState } from "react";
 import ConfirmationStep from "../Stepper/ConfirmationStep";
 import Stepper from "../Stepper/InformationStep";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,26 +27,47 @@ import PaymentStep from "../Stepper/PaymentStep";
 import { Cart } from "@/app/types/Cart";
 import ProvinceSelect from "./ProvinceSelect";
 import Image from "next/image";
+
 import { useCreateOrderMutation } from "@/app/redux/service/order";
 import { useAppSelector } from "@/app/redux/hooks";
 import { toast } from "sonner";
-import { paymentFunction } from "@/lib/payment";
-import { QRCodeCanvas } from "qrcode.react";
+
+import { QRCodeSVG } from "qrcode.react";
 import { Coupon } from "@/app/types/Coupon";
-
+import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useCreateComfirmOrderMutation } from "@/app/redux/service/order";
+import { Payment } from "@/lib/payment";
 export default function SheetSide() {
+  // to open second modal
+  const [secondSheetOpen, setSecondSheetOpen] = useState(false);
+
+  // to open third modal
+  const [thirdSheetOpen, setThirdSheetOpen] = useState(false);
+
+  // check if use read the policy
+  const [isRead, setIsRead] = useState(false);
+
+  // form data
+  const [formData, setFormData] = useState<FormValues>();
+
+  // coupon data
   const [result, setResult] = useState<{ data?: Coupon }>({});
-
-  const responseDataCoupon = result?.data;
-
-  // payment function
-  const payment = paymentFunction(responseDataCoupon?.total_price);
 
   // coupon code
   const [inputCoupon, setInputCoupon] = useState("");
 
   // open alertdilog payment
-  const [open, setOpen] = useState(false);
+  const [openPayment, setOpenPayment] = useState(false);
+
+  // open alert coupon
+  const [openCoupon, setOpenCoupon] = useState(false);
+
+  // dot object to get data
+  const responseDataCoupon = result?.data;
+
+  // payment function
+  const payment = Payment(responseDataCoupon?.total_price || 0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputCoupon(event.target.value);
@@ -54,14 +77,8 @@ export default function SheetSide() {
   const getAllCart = useGetAllCartQuery({});
   const data = getAllCart?.data?.data?.cart_items;
 
-  // to open second modal
-  const [secondSheetOpen, setSecondSheetOpen] = useState(false);
-
-  // to open third modal
-  const [thirdSheetOpen, setThirdSheetOpen] = useState(false);
-
-  // check if use read the policy
-  const [isRead, setIsRead] = useState(false);
+  // confrim order
+  const [createComfirmOrder] = useCreateComfirmOrderMutation();
 
   // image base url
   const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
@@ -75,11 +92,11 @@ export default function SheetSide() {
   const handleCoupon = async () => {
     try {
       const response = await createOrder({
-        province_uuid: province,
+        province_uuid: province?.value || "",
         coupon_code: inputCoupon,
       });
       if (response.data) {
-        setOpen(true);
+        setOpenCoupon(true);
         setResult(response.data);
         toast.success("ការបញ្ចូលគូប៉ុងបានជោគជ័យ", {
           style: {
@@ -87,7 +104,7 @@ export default function SheetSide() {
           },
         });
       } else {
-        toast.success("ការបញ្ចូលគូប៉ុងបានមិនបានជោគជ័យ", {
+        toast.success("ការបញ្ចូលគូប៉ុងមិនត្រឹមត្រូវ", {
           style: {
             background: "#bb2124",
           },
@@ -98,11 +115,55 @@ export default function SheetSide() {
     }
   };
 
+  // handle Payment
+  const handlePayment = async () => {
+    setOpenPayment(true);
+    try {
+      await createComfirmOrder({
+        email: formData?.email || "",
+        phone_number: formData?.phone_number || "",
+        google_map_link: formData?.google_map_link || "",
+        remarks: formData?.remarks || "",
+        province_uuid: province?.value || "",
+        md5_hash: payment?.data.md5,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // type for form values
+  type FormValues = {
+    google_map_link: string;
+    phone_number: string;
+    email: string;
+    remarks: string;
+  };
+
+  const initialValues: FormValues = {
+    email: "",
+    google_map_link: "",
+    phone_number: "",
+    remarks: "",
+  };
+
+  const validationSchema = Yup.object({
+    phone_number: Yup.string().required("phone Number  is Required"),
+    google_map_link: Yup.string().required("Google Map Url is Required"),
+    email: Yup.string(),
+    remarks: Yup.string().max(500, "remarks must be under 500 characters"),
+  });
+
+  const handleSubmit = (values: FormValues) => {
+    setFormData(values);
+    setSecondSheetOpen(true);
+  };
+
   return (
     <>
       {/* Information_step */}
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger className=" bottom-0 fixed w-full">
           <div className="w-full bg-primary p-4 flex justify-center items-center text-card_color text-body space-x-3">
             <p>បន្តទៅ Checkout</p>
           </div>
@@ -118,91 +179,119 @@ export default function SheetSide() {
           {/* stepper */}
           <Stepper />
 
+          <div className="space-y-2 mt-2">
+            <p className="block text-body font-medium text-gray-700">
+              អាសយដ្ឋានបច្ចុប្បន្ន
+            </p>
+            <ProvinceSelect />
+          </div>
           {/* form */}
-          <div className="w-full max-w-md mx-auto py-5">
-            <div className="space-y-4">
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form className="w-full max-w-md mx-auto py-5 space-y-4">
+              {/* Google Map URL */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  អាសយដ្ឋានបច្ចុប្បន្ន
-                </label>
-                <ProvinceSelect />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-body font-medium text-gray-700">
                   Google Map Url
                 </label>
-                <input
-                  name="mapUrl"
+                <Field
+                  name="google_map_link"
                   placeholder="https://maps.app.goo.gl/DxfRABb9k29WElpu6"
-                  className="w-full p-2 text-gray-400 border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
+                  className="w-full p-2  border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
                   style={{
                     boxShadow: "none",
-                    border: "1px solid  #0494FC",
+                    border: "1px solid #0494FC",
                     borderRadius: "10px",
                   }}
                 />
+                <ErrorMessage
+                  name="google_map_link"
+                  component="div"
+                  className="text-red-500 text-body"
+                />
               </div>
 
+              {/* phone_number  */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-body font-medium text-gray-700">
                   លេខទូរស័ព្ទ
                 </label>
-                <input
-                  name="phone"
+                <Field
+                  name="phone_number"
                   placeholder="072 72 67 89"
-                  className="w-full p-2 text-gray-400 border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
+                  className="w-full p-2  border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
                   style={{
                     boxShadow: "none",
-                    border: "1px solid  #0494FC",
+                    border: "1px solid #0494FC",
                     borderRadius: "10px",
                   }}
                 />
+                <ErrorMessage
+                  name="phone_number"
+                  component="div"
+                  className="text-red-500 text-body"
+                />
               </div>
 
+              {/* Email */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-body font-medium text-gray-700">
                   អ៊ីមែល
                 </label>
-                <input
+                <Field
                   name="email"
                   type="email"
                   placeholder="Example@gmail.com"
-                  className="w-full p-2 text-gray-400 border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
+                  className="w-full p-2  border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
                   style={{
                     boxShadow: "none",
-                    border: "1px solid  #0494FC",
+                    border: "1px solid #0494FC",
                     borderRadius: "10px",
                   }}
                 />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500 text-body"
+                />
               </div>
 
+              {/* remarks */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-body font-medium text-gray-700">
                   មតិយោបល់
                 </label>
-                <textarea
-                  name="comment"
+                <Field
+                  as="textarea"
+                  name="remarks"
                   placeholder="Remake For Our Delivery"
-                  className="w-full p-2 text-gray-400 border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
+                  className="w-full p-2  border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
                   style={{
                     boxShadow: "none",
-                    border: "1px solid  #0494FC",
+                    border: "1px solid #0494FC",
                     borderRadius: "10px",
                     minHeight: "80px",
                   }}
                 />
+                <ErrorMessage
+                  name="remarks"
+                  component="div"
+                  className="text-red-500 text-body"
+                />
               </div>
-            </div>
-          </div>
 
-          {/* button next */}
-          <div
-            onClick={() => setSecondSheetOpen(true)}
-            className="w-full bg-primary p-4 rounded-lg flex justify-center items-center text-card_color text-body space-x-3"
-          >
-            <p>បន្តទៅមុខ</p>
-          </div>
+              {/* button next */}
+              <button
+                type="submit"
+                className="w-full bg-primary p-4 rounded-lg flex justify-center items-center text-card_color text-body space-x-3"
+              >
+                <p>បន្តទៅមុខ</p>
+              </button>
+            </Form>
+          </Formik>
         </SheetContent>
       </Sheet>
 
@@ -214,7 +303,7 @@ export default function SheetSide() {
         >
           <SheetTitle className="mb-5 text-title">ការបញ្ជាក់</SheetTitle>
 
-          {/* confirmation_step */}
+          {/* confirmation_stepper */}
           <ConfirmationStep />
 
           {/* information */}
@@ -224,33 +313,31 @@ export default function SheetSide() {
             <p className="text-body text-description py-2">
               អាស័យដ្ឋានបច្ចុប្បន្ន
             </p>
-            <p className="text-body ">109 Ung Png St, 55Eg3, Phnom Penh</p>
+            <p className="text-body ">{province?.name}</p>
           </div>
 
           {/* Google Map Url */}
           <div className=" w-[90%]">
             <p className="text-body text-description py-2">Google Map Url</p>
-            <p className="text-body break-words">https://maps.app.goo.gl/</p>
+            <p className="text-body break-words">{formData?.google_map_link}</p>
           </div>
 
           {/* លេខទូរស័ព្ទ */}
           <div>
             <p className="text-body text-description py-2">លេខទូរស័ព្ទ</p>
-            <p className="text-body ">072 72 67 89</p>
+            <p className="text-body ">{formData?.phone_number}</p>
           </div>
 
           {/* អុីមែល */}
           <div>
             <p className="text-body text-description py-2">អុីមែល</p>
-            <p className="text-body ">kdey@gmail.com</p>
+            <p className="text-body ">{formData?.email || "មិនបានបញ្ចូលអ៊ីមែល"}</p>
           </div>
 
           {/* ចំណាំ */}
           <div className="">
             <p className="text-body text-description py-2">ចំណាំ</p>
-            <p className="text-body ">
-              I hope i get my order fast as fast you can
-            </p>
+            <p className="text-body ">{formData?.remarks || "មិនបានបញ្ចូលចំណាំ"}</p>
           </div>
 
           {/* ​check box */}
@@ -266,7 +353,7 @@ export default function SheetSide() {
                 <AlertDialogTrigger className="text-accent">
                   សេចក្តីថ្លែងការឯកជនភាព
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-card_color w-[90%] rounded-[10px] ">
+                <AlertDialogContent className="bg-card_color w-[90%] rounded-[10px] p-6">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-title text-start">
                       គោលការណ៍ឯកជនភាព
@@ -374,11 +461,11 @@ export default function SheetSide() {
               លេខកូដការដូរ
             </label>
             <input
-              name="mapUrl"
+              name="google_map_link"
               placeholder="e.g. FIRSTORDER"
               value={inputCoupon} // Controlled input
               onChange={handleChange} // Update state on change
-              className="w-full p-2 text-gray-400 border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
+              className="w-full p-2  border-none ring-0 focus:ring-0 focus:outline-none bg-white rounded-none"
               style={{
                 boxShadow: "none",
                 border: "1px solid #0494FC",
@@ -388,51 +475,73 @@ export default function SheetSide() {
           </div>
           <div
             onClick={() => handleCoupon()}
-            className="my-5  w-full bg-primary p-4 rounded-lg flex justify-center items-center text-card_color text-body space-x-3"
+            className="my-5 w-full bg-primary p-4 rounded-lg flex justify-center items-center text-card_color text-body space-x-3"
           >
-            <p>បន្តទៅមុខ</p>
-            <AlertDialog open={open} onOpenChange={setOpen}>
-              <AlertDialogContent className="bg-card_color w-[90%] rounded-[10px] ">
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-[30px] text-start">
-                    សេចក្តីសង្ខេបសរុប
-                  </AlertDialogTitle>
-                  <div className="w-full flex flex-col items-start justify-start">
-                    {/* Coupon Discount */}
-                    <div className="flex my-3">
-                      <p className="text-title mr-3">ការបញ្ចុះតម្លៃគូប៉ុង : </p>
-                      <p className="text-title text-accent">
-                        {responseDataCoupon?.coupon_discount}$
-                      </p>
-                    </div>
-
-                    {/* Delivery Fee */}
-                    <div className="flex my-3">
-                      <p className="text-title mr-3">ថ្លៃដឹកជញ្ជូន : </p>
-                      <p className="text-title text-accent">
-                        {responseDataCoupon?.delivery_fee}$
-                      </p>
-                    </div>
-
-                    {/* Total Price */}
-                    <div className="flex my-3">
-                      <p className="text-title mr-3">ថ្លៃសរុប : </p>
-                      <p className="text-title text-accent">
-                        {responseDataCoupon?.total_price}$
-                      </p>
-                    </div>
-
-                    {/* QR Code Centered */}
-                    <div className="w-full flex justify-center mt-4">
-                      <QRCodeCanvas value={payment?.data.qr} size={200} />
-                    </div>
-                  </div>
-                </AlertDialogHeader>
-              </AlertDialogContent>
-            </AlertDialog>
+            <p>បញ្ចូលគូប៉ុង</p>
           </div>
+          {/* trigger payment */}
+          <AlertDialog open={openPayment} onOpenChange={setOpenPayment}>
+            <AlertDialogContent
+              className="bg-card_color w-[90%] rounded-[15px]"
+              onClick={() => setOpenPayment(false)}
+            >
+              <div className="w-full h-full">
+                <Image
+                  src={"./khqr.svg"}
+                  width={120}
+                  height={120}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <AlertDialogTitle className="text-body items-start mx-10 text-accent">
+                ឈ្មោះអ្នកទទួល Cam-O2
+              </AlertDialogTitle>
+
+              <div className="flex items-end text-end mx-10">
+                <p className="text-[35px] mr-3">
+                  {responseDataCoupon?.total_price}
+                </p>
+                <p className="text-body mb-2"> Khr </p>
+              </div>
+
+              {/* Dotted Line */}
+              <div className="border-t-2 border-dotted border-description w-full"></div>
+
+              {/* QR Code Section */}
+              <div className="w-full flex justify-center my-5">
+                <QRCodeSVG value={payment?.data?.qr} size={250} />
+              </div>
+            </AlertDialogContent>
+          </AlertDialog>
         </SheetContent>
       </Sheet>
+
+      {/* when coupon success  */}
+      <AlertDialog open={openCoupon} onOpenChange={setOpenCoupon}>
+        <AlertDialogContent className="bg-card_color w-[90%] rounded-[10px] p-6">
+          <AlertDialogTitle>
+            <div className="h-[300px] w-[300px] ">
+              <DotLottieReact
+                src="https://lottie.host/bc93b02d-38ad-49ea-8559-9bb492290162/13K8FDy8jf.lottie"
+                loop
+                autoplay
+                className="w-full h-full"
+              />
+            </div>
+          </AlertDialogTitle>
+          <p className="text-title text-primary text-center">
+            ការបញ្ចូលគូប៉ុងបានជោគជ័យ
+          </p>
+          <div
+            onClick={() => handlePayment()}
+            className="bg-primary p-4 items-center flex justify-center rounded-[10px]"
+          >
+            <p className="text-title text-background_color">បង់ប្រាក់</p>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

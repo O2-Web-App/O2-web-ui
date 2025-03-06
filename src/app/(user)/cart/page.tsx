@@ -2,7 +2,7 @@ import SheetSide from "@/components/Checkout/SheetSide";
 import CardItem from "@/components/ProductDetail/Cart/CardItem";
 export default function page() {
   return (
-    <section className="w-full h-screen flex flex-col justify-between text-center">
+    <section className="w-full  flex flex-col justify-between text-center">
       {/* Title */}
       <p className="text-title my-5">កន្រ្តករបស់ខ្ញុំ</p>
 

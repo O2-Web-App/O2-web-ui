@@ -26,7 +26,7 @@ export default function Cart() {
         {totalCartItems > 0 ? (
           <div className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-accent text-background_color text-center">
             {/* display total item in cart */}
-            {data?.total_cart_items + totalCartItems}
+            {data?.total_cart_items}
           </div>
         ) : data?.total_cart_items > 0 ? (
           <div className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-accent text-background_color text-center">

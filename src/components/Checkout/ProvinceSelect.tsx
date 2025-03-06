@@ -4,7 +4,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useGetAllProvinceQuery } from "@/app/redux/service/province";
 import { Province } from "@/app/types/Province";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
-import { setSelectedProvince } from "@/app/redux/features/selectProvince";
+import {
+  setSelectedProvinceName,
+  setSelectedProvinceUUID,
+} from "@/app/redux/features/selectProvince";
 
 export default function ProvinceSelect() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,8 +40,9 @@ export default function ProvinceSelect() {
             <li
               key={index}
               onClick={() => {
-                setSelected(province?.name);
-                dispatch(setSelectedProvince(province?.uuid));
+                setSelected(province?.name || "");
+                dispatch(setSelectedProvinceUUID(province?.uuid || ""));
+                dispatch(setSelectedProvinceName(province?.name || ""));
                 setIsOpen(false);
               }}
               className="px-4 py-2  hover:bg-gray-200 cursor-pointer"
