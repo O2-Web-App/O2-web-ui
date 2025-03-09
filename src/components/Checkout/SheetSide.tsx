@@ -38,6 +38,8 @@ import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useCreateComfirmOrderMutation } from "@/app/redux/service/order";
 import { Payment } from "@/lib/payment";
+import { useCreatePaymentCheckMutation } from "@/app/redux/service/payment";
+import { checkDeliveryPrice } from "@/lib/utils";
 export default function SheetSide() {
   // to open second modal
   const [secondSheetOpen, setSecondSheetOpen] = useState(false);
@@ -65,6 +67,9 @@ export default function SheetSide() {
 
   // dot object to get data
   const responseDataCoupon = result?.data;
+
+  // check payment
+  const [checkResponseDataPayment] = useCreatePaymentCheckMutation();
 
   // payment function
   //responseDataCoupon?.total_price || 0
@@ -116,19 +121,42 @@ export default function SheetSide() {
     }
   };
 
-  // handle Payment
+  // const deliveryPrice = checkDeliveryPrice(province?.value || "");
+  // const final_total =
+  //   (responseDataCoupon?.total_cart_value || 0) + deliveryPrice;
+  // email: formData?.email || "",
+  // phone_number: formData?.phone_number || "",
+  // google_map_link: formData?.google_map_link || "",
+  // remarks: formData?.remarks || "",
+  // province_uuid: province?.value || "",
+  // current_address: province?.name || "",
+  // total_cart_value: 1000,
+  // handle check payment Payment
+
+  // handle check payment
   const handlePayment = async () => {
     setOpenPayment(true);
     try {
-      await createComfirmOrder({
-        email: formData?.email || "",
-        phone_number: formData?.phone_number || "",
-        google_map_link: formData?.google_map_link || "",
-        remarks: formData?.remarks || "",
-        province_uuid: province?.value || "",
-        md5_hash: payment?.data.md5,
+      const response = await checkResponseDataPayment({
+        md5_hash: payment?.data?.md5,
       });
+      if (response.data) {
+        setOpenPayment(false);
+        toast.success("ការបង់ប្រាក់បានជោគជ័យ", {
+          style: {
+            background: "#22bb33",
+          },
+        });
+      } else {
+        setOpenPayment(false);
+        toast.success("ការបង់ប្រាក់មិនបានជោគជ័យ", {
+          style: {
+            background: "#bb2124",
+          },
+        });
+      }
     } catch (error) {
+      setOpenPayment(false);
       console.log(error);
     }
   };
@@ -352,8 +380,8 @@ export default function SheetSide() {
             ) : (
               <div className="h-6 w-6 rounded-md border-[1.5px] border-description"></div>
             )}
-            <p className="mx-3">
-              ខ្ញុំបានអាន និងទទួលយក{" "}
+            <p className="mx-1">
+              ខ្ញុំបានអាននិងទទួលយក{" "}
               <AlertDialog>
                 <AlertDialogTrigger className="text-accent">
                   សេចក្តីថ្លែងការឯកជនភាព
@@ -406,7 +434,7 @@ export default function SheetSide() {
       {/* payment_step */}
       <Sheet open={thirdSheetOpen} onOpenChange={setThirdSheetOpen}>
         <SheetContent
-          className="bg-card_color rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
+          className="bg-card_color h-[80%] rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
           side={"bottom"}
         >
           <SheetTitle>
@@ -562,7 +590,9 @@ export default function SheetSide() {
             ជាមួយនឹងការបញ្ចុះតម្លៃគូប៉ុងនេះ!
           </p>
           <div
-            onClick={() => handlePayment()}
+            onClick={() => {
+              handlePayment();
+            }}
             className="bg-primary p-4 items-center flex justify-center rounded-[10px]"
           >
             <p className="text-title text-background_color">បង់ប្រាក់</p>

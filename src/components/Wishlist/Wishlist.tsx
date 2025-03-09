@@ -9,6 +9,7 @@ import { WishlistType } from "@/app/types/Wishlist";
 import { useDeleteWishListProductMutation } from "@/app/redux/service/wishlist";
 import { useCreateAddToCartMutation } from "@/app/redux/service/cart";
 import { toast } from "sonner";
+import { useCreateAddAllWishListProductMutation } from "@/app/redux/service/cart";
 export default function Wishlist() {
   // add product to cart
   const [addToCart] = useCreateAddToCartMutation();
@@ -19,7 +20,10 @@ export default function Wishlist() {
   // get all product in wishlist
   const wishlistData = useGetAllProductWishlistQuery({});
   const result = wishlistData?.data?.data;
-  console.log(result);
+
+  // add all product to cart
+  const [addAllItemToCart] = useCreateAddAllWishListProductMutation();
+
   //   base image
   const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 
@@ -68,8 +72,26 @@ export default function Wishlist() {
   };
 
   //   handle add all item to cart
-  
-
+  const handleAddAllItemToCart = async () => {
+    try {
+      const response = await addAllItemToCart({});
+      if (response.data) {
+        toast.success("ផលិតផលទាំងអស់ត្រូវបានដាក់ចូលកន្រ្តក", {
+          style: {
+            background: "#22bb33",
+          },
+        });
+      } else {
+        toast.success("ផលិតផលដាក់ចូលកន្រ្តកមិនបានជោគជ័យ", {
+          style: {
+            background: "#22bb33",
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       {result?.map((item: WishlistType, index: number) => (
@@ -131,7 +153,10 @@ export default function Wishlist() {
           </div>
         </div>
       ))}
-      <div className="absolute bottom-0 right-0 w-full bg-primary p-4 flex justify-center items-center text-card_color text-body space-x-3 rounded-tr-[10px] rounded-tl-[10px]">
+      <div
+        onClick={() => handleAddAllItemToCart()}
+        className="fixed bottom-0 right-0 w-full bg-primary p-4 flex justify-center items-center text-card_color text-body space-x-3 rounded-tr-[10px] rounded-tl-[10px]"
+      >
         <p>បញ្ចូលទាំងអស់ទៅក្នុងកន្ត្រក</p>
       </div>
     </div>

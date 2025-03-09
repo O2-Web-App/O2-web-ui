@@ -18,31 +18,43 @@ export const orderAPI = o2API.injectEndpoints({
     createComfirmOrder: builder.mutation<
       any,
       {
+        payment_id: number;
+        total_cart_value: number;
+        province_uuid: string;
+        final_total: number;
+        delivery_price: number;
         email: string;
         phone_number: string;
-        province_uuid: string;
+        current_address: string;
         google_map_link: string;
         remarks: string;
-        md5_hash: string;
       }
     >({
       query: ({
+        payment_id,
+        final_total,
+        delivery_price,
+        total_cart_value,
+        province_uuid,
         email,
         phone_number,
-        province_uuid,
+        current_address,
         google_map_link,
         remarks,
-        md5_hash,
       }) => ({
         url: `api/orders/confirm_order`,
         method: "POST",
         body: {
+          payment_id,
+          final_total,
+          delivery_price,
+          total_cart_value,
+          province_uuid,
           email,
           phone_number,
-          province_uuid,
+          current_address,
           google_map_link,
           remarks,
-          md5_hash,
         },
       }),
     }),
