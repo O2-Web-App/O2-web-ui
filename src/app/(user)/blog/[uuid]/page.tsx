@@ -1,162 +1,131 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Bookmark, PlayCircle, MessageCircle, X, Send, ThumbsUp } from "lucide-react";
-import { useGetAllBlogsQuery } from "@/app/redux/service/blog";
-import { BlogPost } from "@/app/types/BlogType";
-
-export type ParamProps = {
-    params: {
-        uuid: string;
-    };
-};
-interface Reaction {
-    id: string;
-    emoji: string;
-    label: string;
-}
-
-interface Comment {
-    id: number;
-    user: string;
-    profile: string;
-    text: string;
-    time: string;
-    reaction: Reaction | null;
-}
+import { MessageCircle, X, Send, ThumbsUp } from "lucide-react";
+import { useParams } from "next/navigation";
+import {
+    usePostCommentMutation, useGetCommentQuery, usePostLikeMutation,
+    useDeleteCommentMutation
+} from "@/app/redux/service/blog";
 
 
-export default function Page({ params }: ParamProps) {
-    const { uuid } = params;
-
-    // Fetch blog data
-    const { data, isLoading, error } = useGetAllBlogsQuery();
-
-    // State for comment modal
+export default function Page() {
+    const { uuid } = useParams() as { uuid: string };
+    const [blogDetail, setBlogDetail] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
+    const [replyToUuid, setReplyToUuid] = useState<string | null>(null);
+    const [isLiked, setIsLiked] = useState(false);
 
-    if (isLoading) return <div className="p-4">Loading...</div>;
-    if (error) return <div className="p-4 text-red-500">Error fetching blog.</div>;
+    const [postComment] = usePostCommentMutation();
+    const { data: commentsList, refetch } = useGetCommentQuery({ uuid: uuid ?? "" });
+    const [likeData] = usePostLikeMutation();
+    const [deleteComment] = useDeleteCommentMutation()
+    const [deleteConfirm, setDeleteConfirm] = useState<{ uuid: string | null }>({ uuid: null });
 
-    // Find the blog post by UUID
-    const blogDetail = data?.data.data.find((blog: BlogPost) => blog.uuid === uuid);
-
-    if (!blogDetail) {
-        return <div className="p-4">Post not found.</div>;
-    }
-
-    // Format date
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-        });
-    };
-
-    // Convert YouTube URL to embeddable format
-    const getEmbedUrl = (url: string) => {
-        return url.replace("watch?v=", "embed/").split("&")[0];
-    };
-
-    // Reaction options
-    const REACTIONS = [
-        { id: "like", emoji: "👍", label: "Liked" },
-        { id: "love", emoji: "❤️", label: "Loved" },
-        { id: "haha", emoji: "😂", label: "Haha" },
-        { id: "wow", emoji: "😮", label: "Wow" },
-        { id: "sad", emoji: "😢", label: "Sad" },
-        { id: "angry", emoji: "😡", label: "Angry" },
-    ];
-
-    // Comments data
-    const [comments, setComments] = useState([
-        { id: 1, user: "Srorng Sokcheat", profile: "/user1.jpg", text: "❤️😍", time: "21h", reaction: null },
-        { id: 2, user: "Helen Leang", profile: "/user2.jpg", text: "Thank you so much🍀🙏🥰", time: "4h", reaction: null },
-    ]);
-
-    // State for reaction popups
-    const [activeReactionPopup, setActiveReactionPopup] = useState<number | null>(null);
-
-    // Handle selecting a reaction
-    const handleReactionSelect = (commentId: number, reactionId: string) => {
-        const reactionFound = REACTIONS.find(r => r.id === reactionId);
-        if (!reactionId) return;
-        setComments(comments.map((comment) =>
-            comment.id === commentId
-                ? { ...comment, reaction: REACTIONS.find(r => r.id === reactionId) || null }
-                : comment
-        ));
-        setActiveReactionPopup(null);
-    };
-
-    
-
-    // Handle new comment submission
-    const handleCommentSubmit = () => {
-        if (newComment.trim()) {
-            setComments([
-                ...comments,
-                {
-                    id: comments.length + 1,
-                    user: "You",
-                    profile: "/your-profile.jpg",
-                    text: newComment,
-                    time: "Just now",
-                    reaction: null,
-                },
-            ]);
-            setNewComment("");
+    const confirmDelete = async (uuid: string) => {
+        try {
+            await deleteComment({ uuid }).unwrap();
+            setDeleteConfirm({ uuid: null });
+            refetch();
+        } catch (error) {
+            console.error("Failed to delete comment", error);
         }
     };
 
+    useEffect(() => {
+        if (!uuid) return;
+        const fetchBlogData = async () => {
+            try {
+                const response = await fetch(`http://178.128.115.99/api/blogs/${uuid}`);
+                if (!response.ok) throw new Error("Failed to fetch blog post.");
+                const data = await response.json();
+                setBlogDetail(data.data);
+            } catch (err: any) {
+                setError(err.message);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchBlogData();
+    }, [uuid]);
+
+    const handleLiked = async () => {
+        if (!uuid) return;
+        try {
+            await likeData({ uuid });
+            setIsLiked((prev) => !prev);
+        } catch (error) {
+            console.error("Error liking post", error);
+        }
+    };
+
+    const handleCommentSubmit = async () => {
+        if (!uuid || !newComment.trim()) return;
+        try {
+            await postComment({
+                uuid,
+                content: newComment,
+                parent_uuid: replyToUuid || undefined,
+            }).unwrap();
+            setNewComment("");
+            setReplyToUuid(null);
+            refetch();
+        } catch (error) {
+            console.error("Failed to post comment", error);
+        }
+    };
+
+    if (isLoading) return <div className="p-4">Loading...</div>;
+    if (error) return <div className="p-4 text-red-500">{error}</div>;
+    if (!blogDetail) return <div className="p-4">Blog post not found.</div>;
+
     return (
-        <article className="pb-20">
-            {/* Header Info */}
+        <article className="pb-20 mx-3">
+            {/* Blog Info */}
             <div className="flex justify-between items-start p-4">
-                <span className="text-sm text-gray-500">Uncategorized</span>
+                <span className="text-sm text-gray-500">{blogDetail.tags.length > 0 ? blogDetail.tags.join(", ") : "Untagged"}</span>
                 <span className="text-sm text-gray-500">
-                    {formatDate(blogDetail.created_at)} • {blogDetail.views} views
+                    {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(blogDetail.created_at))} • {blogDetail.views} views
                 </span>
             </div>
 
-            {/* Main Image */}
-            <div className="relative w-full aspect-[4/3]">
-                <Image src={blogDetail.image || "/placeholder.svg"} alt={blogDetail.title} fill className="object-cover" priority />
+            {/* Blog Image */}
+            <img src={blogDetail.image} alt={blogDetail.title} className="min-w-84 rounded-lg mx-auto" />
+
+            {/* YouTube Videos */}
+            <div className="flex gap-4 overflow-x-auto py-4">
+                {blogDetail.youtube_videos.map((videoUrl: string, index: number) => (
+                    <iframe key={index} src={videoUrl} title={`YouTube Video ${index + 1}`} className="w-32 h-24 rounded-lg" allowFullScreen />
+                ))}
             </div>
 
-            {/* Related Videos */}
-            <div className="px-4 mt-4">
-                <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
-                    {blogDetail.youtube_videos?.map((video: string, index: number) => (
-                        <div key={index} className="flex-shrink-0 w-[200px]">
-                            <div className="relative aspect-video rounded-xl overflow-hidden mb-2">
-                                <iframe src={getEmbedUrl(video)} className="w-full h-full rounded-xl" allowFullScreen />
-                            </div>
-                            <p className="text-xs line-clamp-2">Video {index + 1}</p>
-                        </div>
-                    ))}
+            {/* Blog Title & Author */}
+            <p className="text-3xl text-bold p-3">{blogDetail.title}</p>
+            <div className="flex justify-between items-center px-3">
+                <div className="flex items-center gap-5">
+                    <img src={blogDetail.admin?.avatar || "/assets/placeholder.png"} alt={"Profile"} className="rounded-md w-10 h-10 object-cover" />
+                    <p className="text-lg">By <span className="underline text-lg text-medium text-black">{blogDetail.admin?.name}</span></p>
+                </div>
+
+                {/* Like & Comment Buttons */}
+                <div>
+                    <button onClick={handleLiked} className="py-5 px-2">
+                        <ThumbsUp className={`w-5 h-5 ${isLiked ? "text-blue-500" : "text-gray-500"}`} />
+                    </button>
+                    <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
+                        <MessageCircle className="w-5 h-5" />
+                    </button>
                 </div>
             </div>
 
-            {/* Author & Icons Section */}
-            <div className="flex items-center justify-between px-4">
-                <div className="flex items-center gap-2">
-                    <Image src={blogDetail.admin?.avatar || "/placeholder.svg"} alt={blogDetail.admin?.name || "Author"} width={40} height={40} className="rounded-full object-cover w-10 h-10" />
-                    <span className="font-semibold underline">{blogDetail.admin?.name || "Unknown"}</span>
-                </div>
-                <button className="p-2 hover:text-gray-600 transition" onClick={() => setIsModalOpen(true)}>
-                    <MessageCircle className="w-5 h-5" />
-                </button>
-            </div>
-
-            {/* Comment Modal (Sticky Bottom on Mobile) */}
+            {/* Comments Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end z-50">
-                    <div className="bg-white w-full md:w-[400px] rounded-t-lg p-6 animate-slide-up">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white w-11/12 md:w-[400px] rounded-lg p-6 shadow-lg">
                         <div className="flex justify-between items-center">
                             <h2 className="text-lg font-semibold">Comments</h2>
                             <button onClick={() => setIsModalOpen(false)}>
@@ -164,40 +133,73 @@ export default function Page({ params }: ParamProps) {
                             </button>
                         </div>
 
-                        {comments.map((comment) => (
-                            <div key={comment.id} className="flex gap-3 mb-4 relative">
-                                <Image src={comment.profile} alt={comment.user} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
-
-                                <div className="flex-1">
-                                    <div className="bg-gray-100 p-3 rounded-2xl">
-                                        <span className="font-semibold text-sm">{comment.user}</span>
-                                        <p className="text-sm text-gray-800">{comment.text}</p>
-                                    </div>
-
-                                    <div className="flex items-center text-xs text-gray-500 gap-4 mt-1">
-                                        <div className="relative">
-                                            <span className="cursor-pointer hover:underline" onClick={() => setActiveReactionPopup(comment.id)}>
-                                                {comment.reaction ? comment.reaction.label : "Like"}
-                                            </span>
-                                            {activeReactionPopup === comment.id && (
-                                                <div className="absolute bottom-6 left-0 bg-white shadow-md rounded-full flex gap-2 px-2 py-1 border">
-                                                    {REACTIONS.map((reaction) => (
-                                                        <span key={reaction.id} className="cursor-pointer text-xl hover:scale-125 transition-transform" onClick={() => handleReactionSelect(comment.id, reaction.id)}>
-                                                            {reaction.emoji}
-                                                        </span>
-                                                    ))}
+                        {/* Parent Comments & Replies */}
+                        <div className="mt-4 space-y-5 max-h-96 overflow-y-auto">
+                            {commentsList?.data.comments
+                                .filter((comment: any) => !comment.parent_uuid)
+                                .map((comment: any) => (
+                                    <div key={comment.uuid} className="p-2.5 ">
+                                        <div className="flex gap-2.5">
+                                            <Image src={comment.user?.avatar || "/assets/placeholder.png"} alt={comment.user?.name} width={1000} height={1000} className="w-12 h-12 rounded-full object-cover" />
+                                            <div>
+                                                <div className="bg-gray-100 rounded-lg p-3.5">
+                                                    <span className="font-semibold ">{comment.user?.name}</span>
+                                                    <p className="text-sm">{comment.content}</p>
                                                 </div>
-                                            )}
+                                                <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1 text-left">Reply</button>
+                                                {/* <button onClick={() => setDeleteConfirm({ uuid: comment.uuid })} className="text-red-500 hover:text-red-700">Delete</button> */}
+                                            </div>
                                         </div>
-                                        <span className="cursor-pointer hover:underline">Reply</span>
-                                        <span>{comment.time}</span>
+
+                                        {/* Replies */}
+                                        {comment.replies.length > 0 && (
+                                            <div className="ml-10 mt-2 space-y-2">
+                                                {comment.replies.map((reply: any) => (
+                                                    <div key={reply.uuid} className="p-2.5">
+                                                        <div className="grid  ">
+
+                                                            <div className="flex gap-2.5">
+                                                                <Image src={reply.user?.avatar || "/assets/placeholder.png"} alt={reply.user.name} width={1000} height={1000} className="w-10 h-10 rounded-full object-cover" />
+                                                                <div className="bg-blue-100 rounded-lg p-2.5">
+                                                                    <span className="font-semibold">{reply.user?.name}</span>
+                                                                    <p className="text-sm">{reply.content}</p>
+                                                                </div>
+                                                            </div>
+                                                            <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1">Reply</button>
+
+
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
-                                </div>
-                            </div>
-                        ))}
+                                ))}
+                        </div>
+
+                        {/* Comment Input */}
+                        <div className="flex items-center mt-4 border-t pt-3">
+                            <input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder={replyToUuid ? "Replying to comment..." : "Write a comment..."} className="w-full p-2 border rounded-lg" />
+                            <button onClick={handleCommentSubmit} className="ml-2 p-2 bg-blue-500 text-white rounded-lg"><Send className="w-5 h-5" /></button>
+                        </div>
                     </div>
                 </div>
             )}
-        </article>
+
+            {/* Delete Confirmation Popup */}
+            {
+                deleteConfirm.uuid && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg">
+                            <p className="text-lg font-medium">Are you sure you want to delete this comment?</p>
+                            <div className="flex justify-end mt-4">
+                                <button onClick={() => confirmDelete(deleteConfirm.uuid!)} className="px-4 py-2 bg-red-500 text-white rounded-lg">Yes</button>
+                                <button onClick={() => setDeleteConfirm({ uuid: null })} className="ml-2 px-4 py-2 bg-gray-300 rounded-lg">No</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        </article >
     );
 }

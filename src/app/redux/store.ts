@@ -1,18 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
-import {  o2API } from './api'
-import authSlice from './features/auth/authSlice'
-import tokenSlice from './features/auth/tokenSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import { o2API } from "./api";
+import authSlice from "./features/auth/authSlice";
+import tokenSlice from "./features/auth/tokenSlice";
+import counterReducer from "./features/counter";
 // create store
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      counter: counterReducer,
       [o2API.reducerPath]: o2API.reducer,
-        auth:authSlice,
-        token:tokenSlice,
+      auth: authSlice,
+      token: tokenSlice,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(o2API.middleware),
-  })
-}
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(o2API.middleware),
+  });
+};
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;

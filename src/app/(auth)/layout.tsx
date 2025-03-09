@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import StoreProvider from "@/app/StoreProvider";
 
 // import { suwannaphum } from "../font";
 import "@/app/globals.css";
@@ -25,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suwannaphum.className} bg-background_color`}>
-        <StoreProvider>
-          {children}
-        </StoreProvider>
+        <main className="w-full">{children}</main>
       </body>
     </html>
   );

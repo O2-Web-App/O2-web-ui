@@ -1,44 +1,95 @@
-import Image from "next/image";
-import React from "react";
+"use client";
+import { useGetProductDetailByUUIDQuery } from "@/app/redux/service/product";
+import {
+  useCreateWishListProductMutation,
+  useDeleteWishListProductMutation,
+  useGetAllProductWishlistQuery,
+} from "@/app/redux/service/wishlist";
+import { SimilarProduct } from "@/app/types/similarProducts";
+
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
-export default function SimiliarProductCart() {
-  const data = [
-    {
-      name: "ប៉េងប៉ោះ",
-      imageUrl:
-        "https://www.fervalle.com/wp-content/uploads/2022/07/580b57fcd9996e24bc43c23b-1024x982.png",
-    },
-    {
-      name: "ខ្ទឹមបារាំង",
-      imageUrl: "https://brusco.co.uk/wp-content/uploads/2024/02/Onion.png",
-    },
-    {
-      name: "ផ្កាខាត់ណាខៀវ",
-      imageUrl:
-        "https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/512/512/true/eyJpZCI6ImM1ODI2NmMwN2FkMTI3ODU2NWQ5MmFjNTkzODJjZDMyLmpwZyIsInN0b3JhZ2UiOiJwdWJsaWNfc3RvcmUifQ?signature=4a0e5fc44bf9d86c7dce0c91f4a085000961528e67bd718d0ce354a70b1f09bc",
-    },
-    {
-      name: "ផ្កាខាត់ណាខៀវ",
-      imageUrl:
-        "https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/512/512/true/eyJpZCI6ImM1ODI2NmMwN2FkMTI3ODU2NWQ5MmFjNTkzODJjZDMyLmpwZyIsInN0b3JhZ2UiOiJwdWJsaWNfc3RvcmUifQ?signature=4a0e5fc44bf9d86c7dce0c91f4a085000961528e67bd718d0ce354a70b1f09bc",
-    },
-  ];
+import { toast } from "sonner";
+export default function SimiliarProductCart({ uuid }: { uuid: string }) {
+  const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
+
+  // get product detail
+  const productDetailData = useGetProductDetailByUUIDQuery({
+    uuid: uuid,
+  });
+
+  //get wishlist item
+  const wishlistData = useGetAllProductWishlistQuery({});
+
+  // delete item from  wishlist
+  const [deleteWishListItem] = useDeleteWishListProductMutation();
+
+  // get wishlist data
+  const wishListResult = wishlistData.data?.data;
+
+  // to get data object
+  const result = productDetailData?.data?.data.similar_products;
+
+  // add to wishlist
+  const [createWishlist] = useCreateWishListProductMutation();
+
+  // function handle toggle change if item is in wishlist or not
+  const handleWishlistToggle = async (similarProUUID: string) => {
+    const inWishListItem = wishListResult?.find(
+      (item: any) => item.product_uuid === similarProUUID
+    );
+
+    try {
+      if (inWishListItem) {
+        const response = await deleteWishListItem({
+          wishlist_uuid: inWishListItem.wishlist_uuid,
+        });
+
+        if (response.data) {
+          toast.success("ផលិតផលត្រូវបានដកចេញពីបញ្ជី", {
+            style: {
+              background: "#22bb33",
+            },
+          });
+        }
+      } else {
+        const response = await createWishlist({ product_uuid: similarProUUID });
+        if (response.data) {
+          toast.success("ការបញ្ចូលទៅកាន់បញ្ជីបានជោគជ័យ", {
+            style: {
+              background: "#22bb33",
+            },
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Wishlist update failed", error);
+    }
+  };
+
   return (
     <div className="flex space-x-3 overflow-x-auto whitespace-nowrap w-full  scrollbar-hide">
-      {data.map((item, index) => (
+      {result?.map((item: SimilarProduct, index: number) => (
         <div
           key={index}
           className="w-[200px] min-w-[150px] bg-primary-light-10 p-2 rounded-lg"
         >
           <img
-            src={item.imageUrl}
+            src={imageBaseUrl + item.single_image}
             alt={item.name}
-            className="object-cover w-full  rounded-md"
+            className="object-fill w-full h-[170px] rounded-md"
           />
-          <div className="flex justify-between items-center mt-4 ">
+          <div className="flex justify-between text-body items-center mt-4 ">
             <p className="text-body truncate w-[90%]">{item.name}</p>
-            <GoHeart />
+            <button onClick={() => handleWishlistToggle(item.uuid)}>
+              {wishListResult.some(
+                (wishListItem: any) => wishListItem.product_uuid === item.uuid
+              ) ? (
+                <GoHeartFill className="text-primary" />
+              ) : (
+                <GoHeart className="text-primary" />
+              )}
+            </button>
           </div>
         </div>
       ))}
