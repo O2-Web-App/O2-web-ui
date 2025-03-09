@@ -6,11 +6,12 @@ import {
   useGetAllProductWishlistQuery,
 } from "@/app/redux/service/wishlist";
 import { SimilarProduct } from "@/app/types/similarProducts";
-
+import { useRouter } from "next/navigation";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import { toast } from "sonner";
 export default function SimiliarProductCart({ uuid }: { uuid: string }) {
+  const router = useRouter();
   const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 
   // get product detail
@@ -38,7 +39,6 @@ export default function SimiliarProductCart({ uuid }: { uuid: string }) {
     const inWishListItem = wishListResult?.find(
       (item: any) => item.product_uuid === similarProUUID
     );
-
     try {
       if (inWishListItem) {
         const response = await deleteWishListItem({
@@ -75,14 +75,15 @@ export default function SimiliarProductCart({ uuid }: { uuid: string }) {
           className="w-[200px] min-w-[150px] bg-primary-light-10 p-2 rounded-lg"
         >
           <img
+            onClick={() => router.push(`/product/${item.uuid}`)}
             src={imageBaseUrl + item.single_image}
             alt={item.name}
-            className="object-fill w-full h-[170px] rounded-md"
+            className="object-contain w-full h-[120px] rounded-md"
           />
           <div className="flex justify-between text-body items-center mt-4 ">
             <p className="text-body truncate w-[90%]">{item.name}</p>
             <button onClick={() => handleWishlistToggle(item.uuid)}>
-              {wishListResult.some(
+              {wishListResult?.some(
                 (wishListItem: any) => wishListItem.product_uuid === item.uuid
               ) ? (
                 <GoHeartFill className="text-primary" />

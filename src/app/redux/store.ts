@@ -3,11 +3,13 @@ import { o2API } from "./api";
 import authSlice from "./features/auth/authSlice";
 import tokenSlice from "./features/auth/tokenSlice";
 import counterReducer from "./features/counter";
+import provinceSlice from "./features/selectProvince";
 // create store
 export const makeStore = () => {
   return configureStore({
     reducer: {
       counter: counterReducer,
+      province: provinceSlice,
       [o2API.reducerPath]: o2API.reducer,
       auth: authSlice,
       token: tokenSlice,

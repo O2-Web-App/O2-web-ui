@@ -1,5 +1,5 @@
 import { o2API } from "../api";
-export const productApi = o2API.injectEndpoints({
+export const wishlistAPI = o2API.injectEndpoints({
   endpoints: (builder) => ({
     // add product to wishlist
     createWishListProduct: builder.mutation<any, { product_uuid: string }>({
@@ -36,4 +36,4 @@ export const {
   useCreateWishListProductMutation,
   useGetAllProductWishlistQuery,
   useDeleteWishListProductMutation,
-} = productApi;
+} = wishlistAPI;

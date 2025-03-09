@@ -1,14 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useGetProductDetailByUUIDQuery } from "@/app/redux/service/product";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { useGetProductDetailByUUIDQuery } from "@/app/redux/service/product";
-import { ProductDetail } from "@/app/types/ProductDetail";
-import { url } from "inspector";
+import { useEffect, useState } from "react";
 
 export default function CarouselImage({ uuid }: { uuid: string }) {
   const [api, setApi] = useState<CarouselApi | null>(null);
