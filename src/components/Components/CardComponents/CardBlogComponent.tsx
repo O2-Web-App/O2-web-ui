@@ -26,11 +26,11 @@ const CardBlogComponent = ({
     profile
 }: BlogProp) => {
     return (
-        <div className="max-w-96 sm:w-64">
+        <div className="min-w-72 sm:w-64" key={id}>
             <div className="relative">
                 {/* Tag and Bookmark */}
                 <div className="absolute top-4 left-4 z-10">
-                    <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-lg text-sm">
+                    <div className="px-4 py-2 bg-white/30 text-gray-100 backdrop-blur-sm rounded-lg text-sm">
                         {tag}
                     </div>
                 </div>
@@ -53,7 +53,7 @@ const CardBlogComponent = ({
             </div>
 
             <div className="p-4 space-y-4">
-                <p className="text-gray-800 text-2xl text-wrap line-camp-2">{description}</p>
+                <p className="text-gray-800 text-2xl text-wrap tracking-tight truncate line-camp-2">{description}</p>
 
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-md overflow-hidden bg-gray-100">
@@ -69,9 +69,9 @@ const CardBlogComponent = ({
                     <div className="flex flex-col sm:items-center gap-1">
                         <div className="flex items-center gap-2">
                             <span className="text-gray-500">By:</span>
-                            <span className="font-medium underline text-xl">{author}</span>
+                            <span className="font-medium underline text-lg">{author}</span>
                         </div>
-                        <div className="justify-end text-gray-500 text-sm">
+                        <div className="flex justify-end text-xs text-gray-500">
                             {date} • {view} views
                         </div>
                     </div>
