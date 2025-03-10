@@ -1,5 +1,5 @@
 // src/redux/feature/auth/authSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Tokens {
   access_token: string;
@@ -18,16 +18,14 @@ const initialState: AuthState = {
 };
 
 const tokenSlice = createSlice({
-  name: 'token',
+  name: "token",
   initialState,
   reducers: {
     setAuthState(state, action: PayloadAction<AuthState>) {
       state.user = action.payload.user;
       state.tokens = action.payload.tokens;
-      console.log('sate',state.user);
-      console.log('tokens',state.tokens);
     },
-    
+
     logout(state) {
       state.user = null;
       state.tokens = null;
@@ -35,5 +33,5 @@ const tokenSlice = createSlice({
   },
 });
 
-export const { setAuthState, logout } = tokenSlice.actions
-export default tokenSlice.reducer
+export const { setAuthState, logout } = tokenSlice.actions;
+export default tokenSlice.reducer;

@@ -13,8 +13,8 @@ export function Payment(amount: number) {
   };
 
   const individualInfo = new IndividualInfo(
-    "sreng_chipor@aclb",
-    "SRENG CHIPOR",
+    "phy_lyman@aclb",
+    "Phy lyman",
     "PHNOM PENH",
     optionalData
   );

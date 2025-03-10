@@ -14,15 +14,15 @@ export const orderAPI = o2API.injectEndpoints({
       }),
     }),
 
-    // create order total amount
-    createComfirmOrder: builder.mutation<
+    // create submit order
+    createSubmitOrder: builder.mutation<
       any,
       {
         payment_id: number;
         total_cart_value: number;
-        province_uuid: string;
         final_total: number;
         delivery_price: number;
+        province_uuid: string;
         email: string;
         phone_number: string;
         current_address: string;
@@ -32,9 +32,9 @@ export const orderAPI = o2API.injectEndpoints({
     >({
       query: ({
         payment_id,
+        total_cart_value,
         final_total,
         delivery_price,
-        total_cart_value,
         province_uuid,
         email,
         phone_number,
@@ -42,13 +42,13 @@ export const orderAPI = o2API.injectEndpoints({
         google_map_link,
         remarks,
       }) => ({
-        url: `api/orders/confirm_order`,
+        url: `api/orders/submit`,
         method: "POST",
         body: {
           payment_id,
+          total_cart_value,
           final_total,
           delivery_price,
-          total_cart_value,
           province_uuid,
           email,
           phone_number,
@@ -61,5 +61,5 @@ export const orderAPI = o2API.injectEndpoints({
   }),
 });
 
-export const { useCreateOrderMutation, useCreateComfirmOrderMutation } =
+export const { useCreateOrderMutation, useCreateSubmitOrderMutation } =
   orderAPI;
