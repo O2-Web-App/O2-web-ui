@@ -3,14 +3,13 @@ import Image from "next/image";
 
 import { IoCloseOutline } from "react-icons/io5";
 
-import { useGetAllCartQuery } from "@/app/redux/service/cart";
-import { FaMinus, FaPlus } from "react-icons/fa";
-import { useUpdateCartQuantityMutation } from "@/app/redux/service/cart";
+import { useGetAllCartQuery, useRemoveCartItemMutation, useUpdateCartQuantityMutation } from "@/app/redux/service/cart";
 import { Cart } from "@/app/types/Cart";
-import { useRemoveCartItemMutation } from "@/app/redux/service/cart";
+import { useRouter } from "next/navigation";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { toast } from "sonner";
-import { useAppSelector } from "@/app/redux/hooks";
 export default function CardItem() {
+  const router = useRouter();
 
   // get all item
   const getAllCart = useGetAllCartQuery({});
@@ -66,7 +65,10 @@ export default function CardItem() {
           >
             <div className="flex   ">
               {/* image */}
-              <div className="w-[150px] h-[150px] ">
+              <div
+                onClick={() => router.push(`/product/${item.uuid}`)}
+                className="w-[150px] h-[150px] "
+              >
                 <Image
                   width={150}
                   height={150}
