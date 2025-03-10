@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#559F34",
+        primary: "#7ECB2A",
         "primary-light": {
           DEFAULT: "#559F34",
           10: "rgba(85, 159, 52, 0.1)", // Opacity version

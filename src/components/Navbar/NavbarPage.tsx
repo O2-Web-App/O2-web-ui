@@ -1,20 +1,20 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useGetUserQuery } from "@/app/redux/service/user";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { useGetUserQuery } from "@/app/redux/service/user";
+import { useEffect, useState } from "react";
 
 import { setAccessToken } from "@/app/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/app/redux/hooks";
 import {
   Sheet,
-  SheetTrigger,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import Cart from "../ProductDetail/Cart/Cart";
 
@@ -346,147 +346,154 @@ export default function NavbarPage() {
     }
   };
 
+  const isRender = pathname === "/success-payment" || pathname === "/verify";
   return (
-    <div className="w-full sticky top-0 z-50 bg-white border-b border-b-slate-100">
-      <header className="flex items-center justify-between max-w-[95%] mx-auto p-2">
-        <Link href="/" className="w-[50px] h-[50px]">
-          <Image
-            src="/navbar/logo.png"
-            alt="Logo"
-            width={50}
-            height={50}
-            className="w-full h-full object-cover"
-          />
-        </Link>
-        <div className="flex space-x-5 items-center">
-          <Cart />
-          <Sheet>
-            <SheetTrigger asChild>
-              <div>
-                <Menu size={27} />
-              </div>
-            </SheetTrigger>
-            <SheetContent className="bg-white w-[300px]">
-              <SheetHeader>
-                <SheetDescription>
-                  {isLoggedIn ? (
-                    <div>
-                      <SheetTitle className="text-xl flex justify-start font-normal">
-                        ព័ត៌មានគណនី
-                      </SheetTitle>
-                      <div className="flex items-center justify-start space-x-3 mt-4">
-                        <Image
-                          src={avatarUrl}
-                          alt="User Avatar"
-                          width={45}
-                          height={45}
-                          className="rounded-full border-2 border-primary"
-                        />
+    <div>
+      {!isRender ? (
+        <div className="w-full sticky top-0 z-50 bg-white border-b border-b-slate-100">
+          <header className="flex items-center justify-between max-w-[95%] mx-auto p-2">
+            <Link href="/" className="w-[50px] h-[50px]">
+              <Image
+                src="/navbar/logo.png"
+                alt="Logo"
+                width={50}
+                height={50}
+                className="w-full h-full object-cover"
+              />
+            </Link>
+            <div className="flex space-x-5 items-center">
+              <Cart />
+              <Sheet>
+                <SheetTrigger asChild>
+                  <div>
+                    <Menu size={27} />
+                  </div>
+                </SheetTrigger>
+                <SheetContent className="bg-white w-[300px]">
+                  <SheetHeader>
+                    <SheetDescription>
+                      {isLoggedIn ? (
                         <div>
-                          <div className="text-lg content-start text-start">
-                            {data?.data?.name || "User"}
-                          </div>
-                          <div className="text-sm text-description">
-                            {data?.data?.email || "Email"}
+                          <SheetTitle className="text-xl flex justify-start font-normal">
+                            ព័ត៌មានគណនី
+                          </SheetTitle>
+                          <div className="flex items-center justify-start space-x-3 mt-4">
+                            <Image
+                              src={avatarUrl}
+                              alt="User Avatar"
+                              width={45}
+                              height={45}
+                              className="rounded-full border-2 border-primary"
+                            />
+                            <div>
+                              <div className="text-lg content-start text-start">
+                                {data?.data?.name || "User"}
+                              </div>
+                              <div className="text-sm text-description">
+                                {data?.data?.email || "Email"}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <SheetTitle className="text-xl flex justify-start font-normal">
-                        មិនមានគណនី
-                      </SheetTitle>
-                      <div className="flex justify-start space-x-2 items-center  mt-4">
-                        <Link
-                          href="/login"
-                          className="flex space-x-2 items-center"
-                        >
-                          <div>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-user text-gray-500"
+                      ) : (
+                        <div>
+                          <SheetTitle className="text-xl flex justify-start font-normal">
+                            មិនមានគណនី
+                          </SheetTitle>
+                          <div className="flex justify-start space-x-2 items-center  mt-4">
+                            <Link
+                              href="/login"
+                              className="flex space-x-2 items-center"
                             >
-                              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                              <circle cx="12" cy="7" r="4" />
-                            </svg>
+                              <div>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="lucide lucide-user text-gray-500"
+                                >
+                                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                  <circle cx="12" cy="7" r="4" />
+                                </svg>
+                              </div>
+                              <div className="text-lg text-gray-600 ">
+                                ចូលគណនី
+                              </div>
+                            </Link>
                           </div>
-                          <div className="text-lg text-gray-600 ">
-                            ចូលគណនី
-                          </div>
-                        </Link>
-                      </div>
 
-                      <div className="mt-6 space-y-4">
-                        {navLinks_NoAccount.map((link) => (
-                          <Link
-                            key={link.href}
-                            href={link.href}
-                            className="flex items-center space-x-2 text-lg hover:text-green-700"
+                          <div className="mt-6 space-y-4">
+                            {navLinks_NoAccount.map((link) => (
+                              <Link
+                                key={link.href}
+                                href={link.href}
+                                className="flex items-center space-x-2 text-lg hover:text-green-700"
+                              >
+                                <span>{link.icon}</span>
+                                <span className="text-gray-600 mt-1">
+                                  {link.label}
+                                </span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  {isLoggedIn && (
+                    <div className="mt-6 space-y-4">
+                      {navLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className="flex items-center space-x-2 text-lg hover:text-green-700"
+                        >
+                          <span>{link.icon}</span>
+                          <span className="text-gray-600">{link.label}</span>
+                        </Link>
+                      ))}
+                      {/* Logout Button */}
+                      <div
+                        className="flex space-x-2 mt-6 cursor-pointer"
+                        onClick={handleLogout}
+                      >
+                        <div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-log-out text-gray-500"
                           >
-                            <span>{link.icon}</span>
-                            <span className="text-gray-600 mt-1">
-                              {link.label}
-                            </span>
-                          </Link>
-                        ))}
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" x2="9" y1="12" y2="12" />
+                          </svg>
+                        </div>
+                        <div className="text-lg text-red-700">ចាកចេញ</div>
                       </div>
                     </div>
                   )}
-                </SheetDescription>
-              </SheetHeader>
-
-              {isLoggedIn && (
-                <div className="mt-6 space-y-4">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="flex items-center space-x-2 text-lg hover:text-green-700"
-                    >
-                      <span>{link.icon}</span>
-                      <span className="text-gray-600">{link.label}</span>
-                    </Link>
-                  ))}
-                  {/* Logout Button */}
-                  <div
-                    className="flex space-x-2 mt-6 cursor-pointer"
-                    onClick={handleLogout}
-                  >
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="22"
-                        height="22"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-log-out text-gray-500"
-                      >
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                        <polyline points="16 17 21 12 16 7" />
-                        <line x1="21" x2="9" y1="12" y2="12" />
-                      </svg>
-                    </div>
-                    <div className="text-lg text-red-700">ចាកចេញ</div>
-                  </div>
-                </div>
-              )}
-            </SheetContent>
-          </Sheet>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </header>
         </div>
-      </header>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

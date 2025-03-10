@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { IoCloseSharp } from "react-icons/io5";
+import { IoChevronBackCircle, IoCloseSharp } from "react-icons/io5";
 import Label from "./LabelComponent";
 import DynamicField from "./AuthField";
 import ErrorDynamic from "./ErrorComponent";
@@ -19,6 +19,7 @@ import {
   selectToken,
   setAccessToken,
 } from "@/app/redux/features/auth/authSlice";
+import { FcGoogle } from "react-icons/fc";
 
 type ValueTypes = {
   email: string;
@@ -44,45 +45,48 @@ const LoginComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(selectToken);
- // const { toast } = useToast();
+  // const { toast } = useToast();
   const router = useRouter();
 
   console.log("Access token: from Redux store", accessToken);
 
   const handleLogin = async (user: ValueTypes) => {
     setIsLoading(true);
-  
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_O2_API_URL}api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
-  
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_O2_API_URL}api/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(user),
+        }
+      );
+
       const result = await response.json();
       console.log("Login API Response:", result);
-  
+
       if (response.ok && result?.data?.access_token) {
         const { access_token, refresh_token } = result.data;
-  
+
         console.log("✅ Extracted Access Token:", access_token);
-  
+
         // Store tokens in Redux
         dispatch(setAccessToken(access_token));
-  
+
         // Store refresh token in cookies
         document.cookie = `refresh_token=${refresh_token}; path=/; Secure; HttpOnly; SameSite=Strict`;
-  
+
         // Save in localStorage for persistence
         localStorage.setItem("access_token", access_token);
-  
+
         // toast({
         //   title: "Login Successful 🎉",
         //   description: "Redirecting to dashboard...",
         //   variant: "success",
         //   duration: 2000,
         // });
-  
+
         router.push(`/`);
       } else {
         throw new Error(result.message || "Login failed.");
@@ -90,7 +94,7 @@ const LoginComponent = () => {
     } catch (error) {
       // toast({
       //   title: "Login Failed",
-        
+
       //   variant: "error",
       //   duration: 3000,
       // });
@@ -99,70 +103,115 @@ const LoginComponent = () => {
       setIsLoading(false);
     }
   };
-  
 
   return (
-    <section className="w-full h-screen md:p-20 lg:bg-[#F5F5F5]/60 lg:p-11">
-      <div className="h-full w-full bg-transparent bg-white m-auto lg:mt-0 rounded-xl">
-        <div className="lg:flex justify-between h-full">
-          <div className="w-full lg:w-1/2 flex mx-auto">
-            <div className="w-full mx-auto">
-              <div className="lg:px-12">
-                <div className="mt-12 md:mt-0 px-8 lg:mt-10 lg:px-12">
-                  <h1 className="text-3xl font-bold text-primary">Login</h1>
-                  <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={(values, { setSubmitting }) => {
-                      handleLogin(values);
-                      setSubmitting(false);
-                    }}
-                  >
-                    {() => (
-                      <Form className="py-4 mt-4">
-                        <div className="space-y-4">
-                          <div>
-                            <Label htmlFor="email" text="Email" required />
-                            <DynamicField
-                              type="text"
-                              name="email"
-                              id="email"
-                              placeholder="Enter your email"
-                            />
-                            <ErrorDynamic name="email" component="div" />
-                          </div>
+    <section className="bg-primary w-full h-screen flex flex-col justify-between">
+      {/* header section */}
 
-                          <div>
-                            <Label
-                              htmlFor="password"
-                              text="Password"
-                              required
-                            />
-                            <PasswordField
-                              name="password"
-                              id="password"
-                              placeholder="Enter your password"
-                            />
-                            <ErrorDynamic name="password" component="div" />
-                          </div>
-                        </div>
-
-                        <div className="mt-6">
-                          <Button
-                            type="submit"
-                            text="Login"
-                            isLoading={isLoading}
-                            className="w-full bg-primary text-white"
-                          />
-                        </div>
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* icon back */}
+      <div className=" px-5 pt-5 ">
+        <div className="h-[50px] w-[50px] flex flex-col items-start justify-start">
+          <IoChevronBackCircle className="h-full w-full text-card_color" />
         </div>
+      </div>
+      {/* Logo centered while keeping icon at start */}
+      <div className=" flex justify-center ">
+        <div className="w-[100px] h-[100px] rounded-full bg-white flex items-center justify-center">
+          <Image
+            alt="logo"
+            src={"/logo.png"}
+            width={150}
+            height={150}
+            className="object-cover rounded-full h-full w-full"
+          />
+        </div>
+      </div>
+      {/* welcome  */}
+      <p className="text-heading text-card_color text-center my-5">
+        O2 សូមស្វាគមន៍
+      </p>
+
+      {/* form section */}
+      <div className="w-full h-[70%]  bg-card_color rounded-tr-[40px] rounded-tl-[40px] p-5 ">
+        <p className="text-[24px]">បង្កើតគណនី</p>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          {() => (
+            <Form className="py-5 mt-4">
+              <div className="space-y-4">
+                {/* email */}
+                <div>
+                  <Label htmlFor="email" text="អ៉ីម៉ែល" required />
+                  <DynamicField
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="សូមបញ្ជូលអ៉ីម៉ែលរបស់អ្នក"
+                  />
+                  <ErrorDynamic name="email" component="div" />
+                </div>
+
+                {/* password */}
+                <div>
+                  <Label htmlFor="password" text="ពាក្យសម្ងាត់" required />
+                  <PasswordField
+                    name="password"
+                    id="password"
+                    placeholder="សូមបញ្ជូលពាក្យសម្ងាត់របស់អ្នក"
+                  />
+                  <ErrorDynamic name="password" component="div" />
+                </div>
+
+                {/* forget password */}
+                <p
+                  onClick={() => router.push("/forget-password")}
+                  className="text-[14px] text-end text-accent"
+                >
+                  ភ្លេចពាក្យសម្ងាត់មែនទេ?
+                </p>
+              </div>
+
+              <div className="mt-6">
+                <Button
+                  type="submit"
+                  text="ចូលគណនី"
+                  isLoading={isLoading}
+                  className="w-full bg-primary text-white"
+                />
+              </div>
+            </Form>
+          )}
+        </Formik>
+
+        {/* divide  */}
+        <div className="flex justify-center items-center">
+          <div className="flex-1 bg-description h-[0.7px]"></div>
+          <div className="px-3">ឬ</div>
+          <div className="flex-1 bg-description h-[0.7px]"></div>
+        </div>
+
+        {/* google button login */}
+
+        <div className="mt-6 ">
+          <Button
+            icon={<FcGoogle className="text-title mr-2" />}
+            type="submit"
+            text="បង្កើតគណនីតាម Google"
+            className="w-full border-[1px] text-body "
+          />
+        </div>
+        <p className="text-[14px] text-description mt-6 text-center">
+          មិនទាន់មានគណនីមែនទេ?{" "}
+          <span
+            onClick={() => router.push("/register")}
+            className="text-[14px] text-accent"
+          >
+            បង្កើតគណនី
+          </span>
+        </p>
       </div>
     </section>
   );

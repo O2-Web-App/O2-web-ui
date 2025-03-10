@@ -9,23 +9,65 @@ import { FcGoogle } from "react-icons/fc";
 import ErrorDynamic from "./ErrorComponent";
 import PasswordField from "./PasswordField";
 import Button from "./ButtonComponentForAuth";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
+
+import { useCreateRegisterMutation } from "@/app/redux/service/auth";
+import { toast } from "sonner";
+import { RegisterFormType } from "@/app/types/Auth";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { setEmail } from "@/app/redux/features/email";
+
 export default function RegisterComponet() {
+  const router = useRouter();
+
+  // dispatch email
+  const dispatch = useAppDispatch();
+
+  // register mutation
+  const [createRegister] = useCreateRegisterMutation();
+
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleRegister = async (values: RegisterFormType) => {
+    try {
+      setIsLoading(true);
+      const response = await createRegister(values);
+      if (response.data) {
+        dispatch(setEmail(values?.email));
+        toast.success("ការចុះឈ្មោះបានជោគជ័យ", {
+          style: {
+            background: "#22bb33",
+          },
+        });
+        router.push("/verify");
+      } else {
+        toast.success("ការចុះឈ្មោះមិនបានជោគជ័យ", {
+          style: {
+            background: "#bb2124",
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const initialValues = {
+    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    password_confirmation: "",
   };
   const validationSchema = Yup.object({
+    name: Yup.string().required("អ្នកត្រូវបញ្ជូលឈ្មោះរបស់អ្នក"),
     email: Yup.string()
       .email("អ៉ីម៉ែលរបស់អ្នកមិនត្រឹមត្រូវ")
       .required("អ្នកត្រូវបញ្ជូលអ៉ីម៉ែលរបស់អ្នក"),
     password: Yup.string()
       .min(8, "ពាក្យសម្ងាត់របស់អ្នកខ្លីពេក, សូមបញ្ជូលពាក្យសម្ងាត់ 8 តួរ")
       .required("អ្នកត្រូវបញ្ជូលពាក្យសម្ងាត់របស់អ្នក"),
-    confirmPassword: Yup.string()
+    password_confirmation: Yup.string()
       .oneOf([Yup.ref("password")], "ពាក្យសម្ងាត់របស់អ្នកមិនដូចគ្នា")
       .required("អ្នកត្រូវបញ្ជូលពាក្យសម្ងាត់បញ្ជាក់"),
   });
@@ -63,13 +105,22 @@ export default function RegisterComponet() {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
+          onSubmit={handleRegister}
         >
           {() => (
             <Form className="py-5 mt-4">
               <div className="space-y-4">
+                {/* name */}
+                <div>
+                  <Label htmlFor="name" text="ឈ្មោះ" required />
+                  <DynamicField
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="សូមបញ្ជូលឈ្មោះរបស់អ្នក"
+                  />
+                  <ErrorDynamic name="name" component="div" />
+                </div>
                 {/* email */}
                 <div>
                   <Label htmlFor="email" text="អ៉ីម៉ែល" required />
@@ -96,16 +147,16 @@ export default function RegisterComponet() {
                 {/* comfirm password */}
                 <div>
                   <Label
-                    htmlFor="confirmPassword"
+                    htmlFor="password_confirmation"
                     text="ពាក្យសម្ងាត់បញ្ជាក់"
                     required
                   />
                   <PasswordField
-                    name="confirmPassword"
-                    id="confirmPassword"
+                    name="password_confirmation"
+                    id="password_confirmation"
                     placeholder="សូមបញ្ជូលពាក្យសម្ងាត់បញ្ជាក់"
                   />
-                  <ErrorDynamic name="confirmPassword" component="div" />
+                  <ErrorDynamic name="password_confirmation" component="div" />
                 </div>
               </div>
 

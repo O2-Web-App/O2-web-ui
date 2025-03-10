@@ -1,5 +1,10 @@
+import SuccessPayment from "@/components/SuccessPayment/SuccessPayment";
 import React from "react";
 
 export default function page() {
-  return <div>page</div>;
+  return (
+    <div>
+      <SuccessPayment />
+    </div>
+  );
 }
