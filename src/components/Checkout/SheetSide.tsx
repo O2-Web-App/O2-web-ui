@@ -6,7 +6,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FaCheckSquare } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmationStep from "../Stepper/ConfirmationStep";
 import Stepper from "../Stepper/InformationStep";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -36,9 +36,14 @@ import { QRCodeSVG } from "qrcode.react";
 import { Coupon } from "@/app/types/Coupon";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useCreateComfirmOrderMutation } from "@/app/redux/service/order";
+import { useCreateSubmitOrderMutation } from "@/app/redux/service/order";
 import { Payment } from "@/lib/payment";
+import { useCreatePaymentCheckMutation } from "@/app/redux/service/payment";
+import { PaymentType } from "@/app/types/Payment";
 export default function SheetSide() {
+  // payment response from bakong
+  const [paymentResponse, setPaymentResponse] = useState<PaymentType>();
+
   // to open second modal
   const [secondSheetOpen, setSecondSheetOpen] = useState(false);
 
@@ -66,9 +71,11 @@ export default function SheetSide() {
   // dot object to get data
   const responseDataCoupon = result?.data;
 
-  // payment function
-  //responseDataCoupon?.total_price || 0
-  const payment = Payment(1000);
+  // get payment response
+  useEffect(() => {
+    const response = Payment(500); // Example amount
+    setPaymentResponse(response);
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputCoupon(event.target.value);
@@ -79,7 +86,7 @@ export default function SheetSide() {
   const data = getAllCart?.data?.data?.cart_items;
 
   // confrim order
-  const [createComfirmOrder] = useCreateComfirmOrderMutation();
+  const [createSubmitOrder] = useCreateSubmitOrderMutation();
 
   // image base url
   const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
@@ -87,7 +94,11 @@ export default function SheetSide() {
   // select province from redux
   const province = useAppSelector((state) => state.province);
 
+  // comfrim order
   const [createOrder] = useCreateOrderMutation();
+
+  // check payment stats
+  const [checkPayment] = useCreatePaymentCheckMutation();
 
   // handle calulate coupon
   const handleCoupon = async () => {
@@ -116,18 +127,48 @@ export default function SheetSide() {
     }
   };
 
-  // handle Payment
-  const handlePayment = async () => {
-    setOpenPayment(true);
+  // handle submit order
+  const handleSubmitPaymentData = async (payment_id: number) => {
     try {
-      await createComfirmOrder({
+      await createSubmitOrder({
+        payment_id: payment_id,
+        total_cart_value: result?.data?.total_cart_value || 0,
+        final_total: result?.data?.final_total || 0,
+        delivery_price: result?.data?.delivery_fee || 0,
+        province_uuid: province?.value || "",
         email: formData?.email || "",
         phone_number: formData?.phone_number || "",
+        current_address: province?.name || "",
         google_map_link: formData?.google_map_link || "",
         remarks: formData?.remarks || "",
-        province_uuid: province?.value || "",
-        md5_hash: payment?.data.md5,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle check payment status
+  const handleCheckPayment = async () => {
+    try {
+      setOpenPayment(true);
+      const response = await checkPayment({
+        md5_hash: paymentResponse?.data.md5 || "",
+      });
+      if (response.data) {
+        handleSubmitPaymentData(response?.data?.payment_id);
+        toast.success("ការបង់ប្រាក់បានជោគជ័យ", {
+          style: {
+            background: "#22bb33",
+          },
+        });
+        setOpenPayment(false);
+      } else {
+        toast.success("ការបង់ប្រាក់មិនបានជោគជ័យ", {
+          style: {
+            background: "#bb2124",
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -149,9 +190,11 @@ export default function SheetSide() {
   };
 
   const validationSchema = Yup.object({
-    phone_number: Yup.string().required("phone Number  is Required"),
-    google_map_link: Yup.string().required("Google Map Url is Required"),
-    email: Yup.string(),
+    phone_number: Yup.string().required("អ្នកត្រូវបញ្ជូលលេខទូរស័ព្ទ"),
+    google_map_link: Yup.string().required("អ្នកត្រូវបញ្ជូល Google Map Url"),
+    email: Yup.string()
+      .required("អ៉ីម៉ែលរបស់អ្នកមិនត្រឹមត្រូវ")
+      .email("អ្នកត្រូវបញ្ជូលអ៉ីម៉ែលរបស់អ្នក"),
     remarks: Yup.string().max(500, "remarks must be under 500 characters"),
   });
 
@@ -406,7 +449,7 @@ export default function SheetSide() {
       {/* payment_step */}
       <Sheet open={thirdSheetOpen} onOpenChange={setThirdSheetOpen}>
         <SheetContent
-          className="bg-card_color rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
+          className="bg-card_color h-[85%] rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
           side={"bottom"}
         >
           <SheetTitle>
@@ -520,7 +563,7 @@ export default function SheetSide() {
 
               <div className="flex items-end text-end mx-10">
                 <p className="text-[35px] mr-3">
-                  {responseDataCoupon?.total_price}
+                  {responseDataCoupon?.total_cart_value}
                 </p>
                 <p className="text-body mb-2"> Khr </p>
               </div>
@@ -530,7 +573,7 @@ export default function SheetSide() {
 
               {/* QR Code Section */}
               <div className="w-full flex justify-center my-5">
-                <QRCodeSVG value={payment?.data?.qr} size={250} />
+                <QRCodeSVG value={paymentResponse?.data?.qr || ""} size={250} />
               </div>
             </AlertDialogContent>
           </AlertDialog>
@@ -562,7 +605,7 @@ export default function SheetSide() {
             ជាមួយនឹងការបញ្ចុះតម្លៃគូប៉ុងនេះ!
           </p>
           <div
-            onClick={() => handlePayment()}
+            onClick={() => handleCheckPayment()}
             className="bg-primary p-4 items-center flex justify-center rounded-[10px]"
           >
             <p className="text-title text-background_color">បង់ប្រាក់</p>

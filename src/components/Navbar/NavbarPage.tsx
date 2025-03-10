@@ -420,7 +420,7 @@ export default function NavbarPage() {
                             </svg>
                           </div>
                           <div className="text-lg text-gray-600 ">
-                            បង្កើតគណនី
+                            ចូលគណនី
                           </div>
                         </Link>
                       </div>
