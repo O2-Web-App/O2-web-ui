@@ -1,4 +1,3 @@
-import { Province } from "@/app/types/Province";
 import { o2API } from "../api";
 export const orderAPI = o2API.injectEndpoints({
   endpoints: (builder) => ({

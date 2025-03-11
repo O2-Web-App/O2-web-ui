@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import { useCreateRegisterMutation } from "@/app/redux/service/auth";
 import { toast } from "sonner";
 import { RegisterFormType } from "@/app/types/Auth";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { useAppDispatch } from "@/app/redux/hooks";
 import { setEmail } from "@/app/redux/features/email";
 
 export default function RegisterComponet() {

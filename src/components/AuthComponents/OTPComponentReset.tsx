@@ -2,6 +2,8 @@
 
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 
+import { setOTP } from "@/app/redux/features/opt";
+import { useCreateReVerifyMutation } from "@/app/redux/service/auth";
 import { Field, Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,9 +12,6 @@ import { IoChevronBackCircle } from "react-icons/io5";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import Button from "./ButtonComponentForAuth";
-import { useCreateResetPasswordMutation } from "@/app/redux/service/auth";
-import { useCreateReVerifyMutation } from "@/app/redux/service/auth";
-import { setOTP } from "@/app/redux/features/opt";
 export default function OTPComponentReset() {
   // dispatch otp
   const dispatch = useAppDispatch();
@@ -68,6 +67,7 @@ export default function OTPComponentReset() {
 
   const handleResend = async () => {
     try {
+      setIsLoading(true);
       const response = await reVerifyUserAccount({ email: email });
       if (response.data) {
         toast.success("ការផ្ញើលេខកូដបានជោគជ័យ", {
@@ -75,6 +75,7 @@ export default function OTPComponentReset() {
             background: "#22bb33",
           },
         });
+        setIsLoading(false);
       } else {
         toast.success("ការផ្ញើលេខកូដមិនបានជោគជ័យ", {
           style: {
@@ -83,6 +84,7 @@ export default function OTPComponentReset() {
         });
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };

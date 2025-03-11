@@ -1,9 +1,7 @@
 "use client";
-import React from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { IoChevronBackCircle } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/app/redux/hooks";
+import { IoChevronBackCircle } from "react-icons/io5";
 
 export default function SuccessPayment() {
   const router = useRouter();

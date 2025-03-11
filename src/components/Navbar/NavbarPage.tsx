@@ -270,14 +270,10 @@ const navLinks_NoAccount = [
 
 export default function NavbarPage() {
   const pathname = usePathname();
-
-  //const { i18n } = useTranslation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Fetch user data
-  const { data, isLoading } = useGetUserQuery(); // Include loading and error sta
-  
+  const { data } = useGetUserQuery(); // Include loading and error sta
+
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
-  const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useAppDispatch(); // ✅ Correct way to get dispatch
 
@@ -289,10 +285,6 @@ export default function NavbarPage() {
       : `${process.env.NEXT_PUBLIC_O2_API_URL}${userAvatar}`
     : "/navbar/placeholder_user.png";
 
-  // Handle sidebar toggle
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
 
   // Fetch user data
   const isLoggedIn = !!data?.data;
@@ -341,8 +333,8 @@ export default function NavbarPage() {
         //console.error("Logout Failed:", errorData);
         //toast({ title: "Logout failed", variant: "destructive" });
       }
-    } catch (error) {
-      //console.error("Logout Error:", error);
+    } catch {
+      //console.error("Logout Error:");
       //toast({ title: "Error logging out", variant: "destructive" });
     }
   };

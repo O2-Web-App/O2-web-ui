@@ -15,7 +15,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useState } from "react";
@@ -30,8 +29,6 @@ import {
 import { useGetUserQuery } from "@/app/redux/service/user";
 import { useCreateUserFeedbackProductQueryMutation } from "@/app/redux/service/product";
 export default function ProductDetail({ uuid }: { uuid: string }) {
-  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
-
   // get user data
   const userData = useGetUserQuery();
 
@@ -63,7 +60,7 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
           },
         });
       }
-    } catch (error) {
+    } catch {
       toast.success("ការបញ្ចូលទៅកាន់បញ្ជីមិនបានជោគជ័យ", {
         style: {
           background: "#bb2124",
@@ -142,7 +139,7 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
           },
         });
       }
-    } catch (error) {
+    } catch {
       toast.success("ការបញ្ចេញមតិមិនជោគជ័យ", {
         style: {
           background: "#bb2124",
@@ -243,7 +240,6 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
       </div>
       <div className="w-full">
         <Carousel
-          setApi={setCarouselApi}
           className="w-full"
           plugins={[Autoplay({ delay: 3000 })]}
           opts={{ loop: true }}

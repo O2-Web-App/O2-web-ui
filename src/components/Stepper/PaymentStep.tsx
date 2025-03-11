@@ -1,6 +1,4 @@
-import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import { FaDotCircle } from "react-icons/fa";
 export default function PaymentStep() {
   return (
     <div className="w-full flex justify-between items-center">

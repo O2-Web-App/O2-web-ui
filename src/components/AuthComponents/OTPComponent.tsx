@@ -30,7 +30,7 @@ export default function VerifyComponent() {
     otp6: string;
   };
 
-  const [verifyUserAccount, { isSuccess, isError }] = useCreateVerifyMutation();
+  const [verifyUserAccount] = useCreateVerifyMutation();
   const [reVerifyUserAccount] = useCreateReVerifyMutation();
 
   const initialValues: OtpType = {
@@ -51,10 +51,11 @@ export default function VerifyComponent() {
     otp6: Yup.string().required("OTP 6 is required "),
   });
   const router = useRouter();
-  
+
   const handleSubmit = async (values: OtpType) => {
     const verification_code = Object.values(values).join("");
     try {
+      setIsLoading(true);
       const response = await verifyUserAccount({
         email: email,
         verification_code: verification_code,
@@ -66,7 +67,9 @@ export default function VerifyComponent() {
             background: "#22bb33",
           },
         });
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         toast.success("OTP បានផុតកំណត់", {
           style: {
             background: "#bb2124",
@@ -74,6 +77,7 @@ export default function VerifyComponent() {
         });
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       toast.success("ការផ្ទៀងផ្ទាត់ OTP មិនបានជោគជ័យ", {
         style: {

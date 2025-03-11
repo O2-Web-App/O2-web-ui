@@ -6,6 +6,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function CarouselImage({ uuid }: { uuid: string }) {
@@ -48,7 +49,9 @@ export default function CarouselImage({ uuid }: { uuid: string }) {
           {result?.images.map((image: string, index: number) => (
             <CarouselItem key={index}>
               <div className="w-full mx-auto">
-                <img
+                <Image
+                  width={150}
+                  height={150}
                   src={imageBaseUrl + image}
                   alt=""
                   className="w-full h-full object-cover"
@@ -61,7 +64,7 @@ export default function CarouselImage({ uuid }: { uuid: string }) {
 
       {/* dot */}
       <div className="flex w-full justify-center space-x-2">
-        {result?.images.map((_ : string,index: number) => (
+        {result?.images.map((_: string, index: number) => (
           <div
             key={index}
             className={`w-3 h-3 rounded-full transition-colors duration-300 ${
