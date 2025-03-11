@@ -39,6 +39,7 @@ const CardBlogHorizontal = ({
                         alt={title}
                         width={1000}
                         height={1000}
+                        unoptimized
                         className="w-full h-full object-cover"
                     />
                 </div>

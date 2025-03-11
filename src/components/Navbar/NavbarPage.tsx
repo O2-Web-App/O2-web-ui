@@ -355,6 +355,7 @@ export default function NavbarPage() {
             alt="Logo"
             width={50}
             height={50}
+            unoptimized
             className="w-full h-full object-cover"
           />
         </Link>
@@ -363,7 +364,7 @@ export default function NavbarPage() {
           <Sheet>
             <SheetTrigger asChild>
               <div>
-                <Menu size={27} />
+                <Menu className="cursor-pointer" size={27} />
               </div>
             </SheetTrigger>
             <SheetContent className="bg-white w-[300px]">
@@ -380,6 +381,7 @@ export default function NavbarPage() {
                           alt="User Avatar"
                           width={45}
                           height={45}
+                          unoptimized
                           className="rounded-full border-2 border-primary"
                         />
                         <div>
@@ -397,7 +399,7 @@ export default function NavbarPage() {
                       <SheetTitle className="text-xl flex justify-start font-normal">
                         មិនមានគណនី
                       </SheetTitle>
-                      <div className="flex justify-start space-x-2 items-center  mt-4">
+                      <div className="flex justify-start space-x-2 items-center mt-4">
                         <Link
                           href="/login"
                           className="flex space-x-2 items-center"
@@ -425,7 +427,7 @@ export default function NavbarPage() {
                         </Link>
                       </div>
 
-                      <div className="mt-6 space-y-4">
+                      <div className="mt-4 space-y-4">
                         {navLinks_NoAccount.map((link) => (
                           <Link
                             key={link.href}

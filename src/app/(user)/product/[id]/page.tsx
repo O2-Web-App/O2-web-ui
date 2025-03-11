@@ -1,8 +1,8 @@
 import React from "react";
-import { IoIosArrowBack } from "react-icons/io";
-import Cart from "@/components/ProductDetail/Cart/Cart";
 import CarouselImage from "@/components/ProductDetail/CarouselImage/CarouselImage";
 import ProductDetail from "@/components/ProductDetail/ProductDetail";
+
+
 export type ParamProps = {
   params: Promise<{ id: string }>;
 };

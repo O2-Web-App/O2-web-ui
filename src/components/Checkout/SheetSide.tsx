@@ -428,6 +428,7 @@ export default function SheetSide() {
                     width={100}
                     height={100}
                     alt=""
+                    unoptimized
                     className="object-cover w-full h-full rounded-full"
                   />
                 </div>
