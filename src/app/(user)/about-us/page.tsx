@@ -1,9 +1,50 @@
-
+"use client";
 import Image from "next/image"
 import { Phone, Mail, Facebook, MapPin } from "lucide-react"
 import Link from "next/link"
+import { useContactUsMutation } from "@/app/redux/service/blog";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
+    const [contact] = useContactUsMutation()
+
+    // Local states for the contact form
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    // Form submission handler
+    const handleContact = async () => {
+        if (!username || !email || !message.trim()) {
+            alert("Please fill in all fields before submitting.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            await contact({ name: username, email, message }).unwrap();
+            setUsername("");
+            setEmail("");
+            setMessage("");
+            toast.success("ការបញ្ចេញមតិយោបលរបស់អ្នកជោគជ័យ", {
+                style: {
+                    color: "white",
+                    background: "#22bb33",
+                },
+            });
+        } catch (error) {
+            console.error("Failed to submit contact", error);
+            toast.error("ការបញ្ចេញមតិយោបលរបស់អ្នកបរាជ័យ", {
+                style: {
+                    color: "white",
+                    background: "#e0391f",
+                },
+            });
+        }
+    };
+
     return (
         <div className="max-w-md mx-auto bg-gray-50 min-h-screen">
             {/* Main Content */}
@@ -99,13 +140,40 @@ export default function Home() {
 
                 {/* Partners Section */}
                 <div className="px-4 mb-6">
-                    <h2 className="text-blue-500 font-medium mb-8 text-2xl">ទំនាក់ទំនងមកកាន់ពួកយើង៖</h2>
-                    <textarea className="text-gray-500 text-sm rounded-lg p-4 w-full h-36">មតិយោបលរបស់អ្នក...</textarea>
+                    <h2 className="text-blue-500 font-medium mb-5 text-2xl">ទំនាក់ទំនងមកកាន់ពួកយើង៖</h2>
+                    <div className="space-y-6">
+                        {/* <label htmlFor="text">ឈ្មោះរបស់អ្នក</label> */}
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="បញ្ចូលឈ្មោះរបស់អ្នក"
+                            className="w-full p-4 text-sm rounded-lg mb-3   "
+                        />
+                        {/* <label htmlFor="enail">អ៊ីមែល</label> */}
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="បញ្ចូលអ៊ីមែលរបស់អ្នក"
+                            className="w-full p-4 text-sm rounded-lg"
+                        />
+                        {/* <label htmlFor="message" className="py-"> មតិយោបល</label> */}
+                        <textarea
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder="មតិយោបលរបស់អ្នក..."
+                            className=" text-sm rounded-lg p-4 w-full h-36"
+                        />
+                    </div>
+
                 </div>
 
                 {/* Contact Section */}
                 <div className="px-4 mb-6">
-                    <div className="bg-secondary text-white py-3 px-4 rounded-md mb-8 text-center">បញ្ជាក់ព័ត៌មានបន្ថែម</div>
+                    <button onClick={handleContact}
+                        disabled={loading}
+                        className="bg-secondary text-white py-2.5 px-4 rounded-md mb-8 text-center w-full">{loading ? "កំពង់បញ្ចូន..." : "បញ្ជាក់ព័ត៌មានបន្ថែម"}</button>
 
                     <div className="space-y-3">
                         {/* Phone */}
@@ -120,7 +188,7 @@ export default function Home() {
                         <div className="flex items-center gap-3">
                             <Mail className="w-6 h-6 text-gray-600" />
                             <a href="mailto:camo2.info88@gmail.com" className="text-gray-700 hover:text-blue-500 transition">
-                            camo2.info88@gmail.com
+                                camo2.info88@gmail.com
                             </a>
                         </div>
 

@@ -1,4 +1,4 @@
-import { BlogCommentsResponse, GetCommentsResponse, LikeResponse } from "@/app/types/BlogType";
+import { BlogCommentsResponse, BlogDetailApiResponse, getAllTags, GetCommentsResponse, LikeResponse, PostBookmarkResponse, TopBlogResponse } from "@/app/types/BlogType";
 import { o2API } from "../api";
 export const blogsApi = o2API.injectEndpoints({
   endpoints: (builder) => ({
@@ -6,7 +6,7 @@ export const blogsApi = o2API.injectEndpoints({
     postComment: builder.mutation<BlogCommentsResponse, { uuid: string; content: string; parent_uuid?: string }>(
       {
         query: ({ uuid, content, parent_uuid }) => ({
-          url: `http://178.128.115.99/api/blogs/${uuid}/comment`,
+          url: `api/blogs/${uuid}/comment`,
           method: "POST",
           body: parent_uuid ? { content, parent_uuid } : { content }, // Only include parent_uuid if provided
           headers: {
@@ -20,7 +20,7 @@ export const blogsApi = o2API.injectEndpoints({
     getComment: builder.query<GetCommentsResponse, { uuid: string; }>(
       {
         query: ({ uuid }) => ({
-          url: `http://178.128.115.99/api/blogs/${uuid}/comments`,
+          url: `api/blogs/${uuid}/comments`,
           method: "GET",
           
         }),
@@ -30,7 +30,7 @@ export const blogsApi = o2API.injectEndpoints({
     postLike: builder.mutation<LikeResponse, { uuid: string; }>(
       {
         query: ({ uuid }) => ({
-          url: `http://178.128.115.99/api/blogs/${uuid}/like`,
+          url: `api/blogs/${uuid}/like`,
           method: "POST",
           
         }),
@@ -39,13 +39,55 @@ export const blogsApi = o2API.injectEndpoints({
     ),
     deleteComment: builder.mutation<GetCommentsResponse, {uuid:string;}>({
       query: ({uuid})=>({
-        url: `http://178.128.115.99/api/blogs${uuid}/comments`,
+        url: `api/blogs/comment/${uuid}`,
         method: "DELETE"
       }),
       invalidatesTags: ["Blogs"]
     }),
+    getBlogTop: builder.query<TopBlogResponse, void>(
+      {
+        query: () => ({
+          url: `api/blogs/top`,
+          method: "GET",
+          
+        }),
+        providesTags: ["Blogs"]
+      }
+    ),
+    addBookmark: builder.mutation({
+      query: (blogUuid) => ({
+        url: 'api/bookmarks',
+        method: 'POST',
+        body: { blog_uuid: blogUuid },
+        headers: { 'Content-Type': 'application/json' },
+      }),
+      invalidatesTags: ["Blogs"],
+    }),
+    getALLTag: builder.query<getAllTags, void>({
+      query: () => ({
+        url: 'api/blogs/tags',
+        method: "GET"
+      }),
+      providesTags: ["Blogs"]
+    }),
     
-    
+    getBlogDetail: builder.query<BlogDetailApiResponse, {uuid:string}>({
+      query: ({uuid}) => ({
+        url: `api/blogs/${uuid}`,
+        method: "GET",
+      }),
+      providesTags: ["Blogs"],
+    }),
+    // contact us 
+    contactUs: builder.mutation<string, {name: string, email: string, message: string}>({
+      query: ({name, email, message})=>({
+        url: `api/contact-us`,
+        method: "POST",
+        body: {name, email, message},
+
+      }),
+      invalidatesTags: ["Blogs"]
+    })
   }),
 });
 
@@ -54,4 +96,9 @@ export const {
   useGetCommentQuery,
   usePostLikeMutation,
   useDeleteCommentMutation,
+  useGetBlogTopQuery,
+  useAddBookmarkMutation,
+  useGetALLTagQuery,
+  useGetBlogDetailQuery,
+  useContactUsMutation,
 } = blogsApi;
