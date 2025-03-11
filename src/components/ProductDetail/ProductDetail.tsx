@@ -27,9 +27,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import { useGetUserQuery } from "@/app/redux/service/user";
 import { useCreateUserFeedbackProductQueryMutation } from "@/app/redux/service/product";
 export default function ProductDetail({ uuid }: { uuid: string }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+
+  // get user data
+  const userData = useGetUserQuery();
 
   // add to wishlist api
   const [createWishlist] = useCreateWishListProductMutation();
@@ -53,7 +57,7 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
           },
         });
       } else {
-        toast.success("ផលិតផលមាននៅក្នុងបញ្ជីរួចហើយ", {
+        toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
           style: {
             background: "#bb2124",
           },
@@ -85,7 +89,7 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
           },
         });
       } else {
-        toast.success("ការបញ្ចូលទៅកាន់កន្ត្រកមិនបានជោគជ័យ", {
+        toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់កន្ត្រកបាន", {
           style: {
             background: "#bb2124",
           },
@@ -194,13 +198,15 @@ export default function ProductDetail({ uuid }: { uuid: string }) {
       <div className="flex justify-between items-center w-full mt-5 text-center">
         <p className="text-title ">មតិយោបល់របស់អតិថិជន</p>
         <Sheet open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
-          <SheetTrigger>
-            <div className="rounded-[10px] p-2 w-max-full bg-accent">
-              <p className="text-body text-center text-card_color">
-                ផ្តល់យោបល់
-              </p>
-            </div>
-          </SheetTrigger>
+          {userData?.data !== undefined ? (
+            <SheetTrigger>
+              <div className="rounded-[10px] p-2 w-max-full bg-accent">
+                <p className="text-body text-center text-card_color">
+                  ផ្តល់យោបល់
+                </p>
+              </div>
+            </SheetTrigger>
+          ) : null}
           <SheetContent
             className="bg-card_color rounded-tr[40px] rounded-tl-[40px] p-5"
             side={"bottom"}

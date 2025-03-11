@@ -29,9 +29,9 @@ import ProvinceSelect from "./ProvinceSelect";
 import Image from "next/image";
 
 import { useCreateOrderMutation } from "@/app/redux/service/order";
-import { useAppSelector } from "@/app/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { toast } from "sonner";
-
+import { useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
 import { Coupon } from "@/app/types/Coupon";
 import * as Yup from "yup";
@@ -40,7 +40,10 @@ import { useCreateSubmitOrderMutation } from "@/app/redux/service/order";
 import { Payment } from "@/lib/payment";
 import { useCreatePaymentCheckMutation } from "@/app/redux/service/payment";
 import { PaymentType } from "@/app/types/Payment";
+import { setUUID } from "@/app/redux/features/order";
 export default function SheetSide() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   // payment response from bakong
   const [paymentResponse, setPaymentResponse] = useState<PaymentType>();
 
@@ -130,11 +133,11 @@ export default function SheetSide() {
   // handle submit order
   const handleSubmitPaymentData = async (payment_id: number) => {
     try {
-      await createSubmitOrder({
+      const response = await createSubmitOrder({
         payment_id: payment_id,
         total_cart_value: result?.data?.total_cart_value || 0,
         final_total: result?.data?.final_total || 0,
-        delivery_price: result?.data?.delivery_fee || 0,
+        delivery_fee: result?.data?.delivery_fee || 0,
         province_uuid: province?.value || "",
         email: formData?.email || "",
         phone_number: formData?.phone_number || "",
@@ -142,6 +145,10 @@ export default function SheetSide() {
         google_map_link: formData?.google_map_link || "",
         remarks: formData?.remarks || "",
       });
+      if (response.data) {
+        dispatch(setUUID(response.data.order_uuid));
+        router.push("/success-payment");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -449,7 +456,7 @@ export default function SheetSide() {
       {/* payment_step */}
       <Sheet open={thirdSheetOpen} onOpenChange={setThirdSheetOpen}>
         <SheetContent
-          className="bg-card_color h-[85%] rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
+          className="bg-card_color max-h-[90%] rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
           side={"bottom"}
         >
           <SheetTitle>

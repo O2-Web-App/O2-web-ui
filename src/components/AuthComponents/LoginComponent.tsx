@@ -20,6 +20,7 @@ import {
   setAccessToken,
 } from "@/app/redux/features/auth/authSlice";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
 
 type ValueTypes = {
   email: string;
@@ -99,7 +100,11 @@ const LoginComponent = () => {
 
         router.push(`/`);
       } else {
-        throw new Error(result.message || "Login failed.");
+        toast.success("អ៉ីម៉ែលឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ", {
+          style: {
+            background: "#bb2124",
+          },
+        });
       }
     } catch (error) {
       // toast({

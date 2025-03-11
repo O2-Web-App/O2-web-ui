@@ -53,6 +53,19 @@ export default function RegisterComponet() {
     }
   };
 
+  const handleRegisterWithGoogle = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_O2_API_URL}api/auth/google`,
+      );
+      console.log(response)
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const initialValues = {
     name: "",
     email: "",
@@ -183,6 +196,7 @@ export default function RegisterComponet() {
 
         <div className="mt-6 ">
           <Button
+            onClick={() => handleRegisterWithGoogle()}
             icon={<FcGoogle className="text-title mr-2" />}
             type="submit"
             text="បង្កើតគណនីតាម Google"

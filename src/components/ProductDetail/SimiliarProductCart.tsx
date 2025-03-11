@@ -60,6 +60,12 @@ export default function SimiliarProductCart({ uuid }: { uuid: string }) {
               background: "#22bb33",
             },
           });
+        } else {
+          toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+            style: {
+              background: "#bb2124",
+            },
+          });
         }
       }
     } catch (error) {

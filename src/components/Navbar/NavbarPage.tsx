@@ -275,6 +275,7 @@ export default function NavbarPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Fetch user data
   const { data, isLoading } = useGetUserQuery(); // Include loading and error sta
+  
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
   const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
   const router = useRouter();
@@ -285,7 +286,7 @@ export default function NavbarPage() {
   const avatarUrl = userAvatar
     ? userAvatar.startsWith("http")
       ? userAvatar
-      : `http://178.128.115.99${userAvatar}`
+      : `${process.env.NEXT_PUBLIC_O2_API_URL}${userAvatar}`
     : "/navbar/placeholder_user.png";
 
   // Handle sidebar toggle

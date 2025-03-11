@@ -3,10 +3,23 @@ import React from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { IoChevronBackCircle } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/app/redux/hooks";
+
 export default function SuccessPayment() {
   const router = useRouter();
+
+  // const handleGetInvoice = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_O2_API_URL}api/orders/invoice/${orderUUID}`
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
-    <div className="w-full h-screen p-5">
+    <div className="w-full h-screen p-5 ">
       <div
         onClick={() => router.push("/")}
         className="h-[50px] w-[50px] flex flex-col items-start justify-start"
