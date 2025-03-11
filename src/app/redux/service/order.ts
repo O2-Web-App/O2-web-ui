@@ -14,40 +14,52 @@ export const orderAPI = o2API.injectEndpoints({
       }),
     }),
 
-    // create order total amount
-    createComfirmOrder: builder.mutation<
+    // create submit order
+    createSubmitOrder: builder.mutation<
       any,
       {
+        payment_id: number;
+        total_cart_value: number;
+        final_total: number;
+        delivery_price: number;
+        province_uuid: string;
         email: string;
         phone_number: string;
-        province_uuid: string;
+        current_address: string;
         google_map_link: string;
         remarks: string;
-        md5_hash: string;
       }
     >({
       query: ({
+        payment_id,
+        total_cart_value,
+        final_total,
+        delivery_price,
+        province_uuid,
         email,
         phone_number,
-        province_uuid,
+        current_address,
         google_map_link,
         remarks,
-        md5_hash,
       }) => ({
-        url: `api/orders/confirm_order`,
+        url: `api/orders/submit`,
         method: "POST",
         body: {
+          payment_id,
+          total_cart_value,
+          final_total,
+          delivery_price,
+          province_uuid,
           email,
           phone_number,
-          province_uuid,
+          current_address,
           google_map_link,
           remarks,
-          md5_hash,
         },
       }),
     }),
   }),
 });
 
-export const { useCreateOrderMutation, useCreateComfirmOrderMutation } =
+export const { useCreateOrderMutation, useCreateSubmitOrderMutation } =
   orderAPI;

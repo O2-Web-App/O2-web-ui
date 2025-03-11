@@ -5,9 +5,9 @@ export default function page() {
     <section className="w-full  flex flex-col justify-between text-center">
       {/* Title */}
       <p className="text-title my-5">កន្រ្តករបស់ខ្ញុំ</p>
-
+      <hr />
       {/* Scrollable Cart Items */}
-      <div className="flex-grow overflow-y-auto px-4">
+      <div className="flex-grow  overflow-y-scroll px-4 mb-[60px]">
         <CardItem />
       </div>
 

@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 
 const getFetchBlog = async (): Promise<BlogPost[]> => {
     try {
-        const response = await fetch("http://178.128.115.99/api/blogs");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_O2_API_URL}api/blogs`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

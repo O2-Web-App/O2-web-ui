@@ -29,6 +29,8 @@ export const wishlistAPI = o2API.injectEndpoints({
       }),
       invalidatesTags: ["WishList"],
     }),
+
+    
   }),
 });
 
@@ -36,4 +38,5 @@ export const {
   useCreateWishListProductMutation,
   useGetAllProductWishlistQuery,
   useDeleteWishListProductMutation,
+ 
 } = wishlistAPI;

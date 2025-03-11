@@ -1,234 +1,223 @@
-'use client';
-import React, { useState, useEffect } from "react";
-import OTPValidation from "@/components/AuthComponents/OTPValidation";
-import { IoCloseSharp } from "react-icons/io5";
-import Button from "./ButtonComponentForAuth";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useRouter } from "next/navigation";
-// import { toast, ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+"use client";
+
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+
+import { Field, Form, Formik } from "formik";
 import Image from "next/image";
-import Link from "next/link";
-import { useVerifyCodeResetPasswordMutation, useResendCodeResetPasswordMutation } from "@/redux/service/auth";
-import { setResetCode } from "@/redux/feature/verify/verifySlice";
-import { useTranslations } from "next-intl";
-import { useToast } from "@/hooks/use-toast";
-function OTPComponentReset() {
-  const t = useTranslations()
-  const [currentLocale, setCurrentLocale] = useState<string>("km");
-  const emailFromRedux = useAppSelector((state) => state.verify.email);
-  const [email, setEmail] = useState<string | null>(null); // Store email
-  const [otp, setOtp] = useState(""); // Store OTP
-  const [resending, setResending] = useState(false); // Track resend state
-  const [verifyCodeResetPassword] = useVerifyCodeResetPasswordMutation();
-  const [resendCodeResetPassword] = useResendCodeResetPasswordMutation();
-  const [isLoading, setIsLoading] = useState(false);
-  const [timer, setTimer] = useState(90); // Countdown timer
-  const {toast}=useToast()
-  const router = useRouter();
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { IoChevronBackCircle } from "react-icons/io5";
+import { toast } from "sonner";
+import * as Yup from "yup";
+import Button from "./ButtonComponentForAuth";
+import { useCreateResetPasswordMutation } from "@/app/redux/service/auth";
+import { useCreateReVerifyMutation } from "@/app/redux/service/auth";
+import { setOTP } from "@/app/redux/features/opt";
+export default function OTPComponentReset() {
+  // dispatch otp
   const dispatch = useAppDispatch();
 
-  // Load the language from localStorage
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language");
-    if (savedLanguage) {
-      setCurrentLocale(savedLanguage);
-    }
-  }, []);
+  // resend verification code
+  const [reVerifyUserAccount] = useCreateReVerifyMutation();
 
-  // Retrieve email from Redux or localStorage
-  useEffect(() => {
-    if (emailFromRedux) {
-      setEmail(emailFromRedux);
-      localStorage.setItem("verificationEmail", emailFromRedux);
-    } else {
-      const savedEmail = localStorage.getItem("verificationEmail");
-      if (savedEmail) {
-        setEmail(savedEmail);
+  // email from dispatch
+  const email = useAppSelector((state) => state.email.value);
+
+  // loading state
+  const [isLoading, setIsLoading] = useState(false);
+
+  // otp type
+  type OtpType = {
+    otp1: string;
+    otp2: string;
+    otp3: string;
+    otp4: string;
+    otp5: string;
+    otp6: string;
+  };
+
+  const initialValues: OtpType = {
+    otp1: "",
+    otp2: "",
+    otp3: "",
+    otp4: "",
+    otp5: "",
+    otp6: "",
+  };
+
+  const validationSchema = Yup.object({
+    otp1: Yup.string().required("OTP 1 is required "),
+    otp2: Yup.string().required("OTP 2 is required "),
+    otp3: Yup.string().required("OTP 3 is required "),
+    otp4: Yup.string().required("OTP 4 is required "),
+    otp5: Yup.string().required("OTP 5 is required "),
+    otp6: Yup.string().required("OTP 6 is required "),
+  });
+  const router = useRouter();
+
+  const handleSubmit = async (values: OtpType) => {
+    const verification_code = Object.values(values).join("");
+    dispatch(setOTP(verification_code));
+    toast.success("ការផ្ញើលេខកូដបានជោគជ័យ", {
+      style: {
+        background: "#22bb33",
+      },
+    });
+    router.push("/new-password");
+  };
+
+  const handleResend = async () => {
+    try {
+      const response = await reVerifyUserAccount({ email: email });
+      if (response.data) {
+        toast.success("ការផ្ញើលេខកូដបានជោគជ័យ", {
+          style: {
+            background: "#22bb33",
+          },
+        });
       } else {
-        // toast.error("Email is missing. Redirecting to forgot-password.");
-        toast({
-          title: ("Email is missing. Redirecting to forgot-password."),
-          description: "Your action was not completed.",
-          variant: "error", // Use "destructive" for error messages
-          duration: 4000,
-        })
-        setTimeout(() => {
-          router.push(`/${currentLocale}/forgot-password`);
-        }, 3000);
+        toast.success("ការផ្ញើលេខកូដមិនបានជោគជ័យ", {
+          style: {
+            background: "#bb2124",
+          },
+        });
       }
-    }
-  }, [emailFromRedux, router, currentLocale]);
-
-  // Countdown timer logic
-  useEffect(() => {
-    let countdown: NodeJS.Timeout;
-    if (timer > 0) {
-      countdown = setTimeout(() => setTimer((prev) => prev - 1), 1000);
-    }
-    return () => clearTimeout(countdown);
-  }, [timer]);
-
-  const handleOTPComplete = (otpValue: string) => {
-    setOtp(otpValue); // Store OTP when fully entered
-  };
-
-  const handleSubmit = async () => {
-    if (!email) {
-      toast({
-        title: ("Email is missing. Redirecting to forgot-password."),
-        description: "Your action was not completed.",
-        variant: "error", // Use "destructive" for error messages
-        duration: 4000,
-      })
-      // toast.error("Email is missing. Redirecting to forgot-password.");
-      router.push(`/${currentLocale}/forgot-password`);
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-     verifyCodeResetPassword({ email, reset_code: otp }).unwrap();
-      dispatch(setResetCode(otp)); // Save the reset code in Redux
-      toast({
-        title: ("OTP Verified Successfully!"),
-        description: "Your action was completed.",
-        variant: "success", // Use "destructive" for error messages
-        duration: 3000,
-      })
-      // toast.success("OTP Verified Successfully!");
-
-      // Remove email from localStorage after successful verification
-      localStorage.removeItem("verificationEmail");
-
-      // Redirect to reset-password page
-      setTimeout(() => {
-        router.push(`/${currentLocale}/reset-password`);
-      }, 3000);
     } catch (error) {
-      console.error("Verification Error:", error);
-      toast({
-        title: ("Failed to verify OTP. Please try again."),
-        description: "Your action was not completed.",
-        variant: "error", // Use "destructive" for error messages
-        duration: 3000,
-      })
-      // toast.error("Failed to verify OTP. Please try again.");
-    } finally {
-      setIsLoading(false);
-      // toast({
-      //       title: ("Failed to verify OTP. Please try again."),
-      //       description: "Your action was not completed.",
-      //       variant: "default", // Use "destructive" for error messages
-      //       className :"bg-red-600 text-white",
-      //       duration: 2000,
-      //     })
+      console.log(error);
     }
-  };
-
-  const handleResendCode = async () => {
-    if (!email) {
-      toast({
-        title: ("Email is missing."),
-        description: "Your action was not completed.",
-        variant: "error", // Use "destructive" for error messages
-        duration: 3000,
-      })
-      // toast.error("Email is missing. Redirecting to forgot-password.");
-      router.push(`/${currentLocale}/forgot-password`);
-      return;
-    }
-
-    setResending(true);
-    try {
-      resendCodeResetPassword({ email }).unwrap();
-      // toast.success("Verification code resent successfully!");
-      toast({
-        title: ("Verification code resent successfully!"),
-        description: "Your action was completed.",
-        variant: "success", // Use "destructive" for error messages
-        duration: 3000,
-      })
-
-      // Reset the timer for the next OTP attempt
-      setTimer(90);
-    } catch (error) {
-      console.error("Resend Code Error:", error);
-      toast({
-        title: ("Failed to resend verification code. Please try again."),
-        description: "Your action was not completed.",
-        variant: "error", // Use "destructive" for error messages
-        duration: 3000,
-      })
-      // toast.error("Failed to resend verification code. Please try again.");
-    } finally {
-      setResending(false);
-    }
-  };
-
-  const handleClose = () => {
-    router.push(`/${currentLocale}/forgot-password`);
   };
 
   return (
-    <section className="w-full h-screen flex justify-center items-center">
-      <div className="md:m-auto md:border-1 md:border md:border-slate-100 rounded-xl py-7">
-        <div className="px-6 sm:px-8 md:px-6 xl:px-10">
-          <div className="flex justify-between items-center">
-            <Link href={`/${currentLocale}/`}>
-              <Image
-                src="/assets/logo-text.jpg"
-                width={1000}
-                height={1000}
-                alt="Logo Image"
-                className="w-20 md:w-48"
-              />
-            </Link>
-            <button
-              className="text-2xl text-gray-500 hover:text-gray-700"
-              onClick={handleClose}
-            >
-              <IoCloseSharp />
-            </button>
-          </div>
-          <div className="h-fit w-fit pt-9 pb-5">
-            <h1 className="text-2xl md:text-3xl font-bold text-primary">
-              {t("VerifyCodeForgot.title")}
-            </h1>
-            <p className="pt-4 text-slate-500">
-              {t("VerifyCodeForgot.description")}{" "}
-              <span className="font-bold text-primary">{` ${timer}s`}</span>{" "}
-              {t("VerifyCodeForgot.time")}
-            </p>
-            <div className="mt-6">
-              <OTPValidation length={6} onComplete={handleOTPComplete} />
-              <div className="text-right mt-3 ">
-                <button
-                  className="text-sm text-primary hover:underline font-bold"
-                  onClick={handleResendCode}
-                  disabled={resending}
-                >
-                  {resending
-                    ? "កំពុងផ្ញើរលេខសម្ងាត់ទៅអ្នក..."
-                    : t("VerifyCodeForgot.buttonVerifyAgain")}
-                </button>
-              </div>
-            </div>
-            <div className="mt-6">
-              <Button
-                type="submit"
-                text={t("VerifyCodeForgot.buttons")}
-                onClick={handleSubmit}
-                isLoading={isLoading}
-                className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"
-              />
-            </div>
-          </div>
+    <section className="bg-primary w-full h-screen flex flex-col justify-between">
+      {/* header section */}
+
+      {/* icon back */}
+      <div className=" px-5 pt-5 ">
+        <div className="h-[50px] w-[50px] flex flex-col items-start justify-start">
+          <IoChevronBackCircle className="h-full w-full text-card_color" />
         </div>
       </div>
-      {/* <ToastContainer /> */}
+      {/* Logo centered while keeping icon at start */}
+      <div className=" flex justify-center ">
+        <div className="w-[100px] h-[100px] rounded-full bg-white flex items-center justify-center">
+          <Image
+            alt="logo"
+            src={"/logo.png"}
+            width={150}
+            height={150}
+            className="object-cover rounded-full h-full w-full"
+          />
+        </div>
+      </div>
+      {/* welcome  */}
+      <p className="text-heading text-card_color text-center my-5">
+        O2 សូមស្វាគមន៍
+      </p>
+
+      {/* form section */}
+      <div className="w-full h-[70%]  bg-card_color rounded-tr-[40px] rounded-tl-[40px] p-5 ">
+        <p className="text-[24px] mb-2">ពិនិត្យអ៉ីមែលរបស់អ្នក</p>
+        <p className="text-body text-description">
+          បញ្ចូលលេខកូដ 6 ខ្ទង់ដែលបានលើកឡើងក្នុងអ៊ីមែល យើងបានផ្ញើតំណកំណត់ឡើងវិញទៅ
+          {email}
+        </p>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ values, handleChange, setFieldValue }) => (
+            <Form>
+              <div className="flex justify-between mt-5">
+                {Array.from({ length: 6 }, (_, index) => {
+                  const fieldName = `otp${index + 1}` as keyof OtpType;
+                  return (
+                    <Field
+                      key={index}
+                      type="text"
+                      id={fieldName}
+                      name={fieldName}
+                      maxLength={1}
+                      value={values[fieldName]}
+                      onChange={(e: { target: { value: any } }) => {
+                        handleChange(e);
+                        const value = e.target.value;
+                        const nextField = document.getElementById(
+                          `otp${index + 2}`
+                        );
+                        if (value && nextField) {
+                          nextField.focus();
+                        }
+                      }}
+                      onKeyDown={(e: {
+                        key: string;
+                        target: { value: any };
+                      }) => {
+                        if (e.key === "Backspace") {
+                          const value = e.target.value;
+                          if (!value && index > 0) {
+                            const prevField = document.getElementById(
+                              `otp${index}`
+                            );
+                            if (prevField) {
+                              prevField.focus();
+                            }
+                          }
+                        }
+                      }}
+                      onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => {
+                        const pasteData = e.clipboardData
+                          .getData("text")
+                          .trim();
+                        if (pasteData) {
+                          const otpChars = pasteData.slice(0, 6).split("");
+                          otpChars.forEach((char, idx) => {
+                            const otpFieldName = `otp${idx + 1}`;
+                            setFieldValue(otpFieldName, char);
+                          });
+
+                          // Automatically focus on the last filled input
+                          const lastField = document.getElementById(
+                            `otp${otpChars.length}`
+                          );
+                          if (lastField) {
+                            lastField.focus();
+                          }
+                        }
+                      }}
+                      className={`h-[40px] w-[40px] md:w-[60px] md:h-[60px] bg-transparent border focus:right-2 border-text_color_desc_light rounded-md text-center text-text_body_16`}
+                      placeholder="_"
+                    />
+                  );
+                })}
+              </div>
+
+              <div className="mt-6">
+                <Button
+                  type="submit"
+                  text="ផ្ទៀងផ្ទាត់លេខកូដ"
+                  isLoading={isLoading}
+                  className="w-full bg-primary text-white"
+                />
+              </div>
+
+              <p className="text-text_title_20 font-normal my-5 text-ascend_color">
+                {/* Countdown timer can be added here */}
+              </p>
+
+              <p className="text-text_body_16 text-text_color_light m-5 text-center">
+                មិន​ទាន់​មាន​អ៉ីមែល​ទេ?{" "}
+                <span
+                  onClick={() => handleResend()}
+                  className="text-accent text-link_color underline cursor-pointer"
+                >
+                  ផ្ញើអ៉ីមែលឡើងវិញ
+                </span>
+              </p>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </section>
   );
 }
-
-export default OTPComponentReset;

@@ -45,6 +45,15 @@ export const cartAPI = o2API.injectEndpoints({
       }),
       invalidatesTags: ["Carts"],
     }),
+
+    // add all product to cart
+    createAddAllWishListProduct: builder.mutation({
+      query: () => ({
+        url: `api/wishlists/move-to-cart`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Carts"],
+    }),
   }),
 });
 
@@ -53,4 +62,5 @@ export const {
   useGetAllCartQuery,
   useUpdateCartQuantityMutation,
   useRemoveCartItemMutation,
+  useCreateAddAllWishListProductMutation
 } = cartAPI;
