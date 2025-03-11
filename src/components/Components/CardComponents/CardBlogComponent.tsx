@@ -38,7 +38,7 @@ const CardBlogComponent = ({
     bookmarks,
 }: BlogProp) => {
     return (
-        <div className="min-w-72 sm:w-64" key={id}>
+        <div className="min-w-80 min-h-64 sm:w-64" key={id}>
             <div className="relative">
                 {/* Tag and Bookmark */}
                 <div className="absolute top-4 left-4 z-10">
@@ -75,15 +75,15 @@ const CardBlogComponent = ({
                     <Image
                         src={image}
                         alt="image"
-                        width={800}
-                        height={400}
-                        className="w-full object-cover rounded-2xl"
+                        width={1000}
+                        height={1000}
+                        className="w-96 h-56 object-cover rounded-2xl"
                     />
                 </Link>
             </div>
 
             <div className="p-4 space-y-4">
-                <p className="text-gray-800 text-2xl text-wrap tracking-tight truncate line-clamp-2">
+                <p className="text-gray-800 text-2xl text-wrap tracking-tight truncate line-clamp-1">
                     {description}
                 </p>
 

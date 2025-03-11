@@ -31,7 +31,7 @@ type Author = {
     uuid: string;
     name: string;
     email: string;
-    avatar: string | null;
+    avatar: string ;
 };
 
 type Metadata = {
@@ -58,11 +58,12 @@ export type TopBlog = {
     views: number;
     created_at: string;
     updated_at: string;
-    admin: Author;
+    user: Author;
     tags: {
         uuid: string;
         name: string;
     }[];
+    is_bookmarked: boolean;
 };
 
 export type getAllTags ={
@@ -93,7 +94,7 @@ export type LikeResponse = {
 }
 
 // Type for a user who posts a comment
-interface User {
+export interface User {
     uuid: string;
     name: string;
     avatar: string | null; // Nullable field
@@ -102,10 +103,10 @@ interface User {
 // Recursive type for a comment, since comments can have replies
 export interface Comment {
     uuid: string;
-    user: User;
     content: string;
-    created_at: string;
-    replies: Comment[]; // Nested replies (recursive structure)
+    user: User;
+    parent_uuid?: string | null;
+    replies: Comment[];
 }
 
 // Type for the data object in the response

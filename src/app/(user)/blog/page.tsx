@@ -85,7 +85,7 @@ export default function Page() {
                 {isLoading ? (
                     <p>Loading blogs...</p>
                 ) : topBlogs?.data && topBlogs.data.length > 0 ? (
-                    topBlogs.data.map((blog: any) => (
+                    topBlogs.data.map((blog) => (
                         <div className="inline-block" key={blog.uuid}>
                             <CardBlogComponent
                                 id={blog.uuid}
@@ -97,7 +97,7 @@ export default function Page() {
                                 author={blog.user?.name || "Anonymous"}
                                 date={blog.created_at}
                                 view={blog.views}
-                                profile={ blog.user.avatar.startsWith("http")
+                                profile={ blog?.user.avatar.startsWith("http")
                                     ? blog.user.avatar
                                     : `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.user.avatar}`
                                 }

@@ -11,11 +11,13 @@ import {
 import { toast } from "sonner";
 import { useGetUserQuery } from "@/app/redux/service/user";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Comment } from "@/app/types/BlogType";
 
 
 export default function Page() {
     const { uuid } = useParams() as { uuid: string };
-    const [error, setError] = useState<string | null>(null);
+    const [error, ] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
     const [replyToUuid, setReplyToUuid] = useState<string | null>(null);
@@ -139,7 +141,7 @@ export default function Page() {
             });
         }
     };
-   
+    console.log("image:", blogDetail?.image)
 
     if (error) return <div className="p-4 text-red-500">{error}</div>;
     if (!blogDetail) return <div className="p-4">Blog post not found.</div>;
@@ -150,7 +152,7 @@ export default function Page() {
             <div className="flex justify-between items-start p-4">
                 <div className="flex flex-wrap gap-2">
                     {blogDetail.tags && blogDetail.tags.length > 0 ? (
-                        blogDetail.tags.map((tag: any, index: any) => (
+                        blogDetail.tags.map((tag, index) => (
                             <span
                                 key={`${tag}-${index}`}
                                 className="text-sm font-medium bg-gray-200 px-2 py-1 rounded-lg "
@@ -170,14 +172,48 @@ export default function Page() {
             </div>
 
             {/* Blog Image */}
-            <Image width={1000} height={1000} src={blogDetail.image} alt={blogDetail.title} className="min-w-84 rounded-lg mx-auto" />
+            <Image width={1000} height={1000} src={blogDetail.image.startsWith("http")
+                ? blogDetail.image
+                : `${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.image}`}
+                alt={blogDetail.title} className="min-w-84 rounded-lg mx-auto" />
 
             {/* YouTube Videos */}
             <div className="flex gap-4 overflow-x-auto py-4">
-                {blogDetail.youtube_videos.map((videoUrl: string, index: number) => (
-                    <iframe key={index} src={videoUrl} title={`YouTube Video ${index + 1}`} className="w-32 h-24 rounded-lg" allowFullScreen />
-                ))}
+                {blogDetail.youtube_videos.map((videoUrl: string, index: number) => {
+                    try {
+                        // Extract the video ID from the URL
+                        const url = new URL(videoUrl);
+                        const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
+                        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+                        console.log("YouTube Embed URL:", embedUrl);
+                        console.log("Video ID:", videoId);
+
+                        return (
+                            <Link
+                                key={index}
+                                href={youtubeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <iframe
+                                    key={index}
+                                    src={embedUrl}
+                                    title={`YouTube Video ${index + 1}`}
+                                    className="w-32 h-24 rounded-lg"
+                                    allowFullScreen
+                                />
+                            </Link>
+                        );
+                    } catch (error) {
+                        console.log("error:",error)
+                        console.error("Invalid YouTube URL:", videoUrl);
+                        return null;
+                    }
+                })}
             </div>
+
 
             {/* Blog Title & Author */}
             <p className="text-3xl text-bold p-3">{blogDetail.title}</p>
@@ -194,7 +230,7 @@ export default function Page() {
                         {/* <span className="text-sm text-gray-600">{blogDetail.likes_count}</span> */}
                     </button>
                     <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
-                        
+
                         <MessageCircle className="w-5 h-5" />
                         {/* <span className="text-xs">{blogDetail.comments_count}</span> */}
                     </button>
@@ -222,8 +258,8 @@ export default function Page() {
                         {/* Parent Comments & Replies */}
                         <div className="mt-4 space-y-5 max-h-96 overflow-y-auto">
                             {commentsList?.data.comments
-                                .filter((comment: any) => !comment.parent_uuid)
-                                .map((comment: any) => (
+                                .filter((comment: Comment) => !comment.parent_uuid)
+                                .map((comment: Comment) => (
                                     <div key={comment.uuid} className="p-2.5 ">
                                         <div className="flex gap-2.5">
                                             <Image src={`${process.env.NEXT_PUBLIC_O2_API_URL}${comment.user?.avatar}` || "/assets/placeholder.png"} alt={comment.user?.name} width={1000} height={1000} className="w-12 h-12 rounded-full object-cover" />
@@ -234,7 +270,11 @@ export default function Page() {
                                                 </div>
                                                 <div className="flex gap-4 items-center">
                                                     <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1 text-left">Reply</button>
-                                                    <button onClick={() => setDeleteConfirm({ uuid: comment.uuid })} className="text-red-500 hover:text-red-700">Delete</button>
+                                                    {userData?.data?.uuid === comment.user?.uuid && (
+                                                        <button onClick={() => setDeleteConfirm({ uuid: comment.uuid })} className="text-red-500 hover:text-red-700">
+                                                            Delete
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -242,7 +282,7 @@ export default function Page() {
                                         {/* Replies */}
                                         {comment.replies.length > 0 && (
                                             <div className="ml-10 mt-2 space-y-2">
-                                                {comment.replies.map((reply: any) => (
+                                                {comment.replies.map((reply: Comment) => (
                                                     <div key={reply.uuid} className="p-2.5">
                                                         <div className="grid  ">
                                                             <div className="flex gap-2.5">
@@ -254,7 +294,9 @@ export default function Page() {
                                                             </div>
                                                             <div className="flex items-center gap-4 px-12">
                                                                 <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1">Reply</button>
-                                                                <button onClick={() => setDeleteConfirm({ uuid: reply.uuid })} className="text-red-500 hover:text-red-700 ">Delete</button>
+                                                                {userData?.data?.uuid === reply.user?.uuid && (
+                                                                    <button onClick={() => setDeleteConfirm({ uuid: reply.uuid })} className="text-red-500 hover:text-red-700 ">Delete</button>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -277,8 +319,8 @@ export default function Page() {
             {/* Delete Confirmation Popup */}
             {
                 deleteConfirm.uuid && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                        <div className="bg-white p-6 rounded-lg shadow-lg">
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ">
+                        <div className="bg-white p-6 rounded-lg shadow-lg max-w-80">
                             <p className="text-lg font-medium">Are you sure you want to delete this comment?</p>
                             <div className="flex justify-end mt-4">
                                 <button onClick={() => confirmDelete(deleteConfirm.uuid!)} className="px-4 py-2 bg-red-500 text-white rounded-lg">Yes</button>
