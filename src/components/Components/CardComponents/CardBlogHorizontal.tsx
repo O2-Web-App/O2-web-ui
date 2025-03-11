@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 interface CardBlogHorizontalProps {
     id: string
-    tag: string
+    tags: {uuid: string; name:string}[];
     date: string
     view: number
     title: string
@@ -23,7 +23,7 @@ const formatDate = (dateString: string) => {
 
 const CardBlogHorizontal = ({
     id,
-    tag,
+    tags,
     date,
     view,
     title,
@@ -45,8 +45,21 @@ const CardBlogHorizontal = ({
 
                 {/* Content */}
                 <div className="flex-1 space-y-1 w-full">
-                    <div className="flex justify-between items-center gap-2">
-                        <span className="text-sm font-medium bg-gray-200 p-1.5 max-w-32 rounded-lg">{tag}</span>
+                    <div className="flex flex-wrap gap-2">
+                    {tags.length > 0 ? (
+                            tags.map((tag) => (
+                                <span
+                                    key={tag.uuid}
+                                    className="text-sm font-medium bg-gray-200 px-2 py-1 rounded-lg"
+                                >
+                                    {tag.name}
+                                </span>
+                            ))
+                        ) : (
+                            <span className="text-sm font-medium bg-gray-200 px-2 py-1 rounded-lg">
+                                Untagged
+                            </span>
+                        )}
                     </div>
 
                     {/* Wrap date & views inside a div and align to end */}

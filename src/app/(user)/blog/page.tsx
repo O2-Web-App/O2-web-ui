@@ -2,100 +2,147 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
 import CardBlogComponent from "@/components/Components/CardComponents/CardBlogComponent";
 import Categories from "@/components/Components/CardComponents/CategoryComponent";
 import CardBlogHorizontal from "@/components/Components/CardComponents/CardBlogHorizontal";
-import { BlogPost, BlogResponse } from "@/app/types/BlogType";
-
-const categoriesList = ["All", "Business", "Technology", "Healthy Food", "Education"];
-
-const sliderData = [
-  {
-    id: "1",
-    tag: "Healthy food",
-    description: "Learn how to enjoy healthy meals without spending hours in the kitchen!",
-    image: "/assets/healthy-food.jpg",
-    author: "Mason Eduard",
-    date: "23 Jan 2025",
-    view: 1049,
-    profile: "/assets/blog.jpg",
-  },
-  {
-    id: "2",
-    tag: "Travel",
-    description: "Discover lesser-known attractions and explore Europe like a local.",
-    image: "/assets/healthy-food.jpg",
-    author: "Alexandra Doe",
-    date: "15 Feb 2025",
-    view: 876,
-    profile: "/assets/blog.jpg",
-  },
-];
+import { BlogPost } from "@/app/types/BlogType";
+import {
+    useGetBlogTopQuery,
+    useAddBookmarkMutation,
+    useGetALLTagQuery,
+} from "@/app/redux/service/blog";
+import { useGetUserQuery } from "@/app/redux/service/user";
+import { useRouter } from "next/navigation";
 
 const getFetchBlog = async (): Promise<BlogPost[]> => {
-  try {
-    const response = await fetch("http://178.128.115.99/api/blogs");
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+        const response = await fetch("http://178.128.115.99/api/blogs");
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const jsonData = await response.json();
+        return jsonData?.data.data || [];
+    } catch (error) {
+        console.error("Error fetching blog data:", error);
+        return [];
     }
-    const jsonData = await response.json();
-
-    // Ensure we are correctly accessing the nested data structure
-    const blogs = jsonData?.data?.data || [];
-    console.log("data: ", blogs);
-    return blogs;
-  } catch (error) {
-    console.error("Error fetching blog data:", error);
-    return []; // Return an empty array in case of error
-  }
 };
 
 export default function Page() {
-  const [blogList, setBlogList] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+    const [blogList, setBlogList] = useState<BlogPost[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      setLoading(true);
-      const blogs = await getFetchBlog();
-      // const data = 
-      setBlogList(blogs);
-      setLoading(false);
+    const [toggleBookmark] = useAddBookmarkMutation();
+    const { data: tagsData } = useGetALLTagQuery();
+    const { data: topBlogs, isLoading } = useGetBlogTopQuery();
+    const { data: userData } = useGetUserQuery();
+    const router = useRouter();
+    console.log("user data: ", userData);
+
+    // Fetch blogs and set the initial bookmark status
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            setLoading(true);
+            const blogs = await getFetchBlog();
+            // const getBlog = blogs
+            setBlogList(blogs);
+            setLoading(false);
+        };
+        fetchBlogs();
+    }, []);
+    console.log("blog list : ", blogList)
+
+    // Toggle Bookmark Function
+    const handleToggleBookmark = async (uuid: string, isCurrentlyBookmarked: boolean) => {
+        try {
+            if (userData === undefined) {
+                router.push("/login")
+            } else {
+                await toggleBookmark({ blog_uuid: uuid }).unwrap();
+
+                // Show appropriate toast based on current bookmark status
+                if (isCurrentlyBookmarked) {
+                    toast.success("Bookmark removed", {
+                        style: { color: "white", background: "#22bb33" },
+                    });
+                } else {
+                    toast.success("Bookmark added", {
+                        style: { color: "white", background: "#22bb33" },
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.error("Error toggling bookmark", error);
+            toast.error("Failed to toggle bookmark");
+        }
     };
-    fetchBlogs();
-  }, []);
 
-  return (
-    <section className="max-w-7xl mx-auto">
-      <div className="overflow-x-auto whitespace-nowrap space-x-4 p-4 gap-8 md:gap-14">
-        {sliderData.map((card) => (
-          <div className="inline-block" key={card.id}>
-            <CardBlogComponent {...card} />
-          </div>
-        ))}
-      </div>
-      <div className="p-4">
-        <Categories categories={categoriesList} />
-      </div>
-      <div className="p-4">
-        {loading ? (
-          <p>Loading blogs...</p>
-        ) : blogList.length > 0 ? (
-          blogList.map((card) => (
-            <CardBlogHorizontal
-              key={card.uuid}
-              id={card.uuid}
-              tag={"Food"}
-              date={card.created_at}
-              view={card.views}
-              title={card.title}
-              image={card.image}
-            />
-          ))
-        ) : (
-          <p>No blogs found.</p>
-        )}
-      </div>
-    </section>
-  );
+    return (
+        <section className="max-w-7xl mx-auto">
+            <div className="overflow-x-auto whitespace-nowrap space-x-4 p-4 gap-8 md:gap-14">
+                {isLoading ? (
+                    <p>Loading blogs...</p>
+                ) : topBlogs?.data && topBlogs.data.length > 0 ? (
+                    topBlogs.data.map((blog: any) => (
+                        <div className="inline-block" key={blog.uuid}>
+                            <CardBlogComponent
+                                id={blog.uuid}
+                                tag={blog.tags || []}
+                                description={blog.title}
+                                image={ blog.image.startsWith("http")
+                                    ? blog.image
+                                    : `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.image}`}
+                                author={blog.user?.name || "Anonymous"}
+                                date={blog.created_at}
+                                view={blog.views}
+                                profile={ blog.user.avatar.startsWith("http")
+                                    ? blog.user.avatar
+                                    : `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.user.avatar}`
+                                }
+                                isBookmarked={blog.is_bookmarked}
+                                bookmarks={() => handleToggleBookmark(blog.uuid, blog.is_bookmarked)}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>No blogs available</p>
+                )}
+            </div>
+
+            <div className="p-4 flex flex-wrap gap-2">
+                {tagsData?.tags && tagsData.tags.length > 0 ? (
+                    tagsData.tags.map((tag) => <Categories key={tag.uuid} categories={[tag]} />)
+                ) : (
+                    <p>No tags found.</p>
+                )}
+            </div>
+
+            <div className="p-4">
+                {loading ? (
+                    <p>Loading blogs...</p>
+                ) : blogList.length > 0 ? (
+                    blogList.map((card) => (
+                        <CardBlogHorizontal
+                            key={card.uuid}
+                            id={card.uuid}
+                            tags={card.tags}  // Extract tag names
+                            date={card.created_at}
+                            view={card.views}
+                            title={card.title}
+                            image={
+                                card.image.startsWith("http")
+                                    ? card.image
+                                    : `${process.env.NEXT_PUBLIC_O2_API_URL}${card.image}`
+                            } // Handle absolute or relative image paths
+                        />
+                    ))
+                ) : (
+                    <p>No blogs found.</p>
+                )}
+            </div>
+
+        </section>
+    );
 }
