@@ -1,4 +1,3 @@
-import { Province } from "@/app/types/Province";
 import { o2API } from "../api";
 export const orderAPI = o2API.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,7 +20,7 @@ export const orderAPI = o2API.injectEndpoints({
         payment_id: number;
         total_cart_value: number;
         final_total: number;
-        delivery_price: number;
+        delivery_fee: number;
         province_uuid: string;
         email: string;
         phone_number: string;
@@ -34,7 +33,7 @@ export const orderAPI = o2API.injectEndpoints({
         payment_id,
         total_cart_value,
         final_total,
-        delivery_price,
+        delivery_fee,
         province_uuid,
         email,
         phone_number,
@@ -48,7 +47,7 @@ export const orderAPI = o2API.injectEndpoints({
           payment_id,
           total_cart_value,
           final_total,
-          delivery_price,
+          delivery_fee,
           province_uuid,
           email,
           phone_number,

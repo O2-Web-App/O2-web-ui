@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 
 // import { suwannaphum } from "../font";
 import "@/app/globals.css";
-import { Suwannaphum } from "next/font/google";
-import NavbarPage from "@/components/Navbar/NavbarPage";
 import { Toaster } from "@/components/ui/sonner";
+import { Suwannaphum } from "next/font/google";
 
 export const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],

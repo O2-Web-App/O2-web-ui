@@ -29,9 +29,9 @@ import ProvinceSelect from "./ProvinceSelect";
 import Image from "next/image";
 
 import { useCreateOrderMutation } from "@/app/redux/service/order";
-import { useAppSelector } from "@/app/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { toast } from "sonner";
-
+import { useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
 import { Coupon } from "@/app/types/Coupon";
 import * as Yup from "yup";
@@ -40,7 +40,11 @@ import { useCreateSubmitOrderMutation } from "@/app/redux/service/order";
 import { Payment } from "@/lib/payment";
 import { useCreatePaymentCheckMutation } from "@/app/redux/service/payment";
 import { PaymentType } from "@/app/types/Payment";
+import { setUUID } from "@/app/redux/features/order";
 export default function SheetSide() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
   // payment response from bakong
   const [paymentResponse, setPaymentResponse] = useState<PaymentType>();
 
@@ -67,15 +71,6 @@ export default function SheetSide() {
 
   // open alert coupon
   const [openCoupon, setOpenCoupon] = useState(false);
-
-  // dot object to get data
-  const responseDataCoupon = result?.data;
-
-  // get payment response
-  useEffect(() => {
-    const response = Payment(500); // Example amount
-    setPaymentResponse(response);
-  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputCoupon(event.target.value);
@@ -127,14 +122,21 @@ export default function SheetSide() {
     }
   };
 
+  //console.log(result?.data?.final_total);
+  // get payment response
+  useEffect(() => {
+    const response = Payment(0.01);
+    setPaymentResponse(response);
+  }, []);
+
   // handle submit order
   const handleSubmitPaymentData = async (payment_id: number) => {
     try {
-      await createSubmitOrder({
+      const response = await createSubmitOrder({
         payment_id: payment_id,
         total_cart_value: result?.data?.total_cart_value || 0,
         final_total: result?.data?.final_total || 0,
-        delivery_price: result?.data?.delivery_fee || 0,
+        delivery_fee: result?.data?.delivery_fee || 0,
         province_uuid: province?.value || "",
         email: formData?.email || "",
         phone_number: formData?.phone_number || "",
@@ -142,6 +144,11 @@ export default function SheetSide() {
         google_map_link: formData?.google_map_link || "",
         remarks: formData?.remarks || "",
       });
+      if (response.data) {
+        setOpenPayment(false);
+        dispatch(setUUID(response.data.order_uuid));
+        router.push("/success-payment");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -161,7 +168,6 @@ export default function SheetSide() {
             background: "#22bb33",
           },
         });
-        setOpenPayment(false);
       } else {
         toast.success("ការបង់ប្រាក់មិនបានជោគជ័យ", {
           style: {
@@ -207,7 +213,12 @@ export default function SheetSide() {
     <>
       {/* Information_step */}
       <Sheet>
-        <SheetTrigger className=" bottom-0 fixed w-full">
+        <SheetTrigger
+          className={`bottom-0 fixed w-full ${
+            data?.length === 0 ? "hidden " : "opacity-100"
+          }`}
+          disabled={data?.length === 0}
+        >
           <div className="w-full bg-primary p-4 flex justify-center items-center text-card_color text-body space-x-3">
             <p>បន្តទៅ Checkout</p>
           </div>
@@ -449,7 +460,7 @@ export default function SheetSide() {
       {/* payment_step */}
       <Sheet open={thirdSheetOpen} onOpenChange={setThirdSheetOpen}>
         <SheetContent
-          className="bg-card_color h-[85%] rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
+          className="bg-card_color max-h-[90%] rounded-tr-[45px] rounded-tl-[45px] overflow-y-auto "
           side={"bottom"}
         >
           <SheetTitle>
@@ -563,9 +574,7 @@ export default function SheetSide() {
               </AlertDialogTitle>
 
               <div className="flex items-end text-end mx-10">
-                <p className="text-[35px] mr-3">
-                  {responseDataCoupon?.total_cart_value}
-                </p>
+                <p className="text-[35px] mr-3">{result?.data?.final_total}</p>
                 <p className="text-body mb-2"> Khr </p>
               </div>
 
@@ -592,10 +601,10 @@ export default function SheetSide() {
               ការបញ្ចូលគូប៉ុងបានជោគជ័យ
             </p>
             <DotLottieReact
-              src="https://lottie.host/bc93b02d-38ad-49ea-8559-9bb492290162/13K8FDy8jf.lottie"
+              className=" h-[250px] "
+              src="https://lottie.host/75c90a35-060c-4b39-b728-c58ee9f3f3d2/XjiDBninMp.lottie"
               loop
               autoplay
-              className="w-[300px] h-[300px] mx-auto"
             />
           </AlertDialogTitle>
           <p className="text-title text-primary text-center">

@@ -1,25 +1,24 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { Form, Formik } from "formik";
+import { useState } from "react";
+import { IoChevronBackCircle } from "react-icons/io5";
 import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { IoChevronBackCircle, IoCloseSharp } from "react-icons/io5";
-import Label from "./LabelComponent";
 import DynamicField from "./AuthField";
-import ErrorDynamic from "./ErrorComponent";
-import PasswordField from "./PasswordField";
-import Link from "next/link";
 import Button from "./ButtonComponentForAuth";
+import ErrorDynamic from "./ErrorComponent";
+import Label from "./LabelComponent";
+import PasswordField from "./PasswordField";
 
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // import { useToast } from "@/hook/use-toast";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import {
-  selectToken,
   setAccessToken,
 } from "@/app/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/app/redux/hooks";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
 
 type ValueTypes = {
   email: string;
@@ -44,11 +43,20 @@ const LoginComponent = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(selectToken);
   // const { toast } = useToast();
   const router = useRouter();
 
-  console.log("Access token: from Redux store", accessToken);
+  const handleLoginWithGoogle = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_O2_API_URL}api/auth/google`
+      );
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleLogin = async (user: ValueTypes) => {
     setIsLoading(true);
@@ -89,7 +97,11 @@ const LoginComponent = () => {
 
         router.push(`/`);
       } else {
-        throw new Error(result.message || "Login failed.");
+        toast.success("អ៉ីម៉ែលឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ", {
+          style: {
+            background: "#bb2124",
+          },
+        });
       }
     } catch (error) {
       // toast({
@@ -110,7 +122,10 @@ const LoginComponent = () => {
 
       {/* icon back */}
       <div className=" px-5 pt-5 ">
-        <div className="h-[50px] w-[50px] flex flex-col items-start justify-start">
+        <div
+          onClick={() => router.push("/")}
+          className="h-[50px] w-[50px] flex flex-col items-start justify-start"
+        >
           <IoChevronBackCircle className="h-full w-full text-card_color" />
         </div>
       </div>
@@ -197,6 +212,7 @@ const LoginComponent = () => {
 
         <div className="mt-6 ">
           <Button
+            onClick={() => handleLoginWithGoogle()}
             icon={<FcGoogle className="text-title mr-2" />}
             type="submit"
             text="បង្កើតគណនីតាម Google"

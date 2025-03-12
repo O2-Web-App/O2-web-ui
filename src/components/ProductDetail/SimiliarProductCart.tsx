@@ -6,6 +6,7 @@ import {
   useGetAllProductWishlistQuery,
 } from "@/app/redux/service/wishlist";
 import { SimilarProduct } from "@/app/types/similarProducts";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
@@ -60,6 +61,12 @@ export default function SimiliarProductCart({ uuid }: { uuid: string }) {
               background: "#22bb33",
             },
           });
+        } else {
+          toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+            style: {
+              background: "#bb2124",
+            },
+          });
         }
       }
     } catch (error) {
@@ -74,7 +81,9 @@ export default function SimiliarProductCart({ uuid }: { uuid: string }) {
           key={index}
           className="w-[200px] min-w-[150px] bg-primary-light-10 p-2 rounded-lg"
         >
-          <img
+          <Image
+            width={200}
+            height={120}
             onClick={() => router.push(`/product/${item.uuid}`)}
             src={imageBaseUrl + item.single_image}
             alt={item.name}

@@ -121,6 +121,7 @@ export const o2API = createApi({
     "WishList",
     "Blogs",
     "Carts",
+    "Product",
     "Orders"
   ],
   reducerPath: "o2API",

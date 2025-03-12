@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ['class', 'class'],
+  darkMode: ["class", "class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -26,14 +26,12 @@ export default {
         heading: ["30px", "36px"],
         title: ["22px", "28px"],
         body: ["18px", "24px"],
-        description: ["16px", "20px"],
+        font_description: ["16px", "20px"],
       },
     },
     images: {
-  		domains: [
-  			'127.0.0.1',
-  		]
-  	}
+      domains: ["127.0.0.1"],
+    },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

@@ -6,6 +6,7 @@ import counterReducer from "./features/counter";
 import provinceSlice from "./features/selectProvince";
 import emailSlice from "./features/email";
 import optSlice from "./features/opt";
+import orderSlice from "./features/order";
 // create store
 export const makeStore = () => {
   return configureStore({
@@ -14,6 +15,7 @@ export const makeStore = () => {
       province: provinceSlice,
       email: emailSlice,
       otp: optSlice,
+      order: orderSlice,
       [o2API.reducerPath]: o2API.reducer,
       auth: authSlice,
       token: tokenSlice,
