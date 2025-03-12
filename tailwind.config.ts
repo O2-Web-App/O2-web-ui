@@ -13,7 +13,7 @@ export default {
         primary: "#7ECB2A",
         "primary-light": {
           DEFAULT: "#559F34",
-          10: "rgba(85, 159, 52, 0.1)", // Opacity version
+          10: "rgba(85, 159, 52, 0.1)",
           70: "rgba(85, 159, 52, 0.7)",
         },
         secondary: "#7ECB2A",

@@ -5,39 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/avatar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/redux/features/order.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/redux/service/invoice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/types/Feedback.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/FeedbackCard/FeedbackCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/StarRating/StarRating.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/new-password/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/new-password/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/order.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/product.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/OTPComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/OTPComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/OTPComponentReset.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/OTPComponentReset.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/RegisterComponet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/RegisterComponet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/Cart/CardItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/Cart/CardItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/SimiliarProductCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/SimiliarProductCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Stepper/PaymentStep.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Stepper/PaymentStep.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SuccessPayment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SuccessPayment/SuccessPayment.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/sheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/payment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/payment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +28,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging dev",
+    "git-widget-placeholder": "dev",
     "javascript.nodejs.core.library.configured.version": "22.14.0",
     "javascript.nodejs.core.library.typings.version": "22.13.10",
     "last_opened_file_path": "/media/longpiseth/SSD1/OHH-LAL/free-lancer/O2-web-ui/public/banner",
@@ -103,7 +72,7 @@
       <workItem from="1741690813217" duration="2030000" />
       <workItem from="1741706281764" duration="1794000" />
       <workItem from="1741714014707" duration="3133000" />
-      <workItem from="1741790875084" duration="2880000" />
+      <workItem from="1741790875084" duration="3941000" />
     </task>
     <servers />
   </component>
