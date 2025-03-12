@@ -3,7 +3,11 @@ import Image from "next/image";
 
 import { IoCloseOutline } from "react-icons/io5";
 
-import { useGetAllCartQuery, useRemoveCartItemMutation, useUpdateCartQuantityMutation } from "@/app/redux/service/cart";
+import {
+  useGetAllCartQuery,
+  useRemoveCartItemMutation,
+  useUpdateCartQuantityMutation,
+} from "@/app/redux/service/cart";
 import { Cart } from "@/app/types/Cart";
 import { useRouter } from "next/navigation";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -14,6 +18,8 @@ export default function CardItem() {
   // get all item
   const getAllCart = useGetAllCartQuery({});
   const data = getAllCart?.data?.data?.cart_items;
+
+
 
   // image base url
   const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
