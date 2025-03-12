@@ -121,6 +121,7 @@ export const o2API = createApi({
     "WishList",
     "Blogs",
     "Carts",
+    "Orders"
   ],
   reducerPath: "o2API",
   baseQuery: baseQueryWithReAuth, // ✅ Use the custom base query with re-authentication

@@ -1,4 +1,4 @@
-import { BlogCommentsResponse, BlogDetailApiResponse, getAllTags, GetCommentsResponse, LikeResponse, PostBookmarkResponse, TopBlogResponse } from "@/app/types/BlogType";
+import { BlogCommentsResponse, BlogDetailApiResponse, BookmarkApiResponse, getAllTags, GetCommentsResponse, LikeResponse, PostBookmarkResponse, TopBlogResponse } from "@/app/types/BlogType";
 import { o2API } from "../api";
 export const blogsApi = o2API.injectEndpoints({
   endpoints: (builder) => ({
@@ -88,6 +88,13 @@ export const blogsApi = o2API.injectEndpoints({
       }),
       invalidatesTags: ["Blogs"]
     })
+    , getAllBookmark: builder.query<BookmarkApiResponse, void>({
+      query: () => ({
+        url: 'api/bookmarks',
+        method: "GET"
+      }),
+      providesTags: ["Blogs"]
+     }),
   }),
 });
 
@@ -101,4 +108,5 @@ export const {
   useGetALLTagQuery,
   useGetBlogDetailQuery,
   useContactUsMutation,
+  useGetAllBookmarkQuery,
 } = blogsApi;

@@ -135,7 +135,9 @@ export default function Page() {
                                 card.image.startsWith("http")
                                     ? card.image
                                     : `${process.env.NEXT_PUBLIC_O2_API_URL}${card.image}`
-                            } // Handle absolute or relative image paths
+                            } 
+                            isBookmarked={card.is_bookmarked}
+                            bookmarks={() => handleToggleBookmark(card.uuid, card.is_bookmarked)}
                         />
                     ))
                 ) : (

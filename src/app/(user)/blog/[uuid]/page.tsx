@@ -150,7 +150,7 @@ export default function Page() {
         <article className="pb-20 mx-3">
             {/* Blog Info */}
             <div className="flex justify-between items-start p-4">
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 w-1/2">
                     {blogDetail.tags && blogDetail.tags.length > 0 ? (
                         blogDetail.tags.map((tag, index) => (
                             <span
@@ -166,7 +166,7 @@ export default function Page() {
                         </span>
                     )}
                 </div>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-500 justify-end">
                     {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(blogDetail.created_at))} • {blogDetail.views} views
                 </span>
             </div>
@@ -175,7 +175,7 @@ export default function Page() {
             <Image width={1000} height={1000} src={blogDetail.image.startsWith("http")
                 ? blogDetail.image
                 : `${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.image}`}
-                alt={blogDetail.title} className="min-w-84 rounded-lg mx-auto" />
+                alt={blogDetail.title} className="min-w-84 h-64 object-cover rounded-lg mx-auto" />
 
             {/* YouTube Videos */}
             <div className="flex gap-4 overflow-x-auto py-4">

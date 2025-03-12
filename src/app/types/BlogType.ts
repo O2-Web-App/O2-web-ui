@@ -25,6 +25,7 @@ export type BlogPost = {
         name: string;
     }[];
     is_bookmarked: boolean;
+   
 };
 
 type Author = {
@@ -42,8 +43,8 @@ type Metadata = {
 };
 // get top blog
 export type TopBlogResponse = {
-    date: string;  // Timestamp of the response
-    code: number;  // HTTP-like status code
+    date: string;  
+    code: number;  
     message: string;  // Status message
     data: TopBlog[];  // Array of blog posts
 };
@@ -64,6 +65,7 @@ export type TopBlog = {
         name: string;
     }[];
     is_bookmarked: boolean;
+   
 };
 
 export type getAllTags ={
@@ -174,3 +176,32 @@ export interface BlogDetailApiResponse {
     message: string;
     data: Blog;
 }
+
+// get all bookmark
+ export type BookmarkApiResponse = {
+    date: string; 
+    code: number; 
+    message: string; 
+    data: Bookmark[]; 
+};
+
+export type Bookmark = {
+    uuid: string;
+    blog: BookmarkBlog; 
+    created_at: string; 
+};
+
+export type BookmarkBlog = {
+    uuid: string; 
+    title: string; 
+    image: string; 
+    status: string; 
+    published_at: string;
+    tags: {
+        uuid: string;
+        name: string;
+    }[];
+    views: number;
+    is_bookmarked:boolean;
+};
+
