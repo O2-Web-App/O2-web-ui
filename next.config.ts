@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     domains: ['127.0.0.1','178.128.115.99',
       "encrypted-tbn0.gstatic.com", 
       "storage.googleapis.com",
+      "dietitianjohna.com",
+      "miro.medium.com"
     ], // Add the external domain for images
   },
     // Ensure the build is standalone

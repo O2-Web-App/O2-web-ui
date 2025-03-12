@@ -9,7 +9,9 @@ import { useUpdateCartQuantityMutation } from "@/app/redux/service/cart";
 import { Cart } from "@/app/types/Cart";
 import { useRemoveCartItemMutation } from "@/app/redux/service/cart";
 import { toast } from "sonner";
+import { useAppSelector } from "@/app/redux/hooks";
 export default function CardItem() {
+
   // get all item
   const getAllCart = useGetAllCartQuery({});
   const data = getAllCart?.data?.data?.cart_items;

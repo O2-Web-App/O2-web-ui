@@ -4,21 +4,19 @@ export function Payment(amount: number) {
   const { BakongKHQR, khqrData, IndividualInfo } = require("bakong-khqr");
 
   const optionalData = {
-    currency: khqrData.currency.khr,
-    amount: amount,
+    currency: khqrData.currency.usd,
+    amount: 0.01,
+    billNumber: "#0001",
     mobileNumber: "85561517679",
-    storeLabel: "CAM-02",
-    terminalLabel: "Cashier_1",
-    merchantNameAlternateLanguage: "kdey168",
-    merchantCityAlternateLanguage: "ភ្នំពេញ",
-    upiMerchantAccount: "0001034400010344ABCDEFGHJIKLMNO",
+    storeLabel: "Cam-O2",
+    terminalLabel: "POS-01",
   };
 
   const individualInfo = new IndividualInfo(
-      "sreng_chipor@aclb",
-      "SRENG CHIPOR",
-      "PHNOM PENH",
-      optionalData
+    "phy_lyman@aclb",
+    "Phy lyman",
+    "PHNOM PENH",
+    optionalData
   );
   const khqr = new BakongKHQR();
   const response = khqr.generateIndividual(individualInfo);

@@ -2,19 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { MessageCircle, X, Send, ThumbsUp } from "lucide-react";
+import { MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck } from "lucide-react";
 import { useParams } from "next/navigation";
 import {
     usePostCommentMutation, useGetCommentQuery, usePostLikeMutation,
-    useDeleteCommentMutation
+    useDeleteCommentMutation, useAddBookmarkMutation, useGetBlogDetailQuery
 } from "@/app/redux/service/blog";
+import { toast } from "sonner";
+import { useGetUserQuery } from "@/app/redux/service/user";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Comment } from "@/app/types/BlogType";
 
 
 export default function Page() {
     const { uuid } = useParams() as { uuid: string };
-    const [blogDetail, setBlogDetail] = useState<any>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, ] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
     const [replyToUuid, setReplyToUuid] = useState<string | null>(null);
@@ -25,6 +28,49 @@ export default function Page() {
     const [likeData] = usePostLikeMutation();
     const [deleteComment] = useDeleteCommentMutation()
     const [deleteConfirm, setDeleteConfirm] = useState<{ uuid: string | null }>({ uuid: null });
+    const [toggleBookmark] = useAddBookmarkMutation();
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const { data: blogDetailData } = useGetBlogDetailQuery({ uuid: uuid ?? "" })
+    const blogDetail = blogDetailData?.data
+    const { data: userData } = useGetUserQuery();
+    const router = useRouter()
+
+
+    // Set isLiked and isBookmarked when blogDetail data is fetched
+    useEffect(() => {
+        if (blogDetail) {
+            setIsLiked(blogDetail.user_liked);
+            console.log("like:", blogDetail.user_liked);
+            setIsBookmarked(blogDetail.is_bookmarked);
+            console.log("bookmark: ", blogDetail.is_bookmarked);
+        }
+    }, [blogDetail]);
+
+
+    // Toggle Bookmark Function
+    const handleToggleBookmark = async () => {
+        try {
+            if (userData === undefined) {
+                router.push("/login")
+            } else {
+                await toggleBookmark({ blog_uuid: uuid }).unwrap();
+                setIsBookmarked((prev) => !prev);
+                toast.success("ការរក្សាទុកជោគជ័យ", {
+                    style: {
+                        background: "#22bb33",
+                    },
+                });
+            }
+
+        } catch (error) {
+            console.error("Error toggling bookmark", error);
+            toast.error("ការរក្សាទុកបរាជ័យ", {
+                style: {
+                    background: "#e0391f",
+                },
+            });
+        }
+    };
 
     const confirmDelete = async (uuid: string) => {
         try {
@@ -36,50 +82,67 @@ export default function Page() {
         }
     };
 
-    useEffect(() => {
-        if (!uuid) return;
-        const fetchBlogData = async () => {
-            try {
-                const response = await fetch(`http://178.128.115.99/api/blogs/${uuid}`);
-                if (!response.ok) throw new Error("Failed to fetch blog post.");
-                const data = await response.json();
-                setBlogDetail(data.data);
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchBlogData();
-    }, [uuid]);
-
     const handleLiked = async () => {
         if (!uuid) return;
         try {
-            await likeData({ uuid });
-            setIsLiked((prev) => !prev);
+            if (userData === undefined) {
+                router.push("/login")
+            } else {
+                await likeData({ uuid });
+                setIsLiked((prev) => !prev);
+                toast.success("ការចូលចិត្តជោគជ័យ", {
+                    style: {
+                        color: "white",
+                        background: "#22bb33",
+                    },
+                });
+            }
+
         } catch (error) {
             console.error("Error liking post", error);
+            toast.error("ការចូលចិត្តបរាជ័យ", {
+                style: {
+                    color: "white",
+                    background: "#e0391f",
+                },
+            });
         }
     };
 
     const handleCommentSubmit = async () => {
         if (!uuid || !newComment.trim()) return;
         try {
-            await postComment({
-                uuid,
-                content: newComment,
-                parent_uuid: replyToUuid || undefined,
-            }).unwrap();
-            setNewComment("");
-            setReplyToUuid(null);
-            refetch();
+            if (userData === undefined) {
+                router.push("/login")
+            } else {
+                await postComment({
+                    uuid,
+                    content: newComment,
+                    parent_uuid: replyToUuid || undefined,
+                }).unwrap();
+                setNewComment("");
+                setReplyToUuid(null);
+                refetch();
+                toast.success("ការបញ្ចេញមតិរបស់អ្នកជោគជ័យ", {
+                    style: {
+                        color: "white",
+                        background: "#22bb33",
+                    },
+                });
+            }
+
         } catch (error) {
             console.error("Failed to post comment", error);
+            toast.error("ការបញ្ចេញមតិរបស់អ្នកបរាជ័យ", {
+                style: {
+                    color: "white",
+                    background: "#e0391f",
+                },
+            });
         }
     };
+    console.log("image:", blogDetail?.image)
 
-    if (isLoading) return <div className="p-4">Loading...</div>;
     if (error) return <div className="p-4 text-red-500">{error}</div>;
     if (!blogDetail) return <div className="p-4">Blog post not found.</div>;
 
@@ -87,37 +150,96 @@ export default function Page() {
         <article className="pb-20 mx-3">
             {/* Blog Info */}
             <div className="flex justify-between items-start p-4">
-                <span className="text-sm text-gray-500">{blogDetail.tags.length > 0 ? blogDetail.tags.join(", ") : "Untagged"}</span>
-                <span className="text-sm text-gray-500">
+                <div className="flex flex-wrap gap-2 w-1/2">
+                    {blogDetail.tags && blogDetail.tags.length > 0 ? (
+                        blogDetail.tags.map((tag, index) => (
+                            <span
+                                key={`${tag}-${index}`}
+                                className="text-sm font-medium bg-gray-200 px-2 py-1 rounded-lg "
+                            >
+                                {tag}
+                            </span>
+                        ))
+                    ) : (
+                        <span className="text-sm font-medium bg-gray-200 px-2 py-1 rounded-lg text-gray-500">
+                            Untagged
+                        </span>
+                    )}
+                </div>
+                <span className="text-sm text-gray-500 justify-end">
                     {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(blogDetail.created_at))} • {blogDetail.views} views
                 </span>
             </div>
 
             {/* Blog Image */}
-            <img src={blogDetail.image} alt={blogDetail.title} className="min-w-84 rounded-lg mx-auto" />
+            <Image width={1000} height={1000} src={blogDetail.image.startsWith("http")
+                ? blogDetail.image
+                : `${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.image}`}
+                alt={blogDetail.title} className="min-w-84 h-64 object-cover rounded-lg mx-auto" />
 
             {/* YouTube Videos */}
             <div className="flex gap-4 overflow-x-auto py-4">
-                {blogDetail.youtube_videos.map((videoUrl: string, index: number) => (
-                    <iframe key={index} src={videoUrl} title={`YouTube Video ${index + 1}`} className="w-32 h-24 rounded-lg" allowFullScreen />
-                ))}
+                {blogDetail.youtube_videos.map((videoUrl: string, index: number) => {
+                    try {
+                        // Extract the video ID from the URL
+                        const url = new URL(videoUrl);
+                        const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
+                        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+                        console.log("YouTube Embed URL:", embedUrl);
+                        console.log("Video ID:", videoId);
+
+                        return (
+                            <Link
+                                key={index}
+                                href={youtubeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <iframe
+                                    key={index}
+                                    src={embedUrl}
+                                    title={`YouTube Video ${index + 1}`}
+                                    className="w-32 h-24 rounded-lg"
+                                    allowFullScreen
+                                />
+                            </Link>
+                        );
+                    } catch (error) {
+                        console.log("error:",error)
+                        console.error("Invalid YouTube URL:", videoUrl);
+                        return null;
+                    }
+                })}
             </div>
+
 
             {/* Blog Title & Author */}
             <p className="text-3xl text-bold p-3">{blogDetail.title}</p>
             <div className="flex justify-between items-center px-3">
                 <div className="flex items-center gap-5">
-                    <img src={blogDetail.admin?.avatar || "/assets/placeholder.png"} alt={"Profile"} className="rounded-md w-10 h-10 object-cover" />
-                    <p className="text-lg">By <span className="underline text-lg text-medium text-black">{blogDetail.admin?.name}</span></p>
+                    <Image width={1000} height={1000} src={`${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.user?.avatar}` || "/assets/placeholder.png"} alt={"Profile"} className="rounded-md w-10 h-10 object-cover" />
+                    <p className="text-lg">By <span className="underline text-lg text-medium text-black">{blogDetail.user.name}</span></p>
                 </div>
 
                 {/* Like & Comment Buttons */}
-                <div>
+                <div className="flex gap-4">
                     <button onClick={handleLiked} className="py-5 px-2">
                         <ThumbsUp className={`w-5 h-5 ${isLiked ? "text-blue-500" : "text-gray-500"}`} />
+                        {/* <span className="text-sm text-gray-600">{blogDetail.likes_count}</span> */}
                     </button>
                     <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
+
                         <MessageCircle className="w-5 h-5" />
+                        {/* <span className="text-xs">{blogDetail.comments_count}</span> */}
+                    </button>
+                    <button onClick={handleToggleBookmark} className="text-gray-600 hover:text-gray-900">
+                        {isBookmarked ? (
+                            <BookmarkCheck className="w-6 h-6 text-yellow-500" /> // Filled icon for bookmarked
+                        ) : (
+                            <Bookmark className="w-6 h-6" /> // Outline icon for not bookmarked
+                        )}
                     </button>
                 </div>
             </div>
@@ -136,38 +258,46 @@ export default function Page() {
                         {/* Parent Comments & Replies */}
                         <div className="mt-4 space-y-5 max-h-96 overflow-y-auto">
                             {commentsList?.data.comments
-                                .filter((comment: any) => !comment.parent_uuid)
-                                .map((comment: any) => (
+                                .filter((comment: Comment) => !comment.parent_uuid)
+                                .map((comment: Comment) => (
                                     <div key={comment.uuid} className="p-2.5 ">
                                         <div className="flex gap-2.5">
-                                            <Image src={comment.user?.avatar || "/assets/placeholder.png"} alt={comment.user?.name} width={1000} height={1000} className="w-12 h-12 rounded-full object-cover" />
+                                            <Image src={`${process.env.NEXT_PUBLIC_O2_API_URL}${comment.user?.avatar}` || "/assets/placeholder.png"} alt={comment.user?.name} width={1000} height={1000} className="w-12 h-12 rounded-full object-cover" />
                                             <div>
                                                 <div className="bg-gray-100 rounded-lg p-3.5">
                                                     <span className="font-semibold ">{comment.user?.name}</span>
                                                     <p className="text-sm">{comment.content}</p>
                                                 </div>
-                                                <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1 text-left">Reply</button>
-                                                {/* <button onClick={() => setDeleteConfirm({ uuid: comment.uuid })} className="text-red-500 hover:text-red-700">Delete</button> */}
+                                                <div className="flex gap-4 items-center">
+                                                    <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1 text-left">Reply</button>
+                                                    {userData?.data?.uuid === comment.user?.uuid && (
+                                                        <button onClick={() => setDeleteConfirm({ uuid: comment.uuid })} className="text-red-500 hover:text-red-700">
+                                                            Delete
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
 
                                         {/* Replies */}
                                         {comment.replies.length > 0 && (
                                             <div className="ml-10 mt-2 space-y-2">
-                                                {comment.replies.map((reply: any) => (
+                                                {comment.replies.map((reply: Comment) => (
                                                     <div key={reply.uuid} className="p-2.5">
                                                         <div className="grid  ">
-
                                                             <div className="flex gap-2.5">
-                                                                <Image src={reply.user?.avatar || "/assets/placeholder.png"} alt={reply.user.name} width={1000} height={1000} className="w-10 h-10 rounded-full object-cover" />
+                                                                <Image src={`${process.env.NEXT_PUBLIC_O2_API_URL}${reply.user?.avatar}` || "/assets/placeholder.png"} alt={reply.user.name} width={1000} height={1000} className="w-10 h-10 rounded-full object-cover" />
                                                                 <div className="bg-blue-100 rounded-lg p-2.5">
                                                                     <span className="font-semibold">{reply.user?.name}</span>
                                                                     <p className="text-sm">{reply.content}</p>
                                                                 </div>
                                                             </div>
-                                                            <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1">Reply</button>
-
-
+                                                            <div className="flex items-center gap-4 px-12">
+                                                                <button onClick={() => setReplyToUuid(comment.uuid)} className="text-blue-500 hover:text-blue-700 mt-1">Reply</button>
+                                                                {userData?.data?.uuid === reply.user?.uuid && (
+                                                                    <button onClick={() => setDeleteConfirm({ uuid: reply.uuid })} className="text-red-500 hover:text-red-700 ">Delete</button>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -189,8 +319,8 @@ export default function Page() {
             {/* Delete Confirmation Popup */}
             {
                 deleteConfirm.uuid && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                        <div className="bg-white p-6 rounded-lg shadow-lg">
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ">
+                        <div className="bg-white p-6 rounded-lg shadow-lg max-w-80">
                             <p className="text-lg font-medium">Are you sure you want to delete this comment?</p>
                             <div className="flex justify-end mt-4">
                                 <button onClick={() => confirmDelete(deleteConfirm.uuid!)} className="px-4 py-2 bg-red-500 text-white rounded-lg">Yes</button>
@@ -200,6 +330,9 @@ export default function Page() {
                     </div>
                 )
             }
+
+            <p className="text-lg text-black/65">{blogDetail.content}</p>
         </article >
     );
 }
+

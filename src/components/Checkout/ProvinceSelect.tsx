@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import { IoIosArrowDown } from "react-icons/io";
-import { useGetAllProvinceQuery } from "@/app/redux/service/province";
-import { Province } from "@/app/types/Province";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import {
   setSelectedProvinceName,
   setSelectedProvinceUUID,
 } from "@/app/redux/features/selectProvince";
+import { useAppDispatch } from "@/app/redux/hooks";
+import { useGetAllProvinceQuery } from "@/app/redux/service/province";
+import { Province } from "@/app/types/Province";
+import { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function ProvinceSelect() {
   const [isOpen, setIsOpen] = useState(false);

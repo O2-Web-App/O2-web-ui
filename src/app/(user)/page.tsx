@@ -29,7 +29,7 @@ export default function Page() {
                 <section className="flex min-h-screen flex-col px-5 gap-7">
 
                     {/* Search section*/}
-                    <section className=" sticky top-[70px] z-50 bg-background_color py-4">
+                    <section className=" sticky top-[65px] z-50 bg-background_color py-4">
                         <section className=" relative ">
                             <Input className=" pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
                                    type="text" placeholder="ស្វែងរកនៅទីនេះ...."/>
