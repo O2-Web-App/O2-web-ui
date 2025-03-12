@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/banner/Banner.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/placeholder-user.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/BannerSlide.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/FeedbackDrawerComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/SliderButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/SplashScreenComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/feedback_data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/slider_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/product/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/service/product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/product.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/sheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/payment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/payment.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +78,9 @@
       <workItem from="1741585878216" duration="4581000" />
       <workItem from="1741625846368" duration="11026000" />
       <workItem from="1741666579103" duration="10621000" />
-      <workItem from="1741690813217" duration="265000" />
+      <workItem from="1741690813217" duration="2030000" />
+      <workItem from="1741706281764" duration="1794000" />
+      <workItem from="1741714014707" duration="3133000" />
     </task>
     <servers />
   </component>

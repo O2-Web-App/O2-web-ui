@@ -15,10 +15,10 @@ export function Payment(amount: number) {
   };
 
   const individualInfo = new IndividualInfo(
-    "sreng_chipor@aclb",
-    "SRENG CHIPOR",
-    "PHNOM PENH",
-    optionalData
+      "sreng_chipor@aclb",
+      "SRENG CHIPOR",
+      "PHNOM PENH",
+      optionalData
   );
   const khqr = new BakongKHQR();
   const response = khqr.generateIndividual(individualInfo);

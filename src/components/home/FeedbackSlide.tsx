@@ -1,7 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import { FaStar } from "react-icons/fa";
 
 type Feedback = {
     id: number;
@@ -28,7 +27,7 @@ const FeedbackSlide: React.FC<FeedbackSliderProps> = ({ feedback }) => {
                         loop={true}
                         modules={[Autoplay, Navigation]}
                     >
-                        {feedback.map(({ id, userProfile, userName, rate, days, description }) => (
+                        {feedback.map(({ id, userProfile, userName ,description }) => (
                             <SwiperSlide key={id}>
                                 <div className="flex gap-2">
                                     <div
