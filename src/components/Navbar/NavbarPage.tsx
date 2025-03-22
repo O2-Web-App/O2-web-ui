@@ -271,12 +271,10 @@ const navLinks_NoAccount = [
 export default function NavbarPage() {
   const pathname = usePathname();
 
-  //const { i18n } = useTranslation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Fetch user data
-  const { data, isLoading } = useGetUserQuery();
+  const { data } = useGetUserQuery();
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
-  const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
+
   const router = useRouter();
   const dispatch = useAppDispatch(); // ✅ Correct way to get dispatch
 
@@ -287,11 +285,6 @@ export default function NavbarPage() {
       ? userAvatar
       : `http://178.128.115.99${userAvatar}`
     : "/navbar/placeholder_user.png";
-
-  // Handle sidebar toggle
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
 
   // Fetch user data
   const isLoggedIn = !!data?.data;
@@ -341,7 +334,7 @@ export default function NavbarPage() {
         //toast({ title: "Logout failed", variant: "destructive" });
       }
     } catch (error) {
-      //console.error("Logout Error:", error);
+      console.error("Logout Error:", error);
       //toast({ title: "Error logging out", variant: "destructive" });
     }
   };

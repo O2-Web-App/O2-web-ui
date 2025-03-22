@@ -48,6 +48,8 @@ export default function SheetSide() {
   // payment response from bakong
   const [paymentResponse, setPaymentResponse] = useState<PaymentType>();
 
+  console.log(paymentResponse)
+  
   // to open second modal
   const [secondSheetOpen, setSecondSheetOpen] = useState(false);
 

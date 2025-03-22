@@ -36,7 +36,7 @@
     "@tiptap/extension-underline": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
-    "bakong-khqr": "^1.0.07",
+    "bakong-khqr": "^1.0.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -72,7 +72,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/bakong-khqr": "^1.0.0",
     "@types/cookie": "^0.6.0",
     "@types/node": "^20",
     "@types/react": "^19",

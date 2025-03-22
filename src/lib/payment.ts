@@ -20,6 +20,6 @@ export function Payment(amount : number) {
   );
   const khqr = new BakongKHQR();
   const response = khqr.generateIndividual(individualInfo);
-
+  console.log("response", response);
   return response;
 }
