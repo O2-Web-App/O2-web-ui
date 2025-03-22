@@ -1,14 +1,17 @@
+"use client ";
 
 import { Order } from "@/app/types/purchaseHistoryType";
+import Link from "next/link";
 
 interface OrderItemProps {
   order: Order;
+  uuid: string;
 }
 
 const getStatusColor = (status: string) => {
   switch (status) {
     case "processing":
-      return "bg-yellow-100 text-yellow-600";
+      return "bg-yellow-100 text-yellow-500";
     case "completed":
       return "bg-green-100 text-green-600";
     case "cancelled":
@@ -18,12 +21,13 @@ const getStatusColor = (status: string) => {
   }
 };
 
-const OrderItem = ({ order }: OrderItemProps) => {
+const OrderItem = ({ order, uuid }: OrderItemProps) => {
   return (
-    <div className="py-3 mx-4 border-b last:border-b-0">
+    <Link href={`/purchase-history/${uuid}`} className="py-3 mx-4 ">
+      <div className="bg-white rounded-2xl shadow-sm p-3.5">
       <div className="flex justify-between items-start mb-1">
         <div className="font-medium">Order {order.order_code}</div>
-        <div className="text-blue-500 font-medium">
+        <div className="text-accent font-medium text-lg">
           ${parseFloat(order.total_price).toFixed(2)}
         </div>
       </div>
@@ -37,7 +41,8 @@ const OrderItem = ({ order }: OrderItemProps) => {
           {order.status}
         </div>
       </div>
-    </div>
+      </div>
+    </Link>
   );
 };
 

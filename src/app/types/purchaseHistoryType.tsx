@@ -15,7 +15,7 @@ export type Order = {
     delivery_method: string; // Delivery method description
     delivery_date: string; // Delivery date as string (ISO format)
     created_at: string; // Order creation timestamp
-    coupon: string | null; // Coupon code if applied, nullable
+    coupon: Coupon; // Coupon code if applied, nullable
     items: OrderItem[]; // Array of items in the order
 };
 
@@ -28,4 +28,32 @@ export type OrderItem = {
     total_price: number; // Total price for the item
     is_preorder: boolean; // Whether the item is a pre-order
     image: string; // URL or path to the product image
+};
+
+export type Coupon={
+     code: string,
+     discount_percentage: number;
+}
+
+
+// get by uuid
+  
+  export type OrderDetail = {
+    date: string;
+    code: number;
+    message: string;
+    data: DetailOrder;
+  }
+  export type DetailOrder = {
+    uuid: string; // Unique identifier for the order
+    order_code: string; // Unique order code
+    delivery_fee: number | null; // Delivery price, nullable
+    sub_total_price: string; // Subtotal price as string
+    total_price: string; // Total price as string
+    status: "processing" | "completed" | "cancelled"; // Status of the order (assuming these as possible values)
+    delivery_method: string; // Delivery method description
+    delivery_date: string; // Delivery date as string (ISO format)
+    created_at: string; // Order creation timestamp
+    coupon: Coupon; // Coupon code if applied, nullable
+    items: OrderItem[]; // Array of items in the order
 };

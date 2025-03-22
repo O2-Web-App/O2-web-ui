@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck } from "lucide-react";
+import { MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck, Share } from "lucide-react";
 import { useParams } from "next/navigation";
 import {
     usePostCommentMutation, useGetCommentQuery, usePostLikeMutation,
@@ -220,27 +220,26 @@ export default function Page() {
             <div className="flex justify-between items-center px-3">
                 <div className="flex items-center gap-5">
                     <Image width={1000} height={1000} src={`${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.user?.avatar}` || "/assets/placeholder.png"} alt={"Profile"} className="rounded-md w-10 h-10 object-cover" />
-                    <p className="text-lg">By <span className="underline text-lg text-medium text-black">{blogDetail.user.name}</span></p>
+                    <p className="text-lg">By <span className="underline text-lg text-medium text-black">{blogDetail.user?.name}</span></p>
                 </div>
 
                 {/* Like & Comment Buttons */}
                 <div className="flex gap-4">
                     <button onClick={handleLiked} className="py-5 px-2">
                         <ThumbsUp className={`w-5 h-5 ${isLiked ? "text-blue-500" : "text-gray-500"}`} />
-                        {/* <span className="text-sm text-gray-600">{blogDetail.likes_count}</span> */}
                     </button>
                     <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
-
                         <MessageCircle className="w-5 h-5" />
-                        {/* <span className="text-xs">{blogDetail.comments_count}</span> */}
+                        
                     </button>
                     <button onClick={handleToggleBookmark} className="text-gray-600 hover:text-gray-900">
                         {isBookmarked ? (
-                            <BookmarkCheck className="w-6 h-6 text-yellow-500" /> // Filled icon for bookmarked
+                            <BookmarkCheck className="w-6 h-6 text-yellow-500" /> 
                         ) : (
-                            <Bookmark className="w-6 h-6" /> // Outline icon for not bookmarked
+                            <Bookmark className="w-6 h-6" /> 
                         )}
                     </button>
+                    <button>    <Share /></button>
                 </div>
             </div>
 
@@ -335,4 +334,3 @@ export default function Page() {
         </article >
     );
 }
-

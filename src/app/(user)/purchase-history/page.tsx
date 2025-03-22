@@ -65,18 +65,18 @@ export default function OrderHistory() {
           <>
             {todayOrders.length > 0 && (
               <>
-                <div className="text-gray-500 text-sm py-2"><span className="text-lg text-black">ថ្ងៃនេះ</span></div>
+                <div className="text-gray-500 text-sm py-2"><span className="text-lg text-black/70">ថ្ងៃនេះ</span></div>
                 {todayOrders.map((order: Order) => (
-                  <OrderItem key={order.uuid} order={order} />
+                  <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
                 ))}
               </>
             )}
 
             {yesterdayOrders.length > 0 && (
               <>
-                <div className="text-gray-500 text-sm py-2"><span className="text-lg text-black">ថ្ងៃម្សិលមិញ</span></div>
+                <div className="text-gray-500 text-sm py-2"><span className="text-lg text-black/70">ថ្ងៃម្សិលមិញ</span></div>
                 {yesterdayOrders.map((order: Order) => (
-                  <OrderItem key={order.uuid} order={order} />
+                  <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
                 ))}
               </>
             )}
@@ -86,9 +86,9 @@ export default function OrderHistory() {
                 {Object.entries(groupOrdersByDate(earlierOrders)).map(
                   ([date, orders]) => (
                     <div key={date}>
-                      <div className="text-gray-500 text-sm py-2">{date}</div>
+                      <div className="text-gray-500 text-sm py-2 "><span className="text-lg text-black/70">{date}</span></div>
                       {orders.map((order: Order) => (
-                        <OrderItem key={order.uuid} order={order} />
+                        <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
                       ))}
                     </div>
                   )

@@ -205,3 +205,35 @@ export type BookmarkBlog = {
     is_bookmarked:boolean;
 };
 
+// add blog 
+export type AddBlogResponse = {
+    date: string; 
+    code: number; 
+    message: string; 
+    data: {
+      uuid: string; 
+      title: string; 
+      content: string; 
+      image: string; 
+      youtube_videos: string[]; 
+      status: string; // "draft"
+      published_at: string | null;
+      created_at: string; 
+      updated_at: string; 
+      tags: string[]; 
+      user: {
+        uuid: string; 
+        name: string; 
+        email: string; 
+      };
+    };
+  };
+
+
+  export type AddBlog = {
+    title: string;
+    content: string;
+    image: string;
+    youtube_videos: string[];
+    tags: string[];
+}

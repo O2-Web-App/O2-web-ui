@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
       "encrypted-tbn0.gstatic.com", 
       "storage.googleapis.com",
       "dietitianjohna.com",
-      "miro.medium.com"
+      "miro.medium.com",
+      "157.245.204.6",
+      "orange1.jpg",
+      "167.172.69.43"
     ], // Add the external domain for images
   },
     // Ensure the build is standalone

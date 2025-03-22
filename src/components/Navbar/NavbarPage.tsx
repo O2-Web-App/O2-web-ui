@@ -20,7 +20,7 @@ import Cart from "../ProductDetail/Cart/Cart";
 
 const navLinks = [
   {
-    href: "/",
+    href: "/setting",
     label: "ការកំណត់",
     icon: (
       <svg

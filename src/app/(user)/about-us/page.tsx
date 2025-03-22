@@ -68,7 +68,7 @@ export default function Home() {
                 {/* Categories Section */}
                 <div className="px-4 mb-6">
                     <h2 className="text-blue-500 font-medium mb-10 text-2xl">គុណតម្លៃ៖</h2>
-                    <div className="flex gap-6 overflow-x-auto whitespace-nowrap scroll-smooth snap-x snap-mandatory pb-4">
+                    <div className="flex gap-6 overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide snap-x snap-mandatory pb-4">
                         {/* First Card */}
                         <div className="flex-shrink-0 w-44 bg-white rounded-lg shadow-sm p-4 py-5 flex flex-col items-center snap-center">
                             <div className="w-14 h-14 flex items-center justify-center mx-auto">
