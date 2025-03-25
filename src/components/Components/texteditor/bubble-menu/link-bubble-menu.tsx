@@ -4,7 +4,7 @@ import type { Editor } from '@tiptap/react'
 import { BubbleMenu } from '@tiptap/react'
 import { LinkEditBlock } from '../link/link-edit-block'
 import { LinkPopoverBlock } from '../link/link-popover-block'
-import Link from '@tiptap/extension-link'
+// import Link from '@tiptap/extension-link'
 
 
 interface LinkBubbleMenuProps {
@@ -102,7 +102,7 @@ export const LinkBubbleMenu: React.FC<LinkBubbleMenuProps> = ({ editor }) => {
           defaultText={selectedText}
           defaultIsNewTab={linkAttrs.target === '_blank'}
           onSave={onSetLink}
-          className="w-full min-w-80 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none"
+          className="w-full min-w-80 rounded-md border bg-white p-4 text-popover-foreground shadow-md outline-none "
         />
       ) : (
         <LinkPopoverBlock onClear={onUnsetLink} url={linkAttrs.href} onEdit={handleEdit} />

@@ -162,7 +162,7 @@ const createExtensions = (placeholder: string) => [
 
 export const useMinimalTiptapEditor = ({
   value,
-  output = 'html',
+  output = 'json',
   placeholder = '',
   editorClassName,
   throttleDelay = 0,
@@ -208,3 +208,41 @@ export const useMinimalTiptapEditor = ({
 }
 
 export default useMinimalTiptapEditor
+
+
+
+
+
+// import { useEditor } from '@tiptap/react'
+// import StarterKit from '@tiptap/starter-kit'
+// import type { Content, Editor } from '@tiptap/react'
+// // import { Underline } from 'lucide-react'
+// import Underline from '@tiptap/extension-underline'
+
+// export interface UseMinimalTiptapEditorProps {
+//   value?: Content
+//   editable?: boolean
+//   autofocus?: boolean
+//   onUpdate?: (content: Content) => void
+// }
+
+// export function useMinimalTiptapEditor(props: UseMinimalTiptapEditorProps): Editor | null {
+//   const { value, editable = true, autofocus = false, onUpdate } = props
+
+//   const editor = useEditor({
+//     content: value,
+//     editable,
+//     autofocus,
+//     extensions: [
+//       StarterKit, // ✅ Must be included or you'll get the "missing 'doc'" error
+//       Underline,
+//     ],
+//     onUpdate: ({ editor }) => {
+//       const json = editor.getJSON()
+//       onUpdate?.(json),
+//       editable: props.editable ?? true,
+//     },
+//   })
+
+//   return editor
+// }

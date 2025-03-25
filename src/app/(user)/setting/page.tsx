@@ -14,7 +14,7 @@ import { toast } from "sonner";
 export default function UserProfile() {
     const [image, setImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
-    const [uploadedFilePath, setUploadedFilePath] = useState<string | null>(null);
+    const [uploadedFilePath, ] = useState<string | null>(null);
     const [isPopup, setIsPopup] = useState(false);
     const [isPopupChangePassword, setIsPopupChangePassword] = useState(false);
     const [updateProfile] = useUpdateProfileUserMutation();
@@ -93,21 +93,21 @@ export default function UserProfile() {
             </div>
             <h1 className="text-3xl font-semibold text-black text-center pb-3">កែប្រែព័ត៌មាន</h1>
 
-            <div className="relative w-28 h-28 cursor-pointer border-2 border-dashed border-gray-400 rounded-full flex items-center justify-center">
+            <div className="relative w-30 h-30 cursor-pointer border-4 shadow-lg border-secondary/30 rounded-full flex items-center justify-center">
                 {preview || data?.data?.avatar ? (
                     <Image
                         src={preview || `${process.env.NEXT_PUBLIC_O2_API_URL}${uploadedFilePath || data?.data?.avatar}`}
                         alt="Profile"
                         width={1000}
                         height={1000}
-                        className="w-28 h-28 rounded-full border border-gray-300 object-cover"
+                        className="w-28 h-28 rounded-full object-cover"
                     />
                 ) : (
                     <p className="text-center text-gray-500">Click to upload</p>
                 )}
                 <input type="file" onChange={handleFileChange} className="hidden" id="avatar-upload" />
-                <label htmlFor="avatar-upload" className="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow cursor-pointer">
-                    <Camera className="w-5 h-5 text-green-500" />
+                <label htmlFor="avatar-upload" className="absolute bottom-0 right-0 bg-white/80 rounded-full p-1 shadow cursor-pointer">
+                    <Camera className="w-5 h-5 text-secondary" />
                 </label>
             </div>
 
@@ -118,7 +118,7 @@ export default function UserProfile() {
                     bio: data?.data?.bio || ""
                 }}
                 validationSchema={validationSchema}
-                validateOnChange={false} // Allow submission even if fields remain unchanged
+                validateOnChange={false} 
                 onSubmit={handleSubmit}
             >
                 <Form className="mt-6 w-11/12 md:w-1/2 space-y-3.5">

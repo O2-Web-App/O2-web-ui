@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { Editor } from '@tiptap/react'
 import type { Level } from '@tiptap/extension-heading'
-import type { FormatAction } from '../../types'
+import type { FormatAction } from '../type'
 import type { VariantProps } from 'class-variance-authority'
 import type { toggleVariants } from '@/components/ui/toggle'
 import { cn } from '@/lib/utils'
@@ -124,7 +124,7 @@ export const SectionOne: React.FC<SectionOneProps> = React.memo(
             <CaretDownIcon className="size-5" />
           </ToolbarButton>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-full">
+        <DropdownMenuContent align="start" className="w-full bg-white">
           {filteredActions.map(renderMenuItem)}
         </DropdownMenuContent>
       </DropdownMenu>

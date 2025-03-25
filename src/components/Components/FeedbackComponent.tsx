@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Star } from "lucide-react";
+import { X } from "lucide-react";
 import { usePostFeedbackMutation } from "@/app/redux/service/feedback";
 import { toast } from "sonner";
 

@@ -82,10 +82,10 @@ export default function Page() {
 
     return (
         <section className="max-w-7xl mx-auto">
-           <div className="flex justify-between items-center mb-4 px-4">
-           <input type="text" className="border rounded-xl p-2 w-10/12" placeholder="Search for blogs" />
-           <button onClick={() => router.push('/addBlog')} className="rounded-full bg-primary w-12 h-12"><Plus /></button>
-           </div>
+            <div className="flex justify-between items-center my-4 px-4 ">
+                <input type="text" className="border rounded-2xl p-2 w-10/12" placeholder="Search for blogs" />
+                <button onClick={() => router.push('/addBlog')} className="rounded-full bg-primary p-2"><Plus className=""/></button>
+            </div>
             <div className="overflow-x-auto whitespace-nowrap space-x-4 p-4 gap-8 md:gap-14 scrollbar-hide">
                 {isLoading ? (
                     [...Array(4)].map((_, index) => (
@@ -125,7 +125,7 @@ export default function Page() {
             <div className="p-4 flex flex-wrap gap-2">
                 {tagsData?.tags && tagsData.tags.length > 0 ? (
                     tagsData.tags.map((tag) => <Categories key={tag.uuid} categories={[tag]} />)
-                ) : isLoading ? ( 
+                ) : isLoading ? (
                     [...Array(4)].map((_, index) => (
                         <div key={index} className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
                     ))

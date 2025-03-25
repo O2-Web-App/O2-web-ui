@@ -57,13 +57,13 @@ const LoginComponent = () => {
       console.log(error);
     }
   };
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
   const handleLogin = async (user: ValueTypes) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_O2_API_URL}api/login`,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST}login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

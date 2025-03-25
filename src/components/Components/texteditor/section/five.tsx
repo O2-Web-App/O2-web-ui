@@ -1,3 +1,4 @@
+"use client";
 import * as React from 'react'
 import type { Editor } from '@tiptap/react'
 import type { FormatAction } from '../type'
@@ -5,8 +6,12 @@ import type { toggleVariants } from '@/components/ui/toggle'
 import type { VariantProps } from 'class-variance-authority'
 import { CaretDownIcon, CodeIcon, DividerHorizontalIcon, PlusIcon, QuoteIcon } from '@radix-ui/react-icons'
 import { LinkEditPopover } from '../link/link-edit-popover'
-import { ImageEditDialog } from '../image/image-edit-dialog'
 import { ToolbarSection } from '../toolbar-section'
+import HiddenImageUpload, { HiddenImageUploadHandle } from '../image/image-edit-block';
+import ToolbarButton from '../toolbar-button';
+import { ImageIcon } from '@radix-ui/react-icons'
+import { useRef } from 'react'
+
 
 type InsertElementAction = 'codeBlock' | 'blockquote' | 'horizontalRule'
 interface InsertElement extends FormatAction {
@@ -56,10 +61,22 @@ export const SectionFive: React.FC<SectionFiveProps> = ({
   size,
   variant
 }) => {
+  const uploadRef = useRef<HiddenImageUploadHandle>(null)
   return (
-    <>
+    <div className='bg-white flex'>
       <LinkEditPopover editor={editor} size={size} variant={variant} />
-      <ImageEditDialog editor={editor} size={size} variant={variant} />
+      <ToolbarButton
+        isActive={editor.isActive('image')}
+        tooltip="Image"
+        aria-label="Image"
+        size={size}
+        variant={variant}
+        onClick={() => uploadRef.current?.openPicker()}
+      >
+        <ImageIcon className="size-5" />
+      </ToolbarButton>
+
+      <HiddenImageUpload ref={uploadRef} editor={editor} />
       <ToolbarSection
         editor={editor}
         actions={formatActions}
@@ -75,7 +92,7 @@ export const SectionFive: React.FC<SectionFiveProps> = ({
         size={size}
         variant={variant}
       />
-    </>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import { AddBlogResponse, BlogCommentsResponse, BlogDetailApiResponse, BookmarkApiResponse, getAllTags, GetCommentsResponse, LikeResponse, PostBookmarkResponse, TopBlogResponse } from "@/app/types/BlogType";
+import { AddBlogResponse, BlogCommentsResponse, BlogDetailApiResponse, BookmarkApiResponse, getAllTags, GetCommentsResponse, LikeResponse, TopBlogResponse } from "@/app/types/BlogType";
 import { o2API } from "../api";
 export const blogsApi = o2API.injectEndpoints({
   endpoints: (builder) => ({

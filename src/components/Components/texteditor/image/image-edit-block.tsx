@@ -1,82 +1,79 @@
+
+
+'use client'
+
 import * as React from 'react'
 import type { Editor } from '@tiptap/react'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import { usePostImageMutation } from '@/app/redux/service/user'
+import { toast } from 'sonner'
 
-interface ImageEditBlockProps {
+export interface HiddenImageUploadHandle {
+  openPicker: () => void
+}
+
+interface Props {
   editor: Editor
-  close: () => void
 }
 
-export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({ editor, close }) => {
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
-  const [link, setLink] = React.useState('')
+const HiddenImageUpload = React.forwardRef<HiddenImageUploadHandle, Props>(
+  ({ editor }, ref) => {
+    const fileRef = React.useRef<HTMLInputElement>(null)
+    const [uploadImage] = usePostImageMutation()
 
-  const handleClick = React.useCallback(() => {
-    fileInputRef.current?.click()
-  }, [])
+    React.useImperativeHandle(ref, () => ({
+      openPicker: () => {
+        fileRef.current?.click()
+      },
+    }))
 
-  const handleFile = React.useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const files = e.target.files
-      if (!files?.length) return
+    const insertImage = (src: string, alt = 'Image') => {
+      editor
+        .chain()
+        .focus()
+        .insertContent({
+          type: 'image',
+          attrs: { src, alt },
+        })
+        .run()
+    }
 
-      const insertImages = async () => {
-        const contentBucket = []
-        const filesArray = Array.from(files)
+    const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (!file) return
 
-        for (const file of filesArray) {
-          contentBucket.push({ src: file })
+      try {
+        const response = await uploadImage({ image: file }).unwrap()
+        const filePath = response?.data?.file_path
+
+        if (filePath) {
+          const API = (process.env.NEXT_PUBLIC_O2_API_URL || '').replace(/\/+$/, '')
+          const path = filePath.replace(/^\/+/, '')
+          const fullUrl = `${API}/${path}`
+          insertImage(fullUrl, file.name)
+          toast.success('Image uploaded')
+        } else {
+          toast.error('No file_path in response')
         }
-
-        editor.commands.setImages(contentBucket)
+      } catch (err) {
+        toast.error('Upload failed')
+        console.error(err)
+      } finally {
+        // Reset input for same file re-selection
+        if (fileRef.current) fileRef.current.value = ''
       }
+    }
 
-      await insertImages()
-      close()
-    },
-    [editor, close]
-  )
+    return (
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFile}
+        style={{ display: 'none' }}
+      />
+    )
+  }
+)
 
-  const handleSubmit = React.useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      e.stopPropagation()
-
-      if (link) {
-        editor.commands.setImages([{ src: link }])
-        close()
-      }
-    },
-    [editor, link, close]
-  )
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-1">
-        <Label htmlFor="image-link">Attach an image link</Label>
-        <div className="flex">
-          <Input
-            id="image-link"
-            type="url"
-            required
-            placeholder="https://example.com"
-            value={link}
-            className="grow"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLink(e.target.value)}
-          />
-          <Button type="submit" className="ml-2">
-            Submit
-          </Button>
-        </div>
-      </div>
-      <Button type="button" className="w-full" onClick={handleClick}>
-        Upload from your computer
-      </Button>
-      <input type="file" accept="image/*" ref={fileInputRef} multiple className="hidden" onChange={handleFile} />
-    </form>
-  )
-}
-
-export default ImageEditBlock
+HiddenImageUpload.displayName = 'HiddenImageUpload'
+export default HiddenImageUpload
