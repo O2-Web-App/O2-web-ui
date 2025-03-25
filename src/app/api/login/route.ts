@@ -8,6 +8,9 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { email, password } = body;
 
+  console.log("Email: ", email);
+  console.log("Password: ", password);
+
   // Make a POST request to the API
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_O2_API_URL}api/login`,
@@ -38,16 +41,15 @@ export async function POST(req: NextRequest) {
 
   // Extract roles and ensure the user has the "ADMIN" role
   // const roles = data?.payload?.roles || [];
-  // console.log(roles);
   // if (!roles.includes("ADMIN")) {
-  //   return NextResponse.json(
-  //     {
-  //       message: "Unauthorized: Admin access only.",
-  //     },
-  //     {
-  //       status: 403,
-  //     }
-  //   );
+  //     return NextResponse.json(
+  //         {
+  //             message: "Unauthorized: Admin access only.",
+  //         },
+  //         {
+  //             status: 403,
+  //         }
+  //     );
   // }
 
   // Extract tokens and other payload data
@@ -55,7 +57,7 @@ export async function POST(req: NextRequest) {
   const refreshToken = data?.payload?.refresh_token || null;
 
   // Serialize the refresh token and set it as a cookie
-  const cookieName = process.env.COOKIE_REFRESH_TOKEN_NAME || "refresh";
+  const cookieName = process.env.COOKIE_REFRESH_TOKEN || "refresh";
   const serialized = serialize(cookieName, refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // Only set secure cookies in production

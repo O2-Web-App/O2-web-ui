@@ -280,10 +280,11 @@ export default function NavbarPage() {
 
   // Fetch user avatar with proper handling
   const userAvatar = data?.data?.avatar;
+  const userAvatarUrl = `${process.env.NEXT_PUBLIC_O2_API_URL}${userAvatar}`;
   const avatarUrl = userAvatar
     ? userAvatar.startsWith("http")
       ? userAvatar
-      : `http://178.128.115.99${userAvatar}`
+      : userAvatarUrl.replace(/([^:])\/\/storage/, "$1/storage")
     : "/navbar/placeholder_user.png";
 
   // Fetch user data
@@ -371,7 +372,7 @@ export default function NavbarPage() {
                             ព័ត៌មានគណនី
                           </SheetTitle>
                           <div className="flex items-center justify-start space-x-3 mt-4">
-                            <Image
+                            <img
                               src={avatarUrl}
                               alt="User Avatar"
                               width={45}
