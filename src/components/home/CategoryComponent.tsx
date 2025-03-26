@@ -1,35 +1,40 @@
 import React from "react";
 
 const categories = [
-    {id: 1, name: "ទាំងអស់", imageUrl: "/category/vegatable.png"},
-    {id: 2, name: "Vegetable", imageUrl: "/category/vegatable.png"},
-    {id: 3, name: "បញ្ចុះតម្លៃ 50%", imageUrl: "/category/vegatable.png"},
-    {id: 4, name: "ទាំងអស់", imageUrl: "/category/vegatable.png"},
-    {id: 5, name: "ទាំងអស់", imageUrl: "/category/vegatable.png"},
-    {id: 6, name: "ទាំងអស់", imageUrl: "/category/vegatable.png"},
+    {id: 1, name: "បញ្ចុះតម្លៃ", imageUrl: "/category/product-marketing.png", description: "ការផ្សព្វផ្សាយ 50%"}, // 50% discount promotion
+    {id: 2, name: "បន្លែ", imageUrl: "/category/vegetable.png", description: "បន្លែស្រស់"}, // Vegetables
+    {id: 5, name: "អាហារសុខភាព", imageUrl: "/category/diet.png", description: "អាហារសម្រកទម្ងន់"}, // Diet/healthy food
+    {id: 6, name: "ទឹកដោះគោ", imageUrl: "/category/milk.png", description: "ផលិតផលទឹកដោះ"}, // Milk products
+    {id: 3, name: "ឧបករណ៍", imageUrl: "/category/speaker.png", description: "ឧបករណ៍សំឡេង"}, // Speaker-related
+    {id: 4, name: "គ្រឿងសម្អាង", imageUrl: "/category/cosmetics.png", description: "ផលិតផលសម្អាង"}, // Cosmetics
+
 ];
 
-
-export default function categoryComponent() {
+export default function CategoryComponent() {
     return (
-        <section className="flex flex-col ">
+        <section className="flex flex-col">
             <h1 className="text-2xl font-normal">ប្រភេទសេវាកម្ម</h1>
-            <section className="flex gap-3 overflow-auto scrollbar-hide py-3">
+            <section className="flex gap-3 overflow-auto scrollbar-hide py-4 px-5">
                 {categories.map((category) => (
-                    <div key={category.id}
-                         className=" flex items-center gap-2 bg-primary/10 py-[6px] border-gray-200 border rounded-3xl px-3 cursor-pointer hover:bg-primary/20 hover:transform hover:-translate-y-1 transition-transform duration-200">
-                        <div
-                            className="rounded-full w-7 h-7 flex items-center justify-center bg-cover bg-center"
-                            style={{
-                                backgroundImage: `url(${category.imageUrl})`,
-                                border: "1px solid #559F34"
-                            }}
-                        >
+                    <div
+                        key={category.id}
+                        className="flex items-center max-w-[300px] gap-5 bg-white py-[6px] border-gray-200 border rounded-xl px-3 hover:bg-white hover:transform hover:-translate-y-1 transition-transform duration-200"
+                    >
+                        <div className="bg-primary/20 p-2 rounded-full flex items-center justify-center">
+                            <div
+                                className="w-[30px] h-[30px] flex items-center justify-center bg-cover bg-center"
+                                style={{
+                                    backgroundImage: `url(${category.imageUrl})`,
+                                }}
+                            ></div>
                         </div>
-                        <p className="whitespace-nowrap">{category.name}</p>
+                        <div className="flex flex-col ">
+                            <p className="whitespace-nowrap text-base ">{category.name}</p>
+                            <p className="whitespace-nowrap text-gray-400 text-sm">{category.description}</p>
+                        </div>
                     </div>
                 ))}
             </section>
         </section>
-    )
+    );
 }
