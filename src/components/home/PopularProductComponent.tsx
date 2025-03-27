@@ -4,7 +4,7 @@ import {useGetPopularProductQuery} from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
-import CardProductComponent from "@/components/home/CardProductComponent";
+import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
 
 export default function PopularProductComponent() {
     const router = useRouter();
@@ -41,7 +41,7 @@ export default function PopularProductComponent() {
                         </div>
                         <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
                             {popular.map((product: DataType) => (
-                                <CardProductComponent
+                                <CardProductByRowComponent
                                     key={product.uuid}
                                     uuid={product.uuid}
                                     single_image={product.single_image}

@@ -1,5 +1,5 @@
 import {o2API} from "../api";
-import {RecommendationType} from "@/app/types/ProductDetail";
+import {DataSelect, RecommendationType} from "@/app/types/ProductDetail";
 
 export const productApi = o2API.injectEndpoints({
     endpoints: (builder) => ({
@@ -11,6 +11,7 @@ export const productApi = o2API.injectEndpoints({
             }),
             providesTags: ["Product"],
         }),
+
 
         // get recommendation product
         getRecommendationProduct: builder.query<RecommendationType, void>({
@@ -55,6 +56,32 @@ export const productApi = o2API.injectEndpoints({
         }),
 
 
+        // Get Filter Product
+        getFilterProduct: builder.query<DataSelect, void>({
+            query: () => ({
+                url: `api/categories`,
+                method: "GET",
+            }),
+        }),
+
+
+        // Filter Product
+        getFilterListProduct: builder.query<any, { category_uuid: string , max_price:number }>({
+            query: ({category_uuid ,max_price }) => ({
+                url: `api/products?category_uuid=${category_uuid}&min_price=0&max_price=${max_price}&sort_price=asc`,
+                method: "GET",
+            }),
+        }),
+
+        //Search Product
+        getSearchProduct: builder.query<any, { search: string }>({
+            query: ({search}) => ({
+                url: `api/products?search=${search}`,
+                method: "GET",
+            }),
+        }),
+
+
         //update_cart_quantity
         CreateUserFeedbackProductQuery: builder.mutation<
             any,
@@ -76,6 +103,9 @@ export const {
     useGetPopularProductQuery,
     useGetDiscountProductQuery,
     useGetPreOrderProductQuery,
+    useGetFilterProductQuery,
+    useGetFilterListProductQuery,
+    useGetSearchProductQuery,
     useGetFeedbackQuery,
     useCreateUserFeedbackProductQueryMutation
 } = productApi;

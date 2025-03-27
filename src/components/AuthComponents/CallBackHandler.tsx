@@ -14,7 +14,7 @@
 //   useEffect(() => {
 //     const handleCallback = async () => {
 //       try {
-//         const searchParams = new URLSearchParams(window.location.search);
+//         const searchParams = new URLSearchParams(window.location.search&filter);
 //         const code = searchParams.get('code');
 
 //         if (!code) {
@@ -93,7 +93,7 @@
 //   useEffect(() => {
 //     const handleCallback = async () => {
 //       try {
-//         const searchParams = new URLSearchParams(window.location.search);
+//         const searchParams = new URLSearchParams(window.location.search&filter);
 //         const code = searchParams.get('code');
 //         console.log('Received code:', code);
 //         if (!code) {

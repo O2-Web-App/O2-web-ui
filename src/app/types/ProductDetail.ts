@@ -26,3 +26,23 @@ export type RecommendationType = {
     };
 };
 
+
+// Updated types based on your API response
+export type DataSelect = {
+    data: MainSelect[];
+}
+
+export type MainSelect = {
+    uuid: string;
+    name: string;
+    subcategories: SubSelect[];
+}
+
+export type SubSelect = {
+    uuid: string;
+    name: string;
+    is_deleted: number;
+    created_at: string;
+    updated_at: string;
+}
+

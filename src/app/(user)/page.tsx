@@ -1,6 +1,7 @@
 'use client';
 
 import React, {useState} from 'react';
+import {useRouter} from "next/navigation";
 import SplashScreenComponent from "@/components/home/SplashScreenComponent";
 import dataSlider from "@/lib/slider_data.json";
 import BannerSlide from "@/components/home/BannerSlide";
@@ -16,14 +17,25 @@ import PreOrderProductComponent from "@/components/home/PreOrderProductComponent
 import DiscountProductComponent from "@/components/home/DiscountProductComponent";
 import { PiSlidersHorizontalBold } from "react-icons/pi";
 import FilterComponent from "@/components/home/FilterComponent";
-
-
+import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductDiscountComponent";
 
 export default function Page() {
     const [showSplash, setShowSplash] = useState(true);
+    const [searchValue, setSearchValue] = useState('');
+    const router = useRouter();
 
     const handleSplashComplete = () => {
         setShowSplash(false);
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value);
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            router.push(`/search&filter/${"s-"+searchValue}`);
+        }
     };
 
     return (
@@ -38,8 +50,14 @@ export default function Page() {
                     {/* Search section*/}
                     <section className=" sticky top-[65px] z-50 bg-background_color py-4">
                         <section className=" relative ">
-                            <Input className=" pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
-                                   type="text" placeholder="ស្វែងរកនៅទីនេះ...."/>
+                            <Input
+                                className=" pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
+                                type="text"
+                                placeholder="ស្វែងរកនៅទីនេះ...."
+                                value={searchValue}
+                                onChange={handleInputChange}
+                                onKeyPress={handleKeyPress}
+                            />
                             <FiSearch className=" absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3"/>
                             <FilterComponent/>
                         </section>
@@ -59,11 +77,11 @@ export default function Page() {
 
                     {/* Order section */}
                     <PreOrderProductComponent/>
+                    <SkeletonProductDiscountComponent/>
 
                     <DiscountProductComponent/>
 
-
-                    {/*    Feedback section*/}
+                    {/* Feedback section */}
                     <section className="flex flex-col">
                         <div className="flex justify-between items-end">
                             <h1 className="text-2xl font-normal">មតិយោបល់របស់អតិថិជន</h1>

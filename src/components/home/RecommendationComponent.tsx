@@ -3,7 +3,7 @@ import { useGetRecommendationProductQuery } from "@/app/redux/service/product";
 import { DataType } from "@/app/types/ProductDetail";
 import { useRouter } from "next/navigation";
 import { SkeletonProductComponent } from "@/components/home/SkeletonProductComponent";
-import CardProductComponent from "@/components/home/CardProductComponent";
+import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
 
 export default function RecommendationComponent() {
     const { data, isLoading, error } = useGetRecommendationProductQuery();
@@ -35,7 +35,7 @@ export default function RecommendationComponent() {
                     </div>
                     <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
                         {recommendations.map((recommendation: DataType) => (
-                            <CardProductComponent
+                            <CardProductByRowComponent
                                 key={recommendation.uuid}
                                 uuid={recommendation.uuid}
                                 single_image={recommendation.single_image}
