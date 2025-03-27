@@ -11,6 +11,13 @@ import RecommendationComponent from "@/components/home/RecommendationComponent";
 import FeedbackSlide from "@/components/home/FeedbackSlide";
 import feedback from "@/lib/feedback_data.json";
 import {FeedbackDrawerComponent} from "@/components/home/FeedbackDrawerComponent";
+import PopularProductComponent from "@/components/home/PopularProductComponent";
+import PreOrderProductComponent from "@/components/home/PreOrderProductComponent";
+import DiscountProductComponent from "@/components/home/DiscountProductComponent";
+import { PiSlidersHorizontalBold } from "react-icons/pi";
+import FilterComponent from "@/components/home/FilterComponent";
+
+
 
 export default function Page() {
     const [showSplash, setShowSplash] = useState(true);
@@ -34,6 +41,7 @@ export default function Page() {
                             <Input className=" pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
                                    type="text" placeholder="ស្វែងរកនៅទីនេះ...."/>
                             <FiSearch className=" absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3"/>
+                            <FilterComponent/>
                         </section>
                     </section>
 
@@ -46,6 +54,15 @@ export default function Page() {
                     {/* Recommendation section */}
                     <RecommendationComponent/>
 
+                    {/* Popular section */}
+                    <PopularProductComponent/>
+
+                    {/* Order section */}
+                    <PreOrderProductComponent/>
+
+                    <DiscountProductComponent/>
+
+
                     {/*    Feedback section*/}
                     <section className="flex flex-col">
                         <div className="flex justify-between items-end">
@@ -53,7 +70,7 @@ export default function Page() {
                             <FeedbackDrawerComponent/>
                         </div>
                         <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
-                            <FeedbackSlide feedback={feedback}/>
+                            <FeedbackSlide/>
                         </div>
                     </section>
 

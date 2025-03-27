@@ -1,4 +1,4 @@
-import { AddBlogResponse, BlogCommentsResponse, BlogDetailApiResponse, BookmarkApiResponse, getAllTags, GetCommentsResponse, LikeResponse, TopBlogResponse } from "@/app/types/BlogType";
+import { AddBlogResponse, BlogCommentsResponse, BlogDetailApiResponse, BlogResponse, BookmarkApiResponse, getAllTags, GetCommentsResponse, LikeResponse, TopBlogResponse } from "@/app/types/BlogType";
 import { o2API } from "../api";
 export const blogsApi = o2API.injectEndpoints({
   endpoints: (builder) => ({
@@ -105,6 +105,31 @@ export const blogsApi = o2API.injectEndpoints({
       }),
       invalidatesTags: ["Blogs"],
     }),
+    updateBlog: builder.mutation<AddBlogResponse, {title:string; content: string; image: string; youtube_videos:string[]; tags: string[], uuid: string}>({
+      query: ({title, content, image, youtube_videos, tags, uuid}) => ({
+        url: `api/blogs/${uuid}`,
+        method: "PUT",
+        body: {
+          title, content, image, youtube_videos, tags
+        }
+      }),
+      invalidatesTags: ["Blogs"],
+    }),
+
+    getMyBlog: builder.query<BlogResponse, void>({
+      query: () => ({
+        url: `api/blogs/my`,
+        method: "GET"
+      }),
+      providesTags: ["Blogs"],
+    }),
+    getALLBlog: builder.query<BlogResponse, void>({
+      query: () => ({
+        url: `api/blogs`,
+        method: "GET"
+      }),
+      providesTags: ["Blogs"],
+    })
   }),
 });
 
@@ -120,4 +145,8 @@ export const {
   useContactUsMutation,
   useGetAllBookmarkQuery,
   useAddBlogMutation,
+  useGetMyBlogQuery,
+  useGetALLBlogQuery,
+  useUpdateBlogMutation
+  
 } = blogsApi;

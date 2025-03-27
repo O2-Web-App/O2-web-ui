@@ -153,6 +153,27 @@ const navLinks = [
     ),
   },
   {
+    href: "/myBlog",
+    label: "ប្លុករបស់ខ្ញុំ",
+    icon: (
+      <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="22" 
+      height="22" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="2" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      className="lucide lucide-library-big-icon lucide-library-big text-gray-500">
+        <rect width="8" height="18" x="3" y="3" rx="1"/>
+        <path d="M7 3v18"/>
+        <path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/>
+      </svg>
+    ),
+  },
+  {
     href: "/about-us",
     label: "អំពីយើង",
     icon: (
@@ -280,10 +301,11 @@ export default function NavbarPage() {
 
   // Fetch user avatar with proper handling
   const userAvatar = data?.data?.avatar;
+  const userAvatarUrl = `${process.env.NEXT_PUBLIC_O2_API_URL}${userAvatar}`;
   const avatarUrl = userAvatar
     ? userAvatar.startsWith("http")
       ? userAvatar
-      : `${process.env.NEXT_PUBLIC_O2_API_URL}${userAvatar}`
+      : userAvatarUrl.replace(/([^:])\/\/storage/, "$1/storage")
     : "/navbar/placeholder_user.png";
 
   // Fetch user data
@@ -371,7 +393,7 @@ export default function NavbarPage() {
                             ព័ត៌មានគណនី
                           </SheetTitle>
                           <div className="flex items-center justify-start space-x-3 mt-4">
-                            <Image
+                            <img
                               src={avatarUrl}
                               alt="User Avatar"
                               width={45}
@@ -454,7 +476,7 @@ export default function NavbarPage() {
                       ))}
                       {/* Logout Button */}
                       <div
-                        className="flex space-x-2 mt-6 cursor-pointer"
+                        className="flex space-x-2 mt-6 cursor-pointer items-center"
                         onClick={handleLogout}
                       >
                         <div>
@@ -468,7 +490,7 @@ export default function NavbarPage() {
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="lucide lucide-log-out text-gray-500"
+                            className="lucide lucide-log-out text-red-700"
                           >
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                             <polyline points="16 17 21 12 16 7" />
