@@ -7,6 +7,8 @@ import provinceSlice from "./features/selectProvince";
 import emailSlice from "./features/email";
 import optSlice from "./features/opt";
 import orderSlice from "./features/order";
+import userSlice from "./features/user"
+
 // create store
 export const makeStore = () => {
   return configureStore({
@@ -19,6 +21,7 @@ export const makeStore = () => {
       [o2API.reducerPath]: o2API.reducer,
       auth: authSlice,
       token: tokenSlice,
+      user: userSlice,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(o2API.middleware),

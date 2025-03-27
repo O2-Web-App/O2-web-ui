@@ -10,7 +10,7 @@ export async function POST() {
     const cookieStore = await cookies();
     const credential = cookieStore.get(cookieName);
 
-    console.log("Credential:", credential);
+    console.log("Credential in logout route:", credential);
 
     // If the refresh token is not found, return an error message
     if (!credential) {

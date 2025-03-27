@@ -283,7 +283,7 @@ export default function NavbarPage() {
   const avatarUrl = userAvatar
     ? userAvatar.startsWith("http")
       ? userAvatar
-      : `http://178.128.115.99${userAvatar}`
+      : `${process.env.NEXT_PUBLIC_O2_API_URL}${userAvatar}`
     : "/navbar/placeholder_user.png";
 
   // Fetch user data
