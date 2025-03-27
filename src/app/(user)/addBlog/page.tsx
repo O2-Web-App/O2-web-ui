@@ -360,12 +360,12 @@ export default function AddBlogPage() {
               {isLoading ? 'Submitting...' : 'Submit Blog'}
             </button>
 
-            <div className="mt-8 p-4 bg-gray-100 rounded text-wrap w-[500px]">
+            {/* <div className="mt-8 p-4 bg-gray-100 rounded text-wrap w-[500px]">
               <h3 className="text-lg font-semibold mb-2 text-wrap w-[550px]">
                 Form Values (Debug):
               </h3>
               <pre>{JSON.stringify(values, null, 2)}</pre>
-            </div>
+            </div> */}
           </Form>
         )}
       </Formik>
