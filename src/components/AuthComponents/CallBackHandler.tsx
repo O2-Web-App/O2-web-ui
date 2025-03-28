@@ -143,15 +143,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/redux/hooks';
-import { setAccessToken } from '@/redux/feature/auth/authSlice';
-import Loading from '../General/Loading';
+// import { setAccessToken } from '@/redux/feature/auth/authSlice';
+// import Loading from '../General/Loading';
 
 
 const CallbackHandler: React.FC = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -190,7 +189,7 @@ const CallbackHandler: React.FC = () => {
         console.log('Access token:', data.accessToken);
 
         // Store access token in Redux
-        dispatch(setAccessToken(data.accessToken));
+        // dispatch(setAccessToken(data.accessToken));
 
         // Optional: Verify the /me endpoint
 
@@ -210,7 +209,7 @@ const CallbackHandler: React.FC = () => {
     <div className="flex justify-center items-center h-screen">
       
       {/* <h1 className='text-red-500'>hello</h1> */}
-            <Loading/>
+      {/*      <Loading/>*/}
     </div>
   }
 

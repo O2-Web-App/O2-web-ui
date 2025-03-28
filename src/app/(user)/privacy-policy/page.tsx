@@ -3,7 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function Page() {
     const router = useRouter()
     return (
         <section className="mx-5">

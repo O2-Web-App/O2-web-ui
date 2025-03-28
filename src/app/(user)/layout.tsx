@@ -5,7 +5,7 @@ import { Suwannaphum } from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import { Toaster } from "@/components/ui/sonner";
 
-export const suwannaphum = Suwannaphum({
+const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-suwannaphum",
   display: "swap",
