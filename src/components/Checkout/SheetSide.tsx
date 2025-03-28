@@ -41,6 +41,8 @@ import { Payment } from "@/lib/payment";
 import { useCreatePaymentCheckMutation } from "@/app/redux/service/payment";
 import { PaymentType } from "@/app/types/Payment";
 import { setUUID } from "@/app/redux/features/order";
+import { useGetAllProvinceQuery } from "@/app/redux/service/province";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 export default function SheetSide() {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -48,8 +50,6 @@ export default function SheetSide() {
   // payment response from bakong
   const [paymentResponse, setPaymentResponse] = useState<PaymentType>();
 
-  console.log(paymentResponse)
-  
   // to open second modal
   const [secondSheetOpen, setSecondSheetOpen] = useState(false);
 
@@ -88,6 +88,8 @@ export default function SheetSide() {
   // image base url
   const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 
+  const provinceData = useGetAllProvinceQuery({});
+
   // select province from redux
   const province = useAppSelector((state) => state.province);
 
@@ -101,7 +103,7 @@ export default function SheetSide() {
   const handleCoupon = async () => {
     try {
       const response = await createOrder({
-        province_uuid: province?.value || "",
+        province_uuid: province?.value || provinceData?.data?.data[0]?.uuid,
         coupon_code: inputCoupon,
       });
       if (response.data) {
@@ -113,11 +115,23 @@ export default function SheetSide() {
           },
         });
       } else {
-        toast.success("ការបញ្ចូលគូប៉ុងមិនត្រឹមត្រូវ", {
-          style: {
-            background: "#bb2124",
-          },
-        });
+        const errorResponse = response.error as FetchBaseQueryError;
+        if (
+          errorResponse.data &&
+          typeof errorResponse.data === "object" &&
+          "errors" in errorResponse.data
+        ) {
+          if ("message" in errorResponse?.data) {
+          }
+          toast.success(
+            `${(errorResponse.data as unknown as { message: string }).message}`,
+            {
+              style: {
+                background: "#bb2124",
+              },
+            }
+          );
+        }
       }
     } catch (error) {
       console.log(error);
@@ -197,9 +211,14 @@ export default function SheetSide() {
     remarks: "",
   };
 
+  const googleMapUrlRegex =
+    /^(https?:\/\/)?(www\.)?(google\.[a-z]{2,6}\/maps|goo\.gl\/maps)\/.+$/;
+
   const validationSchema = Yup.object({
     phone_number: Yup.string().required("អ្នកត្រូវបញ្ជូលលេខទូរស័ព្ទ"),
-    google_map_link: Yup.string().required("អ្នកត្រូវបញ្ជូល Google Map Url"),
+    google_map_link: Yup.string()
+      .matches(googleMapUrlRegex, "តំណភ្ជាប់ Google Map មិនត្រឹមត្រូវ")
+      .required("អ្នកត្រូវបញ្ជូល Google Map Url"),
     email: Yup.string()
       .required("អ៉ីម៉ែលរបស់អ្នកមិនត្រឹមត្រូវ")
       .email("អ្នកត្រូវបញ្ជូលអ៉ីម៉ែលរបស់អ្នក"),
@@ -598,16 +617,12 @@ export default function SheetSide() {
           onClick={() => setOpenCoupon(false)}
           className="bg-card_color w-[90%] rounded-[10px] p-6"
         >
-          <AlertDialogTitle>
+          <AlertDialogTitle className="items-center flex flex-col justify-center">
             <p className="text-title text-primary text-center">
               ការបញ្ចូលគូប៉ុងបានជោគជ័យ
             </p>
-            <DotLottieReact
-              className=" h-[250px] "
-              src="https://lottie.host/75c90a35-060c-4b39-b728-c58ee9f3f3d2/XjiDBninMp.lottie"
-              loop
-              autoplay
-            />
+            {/* success image */}
+            <Image src={"/success.png"} width={150} height={150} alt="image" className="my-5 object-cover" />
           </AlertDialogTitle>
           <p className="text-title text-primary text-center">
             អ្នកបានសន្សំ{" "}
