@@ -12,6 +12,7 @@ import {GoClock} from "react-icons/go";
 import {HiOutlineFire} from "react-icons/hi2";
 import React from "react";
 import {useRouter} from "next/navigation";
+import Loading from "@/components/Components/Loading";
 
 type Props = {
     params: Promise<{ name: string }>;
@@ -78,7 +79,7 @@ export default function CategoryProduct({params}: Props) {
         ? (data?.data?.data || [])
         : (data?.data || []);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div className="flex justify-center items-center h-screen"><Loading/></div>;;
     if (error) return <div>Error loading products</div>;
 
     const env = process.env.NEXT_PUBLIC_O2_API_URL;

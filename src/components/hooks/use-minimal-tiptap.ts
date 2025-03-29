@@ -282,7 +282,7 @@ import { toast } from 'sonner'
 export interface UseMinimalTiptapEditorProps extends UseEditorOptions {
   value?: Content
   output?: 'html' | 'json' | 'text'
-  placeholder?: string
+  placeholder: string
   editorClassName?: string
   throttleDelay?: number
   onUpdate?: (content: Content) => void
@@ -405,7 +405,7 @@ const createExtensions = (placeholderText: string) => [
   ResetMarksOnEnter,
   CodeBlockLowlight,
   Placeholder.configure({
-    placeholder: placeholderText || 'Start typing here...',
+    placeholder: placeholderText ,
     includeChildren: true,
     emptyEditorClass: 'is-editor-empty'
   })

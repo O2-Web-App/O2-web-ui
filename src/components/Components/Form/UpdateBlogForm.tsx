@@ -16,12 +16,20 @@ import { useParams } from 'next/navigation'
 const BlogSchema = (originalContent: JSONContent) =>
   Yup.object().shape({
     title: Yup.string().required('Title is required'),
-    youtube_videos: Yup.string().required('Video is required'),
-    tags: Yup.string().required('Tags are required'),
+    youtube_videos: Yup.mixed().test(
+      'is-string-or-array',
+      'youtube_videos must be a string or an array of strings',
+      (value) => typeof value === 'string' || Array.isArray(value)
+    ),
+    tags: Yup.mixed().test(
+      'is-string-or-array',
+      'tags must be a string or an array of strings',
+      (value) => typeof value === 'string' || Array.isArray(value)
+    ),
     content: Yup.mixed<JSONContent>().test(
       'has-content-or-unchanged',
-      'Content is required',
       function (value): value is JSONContent {
+        // Check if content is empty or unchanged
         const isEmpty = !value?.content?.some((node: any) => {
           if (node.type === 'paragraph') {
             return node.content?.some((child: any) => child.text?.trim())
@@ -29,7 +37,7 @@ const BlogSchema = (originalContent: JSONContent) =>
           return ['image', 'heading', 'blockquote'].includes(node.type)
         })
 
-        // Allow if it's same as original
+        // Allow if it's same as original content
         const unchanged = JSON.stringify(value) === JSON.stringify(originalContent)
 
         return !isEmpty || unchanged
@@ -37,14 +45,12 @@ const BlogSchema = (originalContent: JSONContent) =>
     ),
   })
 
-export default function UpdateBlogComponent() {  
-    const params = useParams()
-const uuid = params?.uuid as string
+export default function UpdateBlogComponent() {
+  const params = useParams()
+  const uuid = params?.uuid as string
   const [updateBlog, { isLoading }] = useUpdateBlogMutation()
   const router = useRouter()
-  const {data} = useGetBlogDetailQuery({uuid})
-  console.log("content:",data?.data.content)
-
+  const { data } = useGetBlogDetailQuery({ uuid })
 
   return (
     <div className="pr-6 pl-4 max-w-3xl mx-auto">
@@ -57,11 +63,13 @@ const uuid = params?.uuid as string
 
       <Formik
         initialValues={{
-          title:data?.data.title || '',
-          content: data?.data.content || { type: 'doc', content: [{ type: 'paragraph' }] },
-          youtube_videos: data?.data.youtube_videos || '',
-          tags: data?.data.tags || '',
+          title: data?.data.title || '',
+          content: data?.data.content as JSONContent | undefined,
+          youtube_videos: Array.isArray(data?.data.youtube_videos) ? data?.data.youtube_videos : [],
+          tags: Array.isArray(data?.data.tags) ? data?.data.tags : [],
+          // image: data?.data.image || ''
         }}
+        enableReinitialize
         validationSchema={BlogSchema}
         onSubmit={async (values, { resetForm }) => {
           try {
@@ -69,6 +77,7 @@ const uuid = params?.uuid as string
             let plainText = ''
             let image = ''
 
+            // Handle content extraction for plain text and image
             if (content?.content && Array.isArray(content.content)) {
               plainText = content.content
                 .filter((node: any) => node.type === 'paragraph')
@@ -76,25 +85,23 @@ const uuid = params?.uuid as string
                 .join('\n')
 
               image =
-                content.content.find((node: any) => node.type === 'image' && node.attrs?.src)?.attrs?.src ||
-                ''
+                content.content.find((node: any) => node.type === 'image' && node.attrs?.src)?.attrs?.src || '' // Fallback to image from form values
             }
 
             await updateBlog({
               uuid,
-              title: values.title,
-              content: plainText,
+              title: values.title || data?.data.title || "",
+              content: plainText || data?.data.content || "",
               image: image,
-              tags: (typeof values.tags === 'string'
-                ? values.tags.split(',')
-                : values.tags
-              ).map((v) => v.trim()),
-              
-              youtube_videos: (typeof values.youtube_videos === 'string'
-                ? values.youtube_videos.split(',')
-                : values.youtube_videos
-              ).map((v) => v.trim()),
-              
+              tags: (values.tags || data?.data.tags || "")
+                .toString()
+                .split(',')
+                .map((v: string) => v.trim()),
+
+              youtube_videos: (values.youtube_videos || data?.data.youtube_videos || '')
+                .toString()
+                .split(',')
+                .map((v: string) => v.trim()),
             }).unwrap()
 
             resetForm()
@@ -106,7 +113,6 @@ const uuid = params?.uuid as string
             })
             router.back()
           } catch (err: any) {
-            console.error('Update blog failed:', err)
             if (err?.status === 422) {
               toast.error(
                 <div className="flex items-center gap-3">
@@ -122,7 +128,7 @@ const uuid = params?.uuid as string
                     background: '#e0391f',
                     padding: '12px 16px',
                     borderRadius: '8px',
-                    color: 'white',
+                    color: "white"
                   },
                 }
               )
@@ -135,9 +141,7 @@ const uuid = params?.uuid as string
         {({ values, setFieldValue }) => (
           <Form className="space-y-6 px-3">
             <div>
-              <label className="block mb-1 font-medium">
-                Title
-              </label>
+              <label className="block mb-1 font-medium">Title</label>
               <Field
                 name="title"
                 className={cn('w-full border p-2 rounded-xl')}
@@ -147,9 +151,7 @@ const uuid = params?.uuid as string
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">
-                Social Media Video 
-              </label>
+              <label className="block mb-1 font-medium">Social Media Video</label>
               <Field
                 name="youtube_videos"
                 className={cn('w-full border p-2 rounded-xl')}
@@ -159,9 +161,7 @@ const uuid = params?.uuid as string
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">
-                Tags 
-              </label>
+              <label className="block mb-1 font-medium">Tags</label>
               <Field
                 name="tags"
                 className={cn('w-full border p-2 rounded-xl')}
@@ -171,14 +171,12 @@ const uuid = params?.uuid as string
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">
-                Content
-              </label>
+              <label className="block mb-1 font-medium">Content</label>
               <MinimalTiptapEditor
                 value={values.content}
                 onChange={(json) => setFieldValue('content', json)}
                 className="bg-white rounded-2xl px-3 text-lg mt-2"
-                placeholder={data?.data?.content || "Write your content here..."}
+                placeholder={data?.data?.content || "Start typing ..."}
               />
               <ErrorMessage name="content" component="div" className="text-red-500 text-sm mt-1" />
             </div>
@@ -194,13 +192,15 @@ const uuid = params?.uuid as string
               <button
                 type="submit"
                 disabled={isLoading}
-                className={cn(
-                  'bg-primary text-white px-4 py-2 rounded-lg',
-                  isLoading && 'opacity-50 cursor-not-allowed'
-                )}
+                className={cn('bg-primary text-white px-4 py-2 rounded-lg', isLoading && 'opacity-50 cursor-not-allowed')}
               >
                 {isLoading ? 'Updating...' : 'Update Blog'}
               </button>
+            </div>
+
+            <div className="mt-8 p-4 bg-gray-100 rounded text-wrap w-[500px]">
+              <h3 className="text-lg font-semibold mb-2 text-wrap w-[550px]">Form Values (Debug):</h3>
+              <pre>{JSON.stringify(values, null, 2)}</pre>
             </div>
           </Form>
         )}

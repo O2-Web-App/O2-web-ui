@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
       "miro.medium.com",
       "157.245.204.6",
       "orange1.jpg",
-      "167.172.69.43"
+      "167.172.69.43",
+      "example.com",
+      "img.youtube.com"
     ], // Add the external domain for images
   },
     // Ensure the build is standalone

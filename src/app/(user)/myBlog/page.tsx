@@ -1,17 +1,28 @@
-"use client";
 
-import React from "react";
+'use client';
+
+import React, { useState } from "react";
 import CardBlogHorizontal from "@/components/Components/CardComponents/CardBlogHorizontal";
 import { useGetMyBlogQuery } from "@/app/redux/service/blog";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const MyBlogPage = () => {
-  const { data, error, isLoading } = useGetMyBlogQuery();
+  const [search, ] = useState("")
+  const { data, error, isLoading } = useGetMyBlogQuery({search});
 
   const blogs = data?.data.data || [];
+  const router = useRouter()
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">My Blogs</h1>
+    <div className="max-w-md mx-auto">
+      <div className="flex items-center pr-4 py-7 gap-8">
+              <div className="p-2 bg-gray-100 rounded-full">
+                <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
+              </div>
+              <h1 className="text-2xl font-bold text-center">My Blog</h1>
+              
+            </div>
 
       {isLoading ? (
         // Skeleton loader while data is fetching
@@ -24,7 +35,7 @@ const MyBlogPage = () => {
       ) : error ? (
         <p className="text-red-500">Failed to load blogs.</p>
       ) : blogs.length === 0 ? (
-        <p className="text-gray-500">You haven’t written any blogs yet.</p>
+        <p className="text-gray-500">You have not written any blogs yet.</p>
       ) : (
         blogs.map((blog: any) => (
           <CardBlogHorizontal

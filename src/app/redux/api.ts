@@ -48,6 +48,7 @@ const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
         }
       );
       const data = await res.json();
+      console.log("data",data)
     }
   }
   return result;

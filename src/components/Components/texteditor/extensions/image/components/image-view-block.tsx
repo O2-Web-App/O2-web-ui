@@ -10,7 +10,6 @@ import { useImageActions } from '../hooks/use-image-actions'
 import { blobUrlToBase64, randomId } from '../../../utils'
 import { InfoCircledIcon, TrashIcon } from '@radix-ui/react-icons'
 import { ImageOverlay } from './image-overlay'
-import { Spinner } from '../../../spinner'
 import type { UploadReturnType } from '../image'
 import Image from 'next/image'
 
@@ -180,6 +179,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({ editor, node, selected
           error: true,
           isServerUploading: false
         }))
+        console.log(error)
       }
     }
 
@@ -206,7 +206,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({ editor, node, selected
             <div className="relative h-full">
               {imageState.isServerUploading && !imageState.error && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Spinner className="size-7" />
+                  {/* <Spinner className="size-7" /> */}
                 </div>
               )}
 

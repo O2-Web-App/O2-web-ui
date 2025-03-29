@@ -104,7 +104,7 @@ export interface MinimalTiptapProps extends Omit<UseMinimalTiptapEditorProps, 'o
   onChange?: (value: Content) => void
   className?: string
   editorContentClassName?: string
-  placeholder?: string // ✅ Add placeholder prop
+  placeholder: string // ✅ Add placeholder prop
 }
 
 const Toolbar = ({ editor }: { editor: Editor }) => (
@@ -132,7 +132,7 @@ export const MinimalTiptapEditor = React.forwardRef<HTMLDivElement, MinimalTipta
       onUpdate: onChange,
       output: 'json',
       editable: true,
-      placeholder, // ✅ Pass placeholder to the hook
+      placeholder , // ✅ Pass placeholder to the hook
       ...props,
     })
 

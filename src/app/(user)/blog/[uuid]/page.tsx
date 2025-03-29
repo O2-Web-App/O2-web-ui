@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck, Share } from "lucide-react";
+import { MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck } from "lucide-react";
 import { useParams } from "next/navigation";
 import {
     usePostCommentMutation, useGetCommentQuery, usePostLikeMutation,
@@ -15,9 +15,57 @@ import Link from "next/link";
 import { Comment } from "@/app/types/BlogType";
 
 
+// getYouTubeThumbnail.ts
+export function getYouTubeThumbnail(
+    url: string,
+    quality: "default" | "mq" | "hq" | "sd" | "maxres" = "hq"
+): string | null {
+    try {
+        const parsedUrl = new URL(url);
+        let videoId = "";
+
+        // Handle youtu.be/<id>
+        if (parsedUrl.hostname === "youtu.be") {
+            videoId = parsedUrl.pathname.slice(1);
+        }
+
+        // Handle www.youtube.com/watch?v=<id>
+        if (
+            parsedUrl.hostname === "www.youtube.com" ||
+            parsedUrl.hostname === "youtube.com" ||
+            parsedUrl.hostname.endsWith(".youtube.com")
+        ) {
+            if (parsedUrl.pathname === "/watch") {
+                videoId = parsedUrl.searchParams.get("v") || "";
+            } else if (parsedUrl.pathname.startsWith("/shorts/")) {
+                videoId = parsedUrl.pathname.split("/shorts/")[1];
+            }
+        }
+
+        if (!videoId || videoId.length !== 11) return null;
+
+        const qualityMap = {
+            default: "default",
+            mq: "mqdefault",
+            hq: "hqdefault",
+            sd: "sddefault",
+            maxres: "maxresdefault",
+        };
+        console.log("quality :", quality)
+
+        return `https://img.youtube.com/vi/${videoId}/${qualityMap[quality]}.jpg`;
+    } catch (error) {
+        console.error("Invalid YouTube URL:", url);
+        console.log(error)
+        return null;
+    }
+}
+
+
+
 export default function Page() {
     const { uuid } = useParams() as { uuid: string };
-    const [error, ] = useState<string | null>(null);
+    const [error,] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
     const [replyToUuid, setReplyToUuid] = useState<string | null>(null);
@@ -147,7 +195,7 @@ export default function Page() {
     if (!blogDetail) return <div className="p-4">Blog post not found.</div>;
 
     return (
-        <article className="pb-20 mx-3">
+        <article className="pb-20 mx-3 max-w-md mx-auto">
             {/* Blog Info */}
             <div className="flex justify-between items-start p-4">
                 <div className="flex flex-wrap gap-2 w-1/2">
@@ -177,40 +225,22 @@ export default function Page() {
                 : `${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.image}`}
                 alt={blogDetail.title} className="min-w-84 h-64 object-cover rounded-lg mx-auto" />
 
-            {/* YouTube Videos */}
-            <div className="flex gap-4 overflow-x-auto py-4">
-                {blogDetail.youtube_videos.map((videoUrl: string, index: number) => {
-                    try {
-                        // Extract the video ID from the URL
-                        const url = new URL(videoUrl);
-                        const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
-                        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+            {/* YouTube Videos as Thumbnails */}
+            <div className="flex gap-4 overflow-x-auto py-4 ">
+                {blogDetail.youtube_videos.map((videoUrl, index) => {
+                    const thumbnailUrl = getYouTubeThumbnail(videoUrl, "hq");
+                    if (!thumbnailUrl) return null;
+                    const url = new URL(videoUrl);
+                    const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
+                    const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-                        console.log("YouTube Embed URL:", embedUrl);
-                        console.log("Video ID:", videoId);
+                    console.log("thumnail:", thumbnailUrl)
 
-                        return (
-                            <Link
-                                key={index}
-                                href={youtubeUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <iframe
-                                    key={index}
-                                    src={embedUrl}
-                                    title={`YouTube Video ${index + 1}`}
-                                    className="w-32 h-24 rounded-lg"
-                                    allowFullScreen
-                                />
-                            </Link>
-                        );
-                    } catch (error) {
-                        console.log("error:",error)
-                        console.error("Invalid YouTube URL:", videoUrl);
-                        return null;
-                    }
+                    return (
+                        <Link key={index} href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="block min-w-[8rem]">
+                            <img src={thumbnailUrl} alt={`YouTube Video ${index + 1}`} className="rounded-lg object-cover w-42 h-24" />
+                        </Link>
+                    );
                 })}
             </div>
 
@@ -230,16 +260,16 @@ export default function Page() {
                     </button>
                     <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
                         <MessageCircle className="w-5 h-5" />
-                        
+
                     </button>
                     <button onClick={handleToggleBookmark} className="text-gray-600 hover:text-gray-900">
                         {isBookmarked ? (
-                            <BookmarkCheck className="w-6 h-6 text-yellow-500" /> 
+                            <BookmarkCheck className="w-6 h-6 text-yellow-500" />
                         ) : (
-                            <Bookmark className="w-6 h-6" /> 
+                            <Bookmark className="w-6 h-6" />
                         )}
                     </button>
-                    <button>    <Share /></button>
+                    
                 </div>
             </div>
 

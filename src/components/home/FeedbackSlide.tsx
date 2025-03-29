@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useGetFeedbackQuery } from "@/app/redux/service/product";
 import Image from "next/image";
+import Loading from "../Components/Loading";
 
 type Feedback = {
     id: string;
@@ -16,7 +17,7 @@ const FeedbackSlide: React.FC = () => {
     const { data, error, isLoading } = useGetFeedbackQuery();
     const env = process.env.NEXT_PUBLIC_O2_API_URL;
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div className="flex justify-center items-center h-screen"><Loading/></div>;;
     if (error) return <div>Error loading feedback</div>;
 
     // Function to calculate and format time difference

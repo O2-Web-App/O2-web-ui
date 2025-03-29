@@ -2,7 +2,7 @@ import { AddBlogResponse, BlogCommentsResponse, BlogDetailApiResponse, BlogRespo
 import { o2API } from "../api";
 export const blogsApi = o2API.injectEndpoints({
   endpoints: (builder) => ({
-  
+
     postComment: builder.mutation<BlogCommentsResponse, { uuid: string; content: string; parent_uuid?: string }>(
       {
         query: ({ uuid, content, parent_uuid }) => ({
@@ -16,13 +16,13 @@ export const blogsApi = o2API.injectEndpoints({
         invalidatesTags: ["Blogs"]
       }
     ),
-    
+
     getComment: builder.query<GetCommentsResponse, { uuid: string; }>(
       {
         query: ({ uuid }) => ({
           url: `api/blogs/${uuid}/comments`,
           method: "GET",
-          
+
         }),
         providesTags: ["Blogs"]
       }
@@ -32,13 +32,13 @@ export const blogsApi = o2API.injectEndpoints({
         query: ({ uuid }) => ({
           url: `api/blogs/${uuid}/like`,
           method: "POST",
-          
+
         }),
         invalidatesTags: ["Blogs"]
       }
     ),
-    deleteComment: builder.mutation<GetCommentsResponse, {uuid:string;}>({
-      query: ({uuid})=>({
+    deleteComment: builder.mutation<GetCommentsResponse, { uuid: string; }>({
+      query: ({ uuid }) => ({
         url: `api/blogs/comment/${uuid}`,
         method: "DELETE"
       }),
@@ -49,7 +49,7 @@ export const blogsApi = o2API.injectEndpoints({
         query: () => ({
           url: `api/blogs/top`,
           method: "GET",
-          
+
         }),
         providesTags: ["Blogs"]
       }
@@ -70,33 +70,33 @@ export const blogsApi = o2API.injectEndpoints({
       }),
       providesTags: ["Blogs"]
     }),
-    
-    getBlogDetail: builder.query<BlogDetailApiResponse, {uuid:string}>({
-      query: ({uuid}) => ({
+
+    getBlogDetail: builder.query<BlogDetailApiResponse, { uuid: string }>({
+      query: ({ uuid }) => ({
         url: `api/blogs/${uuid}`,
         method: "GET",
       }),
       providesTags: ["Blogs"],
     }),
     // contact us 
-    contactUs: builder.mutation<string, {name: string, email: string, message: string}>({
-      query: ({name, email, message})=>({
+    contactUs: builder.mutation<string, { name: string, email: string, message: string }>({
+      query: ({ name, email, message }) => ({
         url: `api/contact-us`,
         method: "POST",
-        body: {name, email, message},
+        body: { name, email, message },
 
       }),
       invalidatesTags: ["Blogs"]
-    }), 
+    }),
     getAllBookmark: builder.query<BookmarkApiResponse, void>({
       query: () => ({
         url: 'api/bookmarks',
         method: "GET"
       }),
       providesTags: ["Blogs"]
-     }),
-    addBlog: builder.mutation<AddBlogResponse, {title:string; content: string; image: string; youtube_videos:string[]; tags: string[]}>({
-      query: ({title, content, image, youtube_videos, tags}) => ({
+    }),
+    addBlog: builder.mutation<AddBlogResponse, { title: string; content: string; image: string; youtube_videos: string[]; tags: string[] }>({
+      query: ({ title, content, image, youtube_videos, tags }) => ({
         url: `api/blogs`,
         method: "POST",
         body: {
@@ -105,8 +105,8 @@ export const blogsApi = o2API.injectEndpoints({
       }),
       invalidatesTags: ["Blogs"],
     }),
-    updateBlog: builder.mutation<AddBlogResponse, {title:string; content: string; image: string; youtube_videos:string[]; tags: string[], uuid: string}>({
-      query: ({title, content, image, youtube_videos, tags, uuid}) => ({
+    updateBlog: builder.mutation<AddBlogResponse, { title: string; content: string; image: string; youtube_videos: string[]; tags: string[], uuid: string }>({
+      query: ({ title, content, image, youtube_videos, tags, uuid }) => ({
         url: `api/blogs/${uuid}`,
         method: "PUT",
         body: {
@@ -116,19 +116,36 @@ export const blogsApi = o2API.injectEndpoints({
       invalidatesTags: ["Blogs"],
     }),
 
-    getMyBlog: builder.query<BlogResponse, void>({
-      query: () => ({
-        url: `api/blogs/my`,
-        method: "GET"
-      }),
+    getMyBlog: builder.query<BlogResponse, { search: string }>({
+      query: ({ search }) => {
+        const query = new URLSearchParams();
+        if (search) query.append("search", search);
+
+        return {
+          url: `api/blogs/my${query.toString()}`,
+          method: "GET"
+        }
+      },
       providesTags: ["Blogs"],
     }),
-    getALLBlog: builder.query<BlogResponse, void>({
-      query: () => ({
-        url: `api/blogs`,
-        method: "GET"
-      }),
+    getALLBlog: builder.query<BlogResponse, { search: string }>({
+      query: ({ search }) => {
+        const query = new URLSearchParams();
+        if (search) query.append("search", search);
+
+        return {
+          url: `api/blogs${query.toString()}`,
+          method: "GET"
+        }
+      },
       providesTags: ["Blogs"],
+    }),
+    deleteBlog: builder.mutation<BlogResponse, { uuid: string }>({
+      query: ({ uuid }) => ({
+        url: `api/blogs/${uuid}`,
+        method: "DELETE"
+      }),
+      invalidatesTags: ["Blogs"],
     })
   }),
 });
@@ -147,6 +164,7 @@ export const {
   useAddBlogMutation,
   useGetMyBlogQuery,
   useGetALLBlogQuery,
-  useUpdateBlogMutation
-  
+  useUpdateBlogMutation,
+  useDeleteBlogMutation
+
 } = blogsApi;

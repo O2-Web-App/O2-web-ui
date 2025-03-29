@@ -163,9 +163,9 @@ const navLinks = [
       viewBox="0 0 24 24" 
       fill="none" 
       stroke="currentColor" 
-      stroke-width="2" 
-      stroke-linecap="round" 
-      stroke-linejoin="round" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
       className="lucide lucide-library-big-icon lucide-library-big text-gray-500">
         <rect width="8" height="18" x="3" y="3" rx="1"/>
         <path d="M7 3v18"/>
@@ -330,17 +330,13 @@ export default function NavbarPage() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_O2_API_URL}api/logout`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
+      const response = await fetch(`/api/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+      router.push("/");
+      const data = await response.json();
+      console.log("data in logout:", data)
 
       if (response.ok) {
         dispatch(setAccessToken(null));

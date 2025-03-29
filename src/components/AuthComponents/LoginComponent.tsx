@@ -64,7 +64,7 @@ const LoginComponent = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST}login`,
+        `/api/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -79,11 +79,13 @@ const LoginComponent = () => {
       dispatch(setUser(result?.data?.user));
 
       if (response.ok) {
+        
         const access_token = result?.accessToken;
         console.log("access token in function login :", access_token);
         console.log("message in function login :", result?.message);
         // Store tokens in Redux
-        dispatch(setAccessToken(access_token));
+        if(access_token !== undefined){
+          dispatch(setAccessToken(access_token));
 
         toast.success("Login Successfully ", {
           style: {
@@ -92,6 +94,8 @@ const LoginComponent = () => {
           },
         });
         router.push(`/`);
+        }
+        
       } else {
         toast.success("អ៉ីម៉ែលឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ", {
           style: {
