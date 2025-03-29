@@ -84,11 +84,11 @@ type UploadResponse = {
   code: number;
   message: string;
   data: {
-      file_name: string;
-      file_path: string;
-      file_type: string;
-      file_size: number;
-      message: string;
+    file_name: string;
+    file_path: string;
+    file_type: string;
+    file_size: number;
+    message: string;
   };
 };
 

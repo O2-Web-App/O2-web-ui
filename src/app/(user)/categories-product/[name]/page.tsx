@@ -7,9 +7,6 @@ import {
     useGetPopularProductQuery
 } from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
-import {FaHeart} from "react-icons/fa";
-import {GoClock} from "react-icons/go";
-import {HiOutlineFire} from "react-icons/hi2";
 import React from "react";
 import {useRouter} from "next/navigation";
 import CardProductByColumnComponent from "@/components/home/CardProductByColumnComponent";
@@ -18,25 +15,6 @@ import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductD
 type Props = {
     params: Promise<{ name: string }>;
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-const getTimeDifference = (createdAt: string) => {
-    const now = new Date();
-    const createdDate = new Date(createdAt);
-    const diffMs = now.getTime() - createdDate.getTime();
-
-    const minutes = Math.floor(diffMs / (1000 * 60));
-    const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const months = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 30.44));
-    const years = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
-
-    if (years > 0) return `${years} ឆ្នាំមុន`; // "years ago"
-    if (months > 0) return `${months} ខែមុន`; // "months ago"
-    if (days > 0) return `${days} ថ្ងៃមុន`; // "days ago"
-    if (hours > 0) return `${hours} ម៉ោងមុន`; // "hours ago"
-    if (minutes > 0) return `${minutes} នាទីមុន`; // "minutes ago"
-    return 'ឥឡូវនេះ'; // "Just now"
 };
 
 
@@ -80,10 +58,7 @@ export default function CategoryProduct({params}: Props) {
         ? (data?.data?.data || [])
         : (data?.data || []);
 
-    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading products</div>;
-
-    const env = process.env.NEXT_PUBLIC_O2_API_URL;
 
     return (
         <section>

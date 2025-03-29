@@ -32,9 +32,15 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import SkeletonFeedback from "@/components/home/SkeletonFeedback";
 
-export default function ProductDetail({uuid}: { uuid: string }) {
+type Prop  = {
+    uuid: string;
+}
+
+export default function ProductDetail({uuid}: Prop) {
     // get user data
-    const userData = useGetUserQuery();
+    const user = useGetUserQuery();
+
+    const userData = user?.data;
 
     // add to wishlist api
     const [createWishlist] = useCreateWishListProductMutation();
@@ -45,7 +51,7 @@ export default function ProductDetail({uuid}: { uuid: string }) {
     });
 
     // to get data object
-    const result = data?.data?.data;
+    const result = data?.data;
 
     // handle add item to wishlist
     const addToWishList = async () => {

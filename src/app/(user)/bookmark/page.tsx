@@ -1,6 +1,6 @@
 "use client";
-import { ArrowLeft } from "lucide-react";
-import CardBlogHorizontal from "@/components/Components/CardComponents/CardBlogHorizontal";
+import {  ChevronLeft } from "lucide-react";
+import CardBlogBookmark from "@/components/Components/CardComponents/CardBookmark";
 import { useGetAllBookmarkQuery, useAddBookmarkMutation } from "@/app/redux/service/blog";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -37,7 +37,7 @@ export default function Home() {
         <main className="max-w-md mx-auto min-h-screen">
             <header className="sticky top-0 z-10 border-b">
                 <div className="flex items-center p-4">
-                    <ArrowLeft size={24} onClick={() => router.back()} className="cursor-pointer" />
+                <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
                     <h1 className="flex-1 text-center text-xl font-medium">ការរក្សាទុក</h1>
                 </div>
             </header>
@@ -52,7 +52,7 @@ export default function Home() {
                 ) : (
                     articles.map((article) => (
                         <div className="border-b" key={article.uuid}>
-                            <CardBlogHorizontal
+                            <CardBlogBookmark
                                 id={article.blog.uuid}
                                 title={article.blog.title}
                                 image={

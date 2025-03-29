@@ -5,9 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/no-internet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/not-found.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(user)/editBlog/[uuid]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(user)/myBlog/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/no-internet/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/not-found.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/types/YouTubeThumbnail.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/BlogCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBookmark.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/PopupConfirm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Components/Form/AddBlogForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Components/Form/UpdateBlogForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/NoInternet.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UseOnlineStatus.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/addBlog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/addBlog/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/blog/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/bookmark/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/bookmark/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/product/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/login/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/logout/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/logout/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/refresh/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/refresh/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/features/auth/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/features/auth/authSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/features/auth/tokenSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/features/auth/tokenSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/service/blog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/blog.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/service/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-overlay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-overlay.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-view-block.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-view-block.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/texteditor/image/image-edit-block.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/texteditor/image/image-edit-block.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/texteditor/link/link-edit-popover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/texteditor/link/link-edit-popover.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/texteditor/minimal-tiptap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/texteditor/minimal-tiptap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/hooks/use-minimal-tiptap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/hooks/use-minimal-tiptap.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,28 +67,29 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;22.14.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.13.10&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/free_lance/O2-web-ui/public/category&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\free_lance\\O2-web-ui\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Merging dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "22.14.0",
+    "javascript.nodejs.core.library.typings.version": "22.13.10",
+    "last_opened_file_path": "D:/free_lance/O2-web-ui/public",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\free_lance\\O2-web-ui\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\free_lance\O2-web-ui\public" />
       <recent name="D:\free_lance\O2-web-ui\public\category" />
       <recent name="$PROJECT_DIR$/public/banner" />
       <recent name="$PROJECT_DIR$/public" />
@@ -94,7 +137,9 @@
       <workItem from="1743179906028" duration="8583000" />
       <workItem from="1743217845562" duration="1874000" />
       <workItem from="1743232908994" duration="439000" />
-      <workItem from="1743234065920" duration="3720000" />
+      <workItem from="1743234065920" duration="6157000" />
+      <workItem from="1743249650844" duration="7389000" />
+      <workItem from="1743285429133" duration="3877000" />
     </task>
     <servers />
   </component>

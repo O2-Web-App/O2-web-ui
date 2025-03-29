@@ -21,7 +21,6 @@ export default function CarouselImage({uuid}: { uuid: string }) {
     });
 
     const result = data?.data;
-    console.log("Carouse : " ,result);
 
     const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 

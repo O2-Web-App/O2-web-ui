@@ -1,10 +1,10 @@
 import React from 'react'
-import AddBlogComponent from '@/components/Components/Form/AddBlogForm'
+import UpdateBlogComponent from '@/components/Components/Form/UpdateBlogForm'
 
 const page = () => {
   return (
     <div>
-      <AddBlogComponent/>
+      <UpdateBlogComponent/>
     </div>
   )
 }
