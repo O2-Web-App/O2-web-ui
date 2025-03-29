@@ -1,7 +1,6 @@
 import React from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation} from "swiper/modules";
-import {useGetFeedbackQuery} from "@/app/redux/service/product";
 import Image from "next/image";
 import TimeDifferenceComponent from "@/components/home/TimeDifferenceComponent";
 
@@ -13,25 +12,16 @@ type Feedback = {
     created_at: string;
 };
 
-const FeedbackSlide: React.FC = () => {
-    const {data, error, isLoading} = useGetFeedbackQuery();
-    const env = process.env.NEXT_PUBLIC_O2_API_URL;
+type FeedbackSlideProps = {
+    feedback: Feedback[];
+    env: string | undefined;
+};
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading feedback</div>;
-
-    const feedback: Feedback[] = data?.data.map((item: any) => ({
-        id: item.uuid,
-        userName: item.username,
-        description: item.message,
-        userProfile: item.avatar,
-        created_at: item.created_at,
-    })) || [];
-
+const FeedbackSlide: React.FC<FeedbackSlideProps> = ({feedback, env}) => {
     return (
         <section className="w-full rounded-[10px]">
             <div className="w-full rounded-[10px]">
-                <ul className="h-[180px] w-full rounded-[10px]">
+                <ul className="h-auto mb-5 w-full rounded-[10px]">
                     <Swiper
                         className="h-full w-full rounded-[10px]"
                         pagination={{type: "bullets", clickable: true}}

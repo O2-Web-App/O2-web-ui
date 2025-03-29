@@ -143,14 +143,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-// import { setAccessToken } from '@/redux/feature/auth/authSlice';
-// import Loading from '../General/Loading';
+import { setAccessToken} from "@/app/redux/features/auth/authSlice";
+import {useAppDispatch} from "@/app/redux/hooks";
 
 
 const CallbackHandler: React.FC = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleCallback = async () => {

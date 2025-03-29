@@ -1,5 +1,5 @@
 import {o2API} from "../api";
-import {DataSelect, RecommendationType} from "@/app/types/ProductDetail";
+import {DataSelect, DiscountBannerType, RecommendationType} from "@/app/types/ProductDetail";
 
 export const productApi = o2API.injectEndpoints({
     endpoints: (builder) => ({
@@ -66,8 +66,8 @@ export const productApi = o2API.injectEndpoints({
 
 
         // Filter Product
-        getFilterListProduct: builder.query<any, { category_uuid: string , max_price:number }>({
-            query: ({category_uuid ,max_price }) => ({
+        getFilterListProduct: builder.query<any, { category_uuid: string, max_price: number }>({
+            query: ({category_uuid, max_price}) => ({
                 url: `api/products?category_uuid=${category_uuid}&min_price=0&max_price=${max_price}&sort_price=asc`,
                 method: "GET",
             }),
@@ -77,6 +77,22 @@ export const productApi = o2API.injectEndpoints({
         getSearchProduct: builder.query<any, { search: string }>({
             query: ({search}) => ({
                 url: `api/products?search=${search}`,
+                method: "GET",
+            }),
+        }),
+
+        //Discount Banner Product
+        getDiscountBannerProduct: builder.query<DiscountBannerType, void>({
+            query: () => ({
+                url: `api/promotion/discounts`,
+                method: "GET",
+            }),
+        }),
+
+        // Coupon Banner Product
+        getCouponBannerProduct: builder.query<any, void>({
+            query: () => ({
+                url: `api/promotion/coupons`,
                 method: "GET",
             }),
         }),
@@ -107,5 +123,7 @@ export const {
     useGetFilterListProductQuery,
     useGetSearchProductQuery,
     useGetFeedbackQuery,
-    useCreateUserFeedbackProductQueryMutation
+    useCreateUserFeedbackProductQueryMutation,
+    useGetDiscountBannerProductQuery,
+    useGetCouponBannerProductQuery,
 } = productApi;

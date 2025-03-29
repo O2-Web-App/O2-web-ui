@@ -46,3 +46,14 @@ export type SubSelect = {
     updated_at: string;
 }
 
+type DiscountData = {
+    uuid: string;
+    name: string;
+    image: string;
+    discount_percentage: string;
+}
+
+export type DiscountBannerType = {
+    data: DiscountData[];
+}
+

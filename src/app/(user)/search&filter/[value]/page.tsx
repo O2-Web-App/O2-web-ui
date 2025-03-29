@@ -61,7 +61,7 @@ export default function SearchAndFilter({params}: Props) {
                     <SkeletonProductDiscountComponent/>
                 ) : (
                     <section className="px-5 w-full">
-                        <section className="flex items-center gap-5 my-3 w-full">
+                        <section className="flex items-center gap-5 my-3 w-full ">
                             <div className="bg-gray-100 rounded-full overflow-hidden p-2">
                                 <IoIosArrowBack
                                     onClick={() => router.back()}
@@ -69,7 +69,7 @@ export default function SearchAndFilter({params}: Props) {
                                 />
                             </div>
 
-                            <section className="sticky top-[65px] z-50 bg-background_color py-4">
+                            <section className="sticky top-[65px] z-50 bg-background_color py-4 w-full">
                                 <section className="relative">
                                     <Input
                                         className="pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
@@ -93,6 +93,7 @@ export default function SearchAndFilter({params}: Props) {
                                         uuid={product.uuid}
                                         single_image={product.single_image}
                                         name={product.name}
+                                        discount_percentage={product.discount_percentage}
                                         discounted_price={product.discounted_price}
                                         price={product.price}
                                         category_name={product.category_name}

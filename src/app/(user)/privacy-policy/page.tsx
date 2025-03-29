@@ -1,14 +1,12 @@
-"use client";
-
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function Page() {
-    const router = useRouter()
+export default function page() {
+    
     return (
         <section className="mx-5">
             <div className="flex gap-10 py-8 items-center">
-                <button onClick={()=> router.back()}><ArrowLeft  className="w-8 h-8" /></button>
+                <Link href={`/`}><ArrowLeft  className="w-8 h-8" /></Link>
                 <h1 className="text-2xl">Privacy Policy</h1>
             </div>
             <p className="text-black/60 text-lg">O2 Free Classifieds strives to offer its visitors the many advantages of web technology and to provide an Agri-products&#44; technical support and business/enterprise development consultant. We may use Personally Identifiable Information &#40;your name&#44; e-mail address&#44; address&#44; telephone number&#41; subject to the terms of this privacy policy. We will never provide&#44; barter&#44; or rent your email address to any unauthorized third party.</p>

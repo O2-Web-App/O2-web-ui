@@ -10,14 +10,12 @@ import {FiSearch} from "react-icons/fi";
 import CategoryComponent from "@/components/home/CategoryComponent";
 import RecommendationComponent from "@/components/home/RecommendationComponent";
 import FeedbackSlide from "@/components/home/FeedbackSlide";
-import feedback from "@/lib/feedback_data.json";
 import {FeedbackDrawerComponent} from "@/components/home/FeedbackDrawerComponent";
 import PopularProductComponent from "@/components/home/PopularProductComponent";
 import PreOrderProductComponent from "@/components/home/PreOrderProductComponent";
 import DiscountProductComponent from "@/components/home/DiscountProductComponent";
-import { PiSlidersHorizontalBold } from "react-icons/pi";
 import FilterComponent from "@/components/home/FilterComponent";
-import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductDiscountComponent";
+import FeedbackComponent from "@/components/home/FeedbackComponent";
 
 export default function Page() {
     const [showSplash, setShowSplash] = useState(true);
@@ -34,7 +32,7 @@ export default function Page() {
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            router.push(`/search&filter/${"s-"+searchValue}`);
+            router.push(`/search&filter/${"s-" + searchValue}`);
         }
     };
 
@@ -45,7 +43,7 @@ export default function Page() {
 
             {/* main section */}
             {!showSplash && (
-                <section className="flex min-h-screen flex-col px-5 gap-7">
+                <section className="flex min-h-screen flex-col px-5 gap-7 ">
 
                     {/* Search section*/}
                     <section className=" sticky top-[65px] z-50 bg-background_color py-4">
@@ -64,7 +62,7 @@ export default function Page() {
                     </section>
 
                     {/* Banner Slide */}
-                    <BannerSlide data={dataSlider}/>
+                    <BannerSlide/>
 
                     {/* Category section*/}
                     <CategoryComponent/>
@@ -77,20 +75,11 @@ export default function Page() {
 
                     {/* Order section */}
                     <PreOrderProductComponent/>
-                    <SkeletonProductDiscountComponent/>
 
                     <DiscountProductComponent/>
 
                     {/* Feedback section */}
-                    <section className="flex flex-col">
-                        <div className="flex justify-between items-end">
-                            <h1 className="text-2xl font-normal">មតិយោបល់របស់អតិថិជន</h1>
-                            <FeedbackDrawerComponent/>
-                        </div>
-                        <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
-                            <FeedbackSlide/>
-                        </div>
-                    </section>
+                    <FeedbackComponent/>
 
                 </section>
             )}

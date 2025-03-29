@@ -40,6 +40,7 @@ const CardBlogHorizontal = ({
                 {/* Image */}
                 <Link href={`/blog/${id}`} className="w-24 h-24 aspect-square rounded-lg overflow-hidden flex-shrink-0">
                     <Image
+
                         src={image}
                         alt={title}
                         width={1000}

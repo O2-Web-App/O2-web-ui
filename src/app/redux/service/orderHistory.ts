@@ -1,4 +1,4 @@
-import { OrderHistoryResponse } from "@/app/types/purchaseHistoryType";
+import { OrderDetail, OrderHistoryResponse } from "@/app/types/purchaseHistoryType";
 import { o2API } from "../api";
 
 export const orderAPI = o2API.injectEndpoints({
@@ -9,9 +9,16 @@ export const orderAPI = o2API.injectEndpoints({
                 method: "GET"
             }),
             providesTags: ["Orders"]
+        }),
+        getOrdersByUuid: builder.query<OrderDetail, {uuid: string}>({
+            query: ({uuid}) => ({
+                url:    `api/orders/${uuid}`,
+                method: "GET"
+            }),
+            providesTags: ["Orders"]
         })
 
     })
 })
 
-export const { useGetOrdersQuery } = orderAPI; 
+export const { useGetOrdersQuery, useGetOrdersByUuidQuery } = orderAPI; 

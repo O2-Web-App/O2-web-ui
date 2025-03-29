@@ -1,78 +1,79 @@
 "use client";
-import { useGetProductDetailByUUIDQuery } from "@/app/redux/service/product";
+import {useGetProductDetailByUUIDQuery} from "@/app/redux/service/product";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    type CarouselApi,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-export default function CarouselImage({ uuid }: { uuid: string }) {
-  const [api, setApi] = useState<CarouselApi | null>(null);
-  const [current, setCurrent] = useState<number | null>(null);
-  const [isMounted, setIsMounted] = useState(false); // ✅ Track hydration
+export default function CarouselImage({uuid}: { uuid: string }) {
+    const [api, setApi] = useState<CarouselApi | null>(null);
+    const [current, setCurrent] = useState<number | null>(null);
+    const [isMounted, setIsMounted] = useState(false); // ✅ Track hydration
 
-  // get prodcut detail
-  const productDetailData = useGetProductDetailByUUIDQuery({
-    uuid: uuid,
-  });
-
-  const result = productDetailData?.data?.data;
-
-  const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
-
-  useEffect(() => {
-    setIsMounted(true); // ✅ Ensures the component only renders on the client
-  }, []);
-
-  useEffect(() => {
-    if (!api) return;
-
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
+    // get prodcut detail
+    const productDetailData = useGetProductDetailByUUIDQuery({
+        uuid: uuid,
     });
-  }, [api]);
 
-  // 🔥 **Fix Hydration Mismatch**
-  if (!isMounted) {
-    return <div className="w-full h-[300px] bg-gray-200 animate-pulse"></div>; // ✅ Placeholder during hydration
-  }
+    const result = productDetailData?.data?.data;
 
-  return (
-    <div className="mx-auto">
-      <Carousel setApi={setApi} className="w-full" opts={{ loop: true }}>
-        <CarouselContent className="my-5">
-          {result?.images.map((image: string, index: number) => (
-            <CarouselItem key={index}>
-              <div className="w-full mx-auto">
-                <Image
-                  width={150}
-                  height={150}
-                  src={imageBaseUrl + image}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+    const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 
-      {/* dot */}
-      <div className="flex w-full justify-center space-x-2">
-        {result?.images.map((_: string, index: number) => (
-          <div
-            key={index}
-            className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-              index + 1 === current ? "bg-primary" : "bg-primary opacity-20"
-            }`}
-          ></div>
-        ))}
-      </div>
-    </div>
-  );
+    useEffect(() => {
+        setIsMounted(true); // ✅ Ensures the component only renders on the client
+    }, []);
+
+    useEffect(() => {
+        if (!api) return;
+
+        setCurrent(api.selectedScrollSnap() + 1);
+
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap() + 1);
+        });
+    }, [api]);
+
+    // 🔥 **Fix Hydration Mismatch**
+    if (!isMounted) {
+        return <div className="w-full h-[300px] bg-gray-200 animate-pulse"></div>; // ✅ Placeholder during hydration
+    }
+
+    return (
+        <div className="mx-auto">
+            <Carousel setApi={setApi} className="w-full" opts={{loop: true}}>
+                <CarouselContent className="my-5">
+                    {result?.images.map((image: string, index: number) => (
+                        <CarouselItem key={index}>
+                            <div className="w-full mx-auto">
+                                <Image
+                                    unoptimized
+                                    width={150}
+                                    height={150}
+                                    src={imageBaseUrl + image}
+                                    alt=""
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+            </Carousel>
+
+            {/* dot */}
+            <div className="flex w-full justify-center space-x-2">
+                {result?.images.map((_: string, index: number) => (
+                    <div
+                        key={index}
+                        className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                            index + 1 === current ? "bg-primary" : "bg-primary opacity-20"
+                        }`}
+                    ></div>
+                ))}
+            </div>
+        </div>
+    );
 }

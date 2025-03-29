@@ -29,7 +29,9 @@ export default function PopularProductComponent() {
                 isLoading ? (
                     <SkeletonProductComponent/>
                 ) : (
-                    <section className="flex flex-col">
+                    <section className="flex flex-col">{
+                        popular === 0 && <div></div>
+                    }
                         <div className="flex justify-between items-end">
                             <h1 className="text-2xl font-normal">ផលិតផលដែលពេញនិយមបំផុត</h1>
                             <p
@@ -39,7 +41,7 @@ export default function PopularProductComponent() {
                                 មើលបន្ថែម
                             </p>
                         </div>
-                        <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
+                        <div className="flex flex-row gap-3 scrollbar-hide py-3 overflow-auto">
                             {popular.map((product: DataType) => (
                                 <CardProductByRowComponent
                                     key={product.uuid}

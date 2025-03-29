@@ -2,9 +2,9 @@ import { o2API } from "../api";
 
 type ChangePasswordResponse = { message: string };
 type ChangePasswordRequest = {
-  old_password: string;
+  current_password: string;
   new_password: string;
-  confirm_new_password: string;
+  new_password_confirmation: string;
 };
 
 type UserPayload = {
@@ -42,8 +42,8 @@ type UpdateUserProfile = {
   address?: string | null;
   phone_number?: string | null;
   date_of_birth?: string | null;
-  gender?: string | null;
   bio?: string | null;
+  avatar: string | null;
 };
 
 type Items = {
@@ -79,6 +79,20 @@ type UserBookMarkDeleteResponse = {
   message: string;
 };
 
+type UploadResponse = {
+  date: string;
+  code: number;
+  message: string;
+  data: {
+      file_name: string;
+      file_path: string;
+      file_type: string;
+      file_size: number;
+      message: string;
+  };
+};
+
+
 export const userApi = o2API.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
@@ -91,28 +105,32 @@ export const userApi = o2API.injectEndpoints({
     }),
 
     changePassword: builder.mutation<ChangePasswordResponse, ChangePasswordRequest>({
-      query: ({ old_password, new_password, confirm_new_password }) => ({
-        url: `api/v1/user/change-password`,
+      query: ({ current_password, new_password, new_password_confirmation }) => ({
+        url: `api/users/change-password`,
         method: "POST",
-        body: { old_password, new_password, confirm_new_password },
+        body: { current_password, new_password, new_password_confirmation },
       }),
     }),
 
-    updateProfileUser: builder.mutation<UpdateProfileResponse, { uuid: string; user: UpdateUserProfile }>({
-      query: ({ uuid, user }) => ({
-        url: `api/v1/user/profile/update/${uuid}`,
-        method: "PUT",
-        body: user,
+    updateProfileUser: builder.mutation<UpdateProfileResponse, UpdateUserProfile >({
+      query: ({ name, bio, avatar }) => ({
+        url: `api/users/update-profile`,
+        method: "PATCH",
+        body: {
+          name: name,
+          bio: bio,
+          avatar: avatar,
+        },
       }),
       invalidatesTags: ["userProfile"],
     }),
 
-    postImage: builder.mutation<UserResponse, { uuid: string; avatar_url: File }>({
-      query: ({ uuid, avatar_url }) => {
+    postImage: builder.mutation<UploadResponse, { image: File }>({
+      query: ({  image }) => {
         const formData = new FormData();
-        formData.append("file", avatar_url);
+        formData.append("image", image);
         return {
-          url: `api/v1/user/profile/upload/${uuid}`,
+          url: `api/images/upload-single`,
           method: "POST",
           body: formData,
         };

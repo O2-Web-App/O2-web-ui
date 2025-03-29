@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import { Suwannaphum } from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from '@radix-ui/react-tooltip'
 
 const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
@@ -18,19 +19,21 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
+    <html lang="en">
       <body className={`${suwannaphum.className} bg-background_color`}>
-      <NavbarPage />
-      <main className="w-full">
-        {children}
-        <Toaster closeButton />
-      </main>
+        <NavbarPage />
+        <main className="w-full">
+          <TooltipProvider>
+             {children}
+          </TooltipProvider>
+          <Toaster closeButton />
+        </main>
       </body>
-      </html>
+    </html>
   );
 }
