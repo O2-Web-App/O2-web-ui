@@ -5,122 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(user)/addBlog/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(user)/purchase-history/[uuid]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(user)/setting/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/redux/service/feedback.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/Changepassword.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/FeedbackComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/Loading.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/bubble-menu/link-bubble-menu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/code-block-lowlight/code-block-lowlight.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/code-block-lowlight/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/color/color.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/color/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/file-handler/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/horizontal-rule/horizontal-rule.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/horizontal-rule/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-actions.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-overlay.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/image-view-block.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/components/resize-handle.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/hooks/use-drag-resize.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/hooks/use-image-actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/image.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/image/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/link/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/link/link.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/reset-marks-on-enter/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/reset-marks-on-enter/reset-marks-on-enter.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/selection/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/selection/selection.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/unset-all-marks/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/extensions/unset-all-marks/unset-all-marks.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/image/image-edit-block.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/link/link-edit-block.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/link/link-edit-popover.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/link/link-popover-block.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/measured-container.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/minimal-tiptap.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/section/five.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/section/four.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/section/one.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/section/three.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/section/two.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/shortcut-key.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/spinner.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/styles/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/styles/partials/code.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/styles/partials/lists.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/styles/partials/placeholder.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/styles/partials/typography.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/styles/partials/zoom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/toolbar-button.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/toolbar-section.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/type.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Components/texteditor/utils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Navbar/Skeletonnavbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/FeedbackComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/SkeletonBannerDiscount.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/SkeletonCategoryProduct.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/SkeletonFeedback.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/hooks/use-container-size.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/hooks/use-minimal-tiptap.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/hooks/use-theme.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/hooks/use-throttle.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/form.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/separator.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/switch.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/toggle-group.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/toggle.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/tooltip.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/about-us/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/about-us/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/blog/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/privacy-policy/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/privacy-policy/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/purchase-history/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/purchase-history/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/login/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/blog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/blog.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/orderHistory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/orderHistory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/product.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/BlogType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/BlogType.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/Feedback.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/Feedback.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/purchaseHistoryType.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/purchaseHistoryType.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/CallBackHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/CallBackHandler.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/LoginWithGoogle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/LoginWithGoogle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/OTPComponentReset.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/OTPComponentReset.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/ResetPasswordComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/ResetPasswordComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/Animation.webm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/success.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/features/selectProvince.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/features/selectProvince.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Components/OrderHistory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/OrderHistory.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FeedbackCard/FeedbackCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeedbackCard/FeedbackCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/Cart/CardItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/Cart/CardItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/BannerSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/BannerSlide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackDrawerComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackDrawerComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/skeleton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/payment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/payment.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +95,7 @@
       <workItem from="1743133507250" duration="11223000" />
       <workItem from="1743173159168" duration="2156000" />
       <workItem from="1743179906028" duration="8583000" />
-      <workItem from="1743217845562" duration="691000" />
+      <workItem from="1743217845562" duration="1518000" />
     </task>
     <servers />
   </component>

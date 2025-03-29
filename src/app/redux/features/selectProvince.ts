@@ -2,7 +2,7 @@ import { Province } from "@/app/types/Province";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: Province = {
-  value: "73e80a00-debf-4dce-a733-bda19af5774d",
+  value: "0030b0b4-ddc7-4e92-8d8e-de39adc83091",
   name: "Phnom Penh",
 };
 

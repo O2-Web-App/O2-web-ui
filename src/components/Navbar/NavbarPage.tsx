@@ -372,9 +372,10 @@ export default function NavbarPage() {
                                                             ព័ត៌មានគណនី
                                                         </SheetTitle>
                                                         <div className="flex items-center justify-start space-x-3 mt-4">
-                                                            <img
+                                                            <Image
                                                                 src={avatarUrl}
                                                                 alt="User Avatar"
+                                                                unoptimized
                                                                 width={45}
                                                                 height={45}
                                                                 className="rounded-full border-2 border-primary"
