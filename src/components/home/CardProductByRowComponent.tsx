@@ -37,20 +37,27 @@ export default function CardProductByRowComponent({
             if (response.data) {
                 toast.success("ការបញ្ចូលទៅកាន់បញ្ជីបានជោគជ័យ", {
                     style: {
+                        color: "white",
                         background: "#22bb33",
+                        border: '1px solid #22bb33',
                     },
                 });
             } else {
-                toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                toast.error("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
+                    "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
                     style: {
-                        background: "#bb2124",
+                        color: "white",
+                        background: "#e0391f",
+                        border: '1px solid #e0391f',
                     },
                 });
             }
         } catch {
-            toast.success("ការបញ្ចូលទៅកាន់បញ្ជីមិនបានជោគជ័យ", {
+            toast.error("ការបញ្ចូលទៅកាន់បញ្ជីមិនបានជោគជ័យ", {
                 style: {
-                    background: "#bb2124",
+                    color: "white",
+                    background: "#e0391f",
+                    border: '1px solid #e0391f',
                 },
             });
         }
@@ -69,7 +76,7 @@ export default function CardProductByRowComponent({
                 }}
             />
             <button
-                onClick={addToWishList} // Updated to use the event handler directly
+                onClick={addToWishList}
                 className="absolute top-5 right-5"
             >
                 <div className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">

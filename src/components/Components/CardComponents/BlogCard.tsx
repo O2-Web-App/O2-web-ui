@@ -66,7 +66,7 @@ const CardBlog = ({
                         </div>
                     </div>
                     {/* Wrap date & views inside a div and align to end */}
-                    <div className="flex justify-end text-xs text-gray-500">
+                    <div className="flex justify-start text-xs text-gray-500">
                         <span>{formatDate(date)} • {view} views</span>
                     </div>
                     <Link href={`/blog/${id}`} >

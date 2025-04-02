@@ -43,7 +43,7 @@ export default function PreOrderProductComponent() {
 
     if (error) return <div>Error loading pre-orders</div>;
 
-    const preorders = data?.data?.data || [];
+    const preorders = data?.data || [];
 
     const handleSeeMore = () => {
         router.push('/categories-product/preorder');

@@ -21,9 +21,7 @@ export type DataType = {
 }
 
 export type RecommendationType = {
-    data: {
-        data: DataType[];
-    };
+    data: DataType[];
 };
 
 

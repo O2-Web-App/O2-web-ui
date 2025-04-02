@@ -11,7 +11,7 @@ export default function RecommendationComponent() {
 
     if (error) return <div>Error loading recommendations</div>;
 
-    const recommendations = data?.data?.data || [];
+    const recommendations = data?.data || [];
 
     // Add click handler for "See More"
     const handleSeeMore = () => {

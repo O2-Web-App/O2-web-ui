@@ -54,9 +54,7 @@ export default function CategoryProduct({params}: Props) {
 
     const {data, isLoading, error} = queryData;
 
-    const products = (name === "preorder" || name === "recommendation")
-        ? (data?.data?.data || [])
-        : (data?.data || []);
+    const products = data?.data || [];
 
     if (error) return <div>Error loading products</div>;
 
@@ -67,7 +65,7 @@ export default function CategoryProduct({params}: Props) {
                     <SkeletonProductDiscountComponent/>
                 ) : (
                     <section className="px-5 w-full">
-                        <section className="flex items-center gap-5 my-3">
+                        <section className="flex items-center gap-5 my-3 ">
                             <div className="bg-gray-100 rounded-full overflow-hidden p-2">
                                 <IoIosArrowBack
                                     onClick={() => router.back()}

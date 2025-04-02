@@ -4,6 +4,8 @@ import {HiOutlineFire} from "react-icons/hi2";
 import React from "react";
 import TimeDifferenceComponent from "@/components/home/TimeDifferenceComponent";
 import {useRouter} from "next/navigation";
+import {toast} from "sonner";
+import {useCreateWishListProductMutation} from "@/app/redux/service/wishlist";
 
 type Props = {
     uuid: string;
@@ -29,6 +31,37 @@ export default function CardProductByColumnComponent({
                                                          stock
                                                      }: Props) {
     const router = useRouter();
+    const [createWishlist] = useCreateWishListProductMutation();
+
+
+    const addToWishList = async (e: React.MouseEvent) => {
+        e.stopPropagation(); // Prevents the click from bubbling up to the parent div
+        try {
+            const response = await createWishlist({product_uuid: uuid});
+            if (response.data) {
+                toast.success("ការបញ្ចូលទៅកាន់បញ្ជីបានជោគជ័យ", {
+                    style: {
+                        background: "#22bb33",
+                    },
+                });
+            } else {
+                toast.success("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
+                    "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                    style: {
+                        background: "#bb2124",
+                    },
+                });
+            }
+        } catch {
+            toast.success("ការបញ្ចូលទៅកាន់បញ្ជីមិនបានជោគជ័យ", {
+                style: {
+                    background: "#bb2124",
+                },
+            });
+        }
+    };
+
+
     return (
         <div
             key={uuid}
@@ -42,26 +75,28 @@ export default function CardProductByColumnComponent({
                 }}
             />
             {
-                discounted_price >= 0 || discount_percentage === '0' ? (
-                    <div></div>
+                discounted_price === 0  || discounted_price === null ? (
+                    <></>
                 ) : (
                     <div
                         className="absolute top-5 left-5 bg-primary flex justify-center items-center rounded-[6px] w-auto h-7 px-3 py-2"
                     >
-                        {discount_percentage === '0' ? (
-                            <p className="text-white">បញ្ចុះតម្លៃ {discounted_price}$</p>
-                        ) : (
-                            <p className="text-white">បញ្ចុះតម្លៃ {discount_percentage}%</p>
-                        )}
+
+                        <p className="text-white">បញ្ចុះតម្លៃ {discounted_price} $</p>
                     </div>
                 )
             }
 
-            <div
-                className="absolute top-5 right-5 bg-white flex justify-center items-center rounded-[6px] w-7 h-7"
+            <button
+                onClick={addToWishList}
+                className="absolute top-5 right-5"
             >
-                <FaHeart className="w-5 h-5 text-primary-light"/>
-            </div>
+                <div className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
+                </div>
+                <FaHeart
+                    className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+            </button>
+
             <div className="flex flex-col gap-1 justify-start">
                 <p className="text-base font-light mt-2 line-clamp-1 ">{name}</p>
                 <div className="flex justify-start items-center gap-1">
@@ -75,7 +110,7 @@ export default function CardProductByColumnComponent({
                     <div className="flex justify-start items-center gap-1">
                         <GoClock className="text-gray-500 w-[14px] h-[14px]"/>
                         {/*<p className="font-light text-gray-500 text-sm">*/}
-                            <TimeDifferenceComponent createdAt={created_at}/>
+                        <TimeDifferenceComponent createdAt={created_at}/>
                         {/*</p>*/}
                     </div>
                     <span className="w-1 h-1 rounded-full bg-primary"></span>

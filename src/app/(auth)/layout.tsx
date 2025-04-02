@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${suwannaphum.className} bg-background_color`}>
       <main className="w-full">
         {children}
-        <Toaster closeButton />
+        <Toaster position={"top-left"} />
       </main>
       </body>
       </html>

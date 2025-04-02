@@ -1,22 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Image from "next/image";
-import { MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck } from "lucide-react";
-import { useParams } from "next/navigation";
+import {MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck} from "lucide-react";
+import {useParams} from "next/navigation";
 import {
     usePostCommentMutation, useGetCommentQuery, usePostLikeMutation,
     useDeleteCommentMutation, useAddBookmarkMutation, useGetBlogDetailQuery
 } from "@/app/redux/service/blog";
-import { toast } from "sonner";
-import { useGetUserQuery } from "@/app/redux/service/user";
-import { useRouter } from "next/navigation";
+import {toast} from "sonner";
+import {useGetUserQuery} from "@/app/redux/service/user";
+import {useRouter} from "next/navigation";
 import Link from "next/link";
-import { Comment } from "@/app/types/BlogType";
-import { getYouTubeThumbnail} from "@/app/types/YouTubeThumbnail";
+import {Comment} from "@/app/types/BlogType";
+import {getYouTubeThumbnail} from "@/app/types/YouTubeThumbnail";
+import SkeletonBlogDetail from "@/components/blog/SkeletonBlogDetail";
 
 export default function Page() {
-    const { uuid } = useParams() as { uuid: string };
+    const {uuid} = useParams() as { uuid: string };
     const [error] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
@@ -24,15 +25,15 @@ export default function Page() {
     const [isLiked, setIsLiked] = useState(false);
 
     const [postComment] = usePostCommentMutation();
-    const { data: commentsList, refetch } = useGetCommentQuery({ uuid: uuid ?? "" });
+    const {data: commentsList, refetch} = useGetCommentQuery({uuid: uuid ?? ""});
     const [likeData] = usePostLikeMutation();
     const [deleteComment] = useDeleteCommentMutation();
-    const [deleteConfirm, setDeleteConfirm] = useState<{ uuid: string | null }>({ uuid: null });
+    const [deleteConfirm, setDeleteConfirm] = useState<{ uuid: string | null }>({uuid: null});
     const [toggleBookmark] = useAddBookmarkMutation();
     const [isBookmarked, setIsBookmarked] = useState(false);
-    const { data: blogDetailData } = useGetBlogDetailQuery({ uuid: uuid ?? "" });
+    const {data: blogDetailData , isLoading} = useGetBlogDetailQuery({uuid: uuid ?? ""});
     const blogDetail = blogDetailData?.data;
-    const { data: userData } = useGetUserQuery();
+    const {data: userData} = useGetUserQuery();
     const router = useRouter();
 
     // Set isLiked and isBookmarked when blogDetail data is fetched
@@ -51,11 +52,13 @@ export default function Page() {
             if (userData === undefined) {
                 router.push("/login");
             } else {
-                await toggleBookmark({ blog_uuid: uuid }).unwrap();
+                await toggleBookmark({blog_uuid: uuid}).unwrap();
                 setIsBookmarked((prev) => !prev);
                 toast.success("ការរក្សាទុកជោគជ័យ", {
                     style: {
+                        color: "white",
                         background: "#22bb33",
+                        border: '1px solid #22bb33',
                     },
                 });
             }
@@ -63,7 +66,9 @@ export default function Page() {
             console.error("Error toggling bookmark", error);
             toast.error("ការរក្សាទុកបរាជ័យ", {
                 style: {
+                    color: "white",
                     background: "#e0391f",
+                    border: '1px solid #e0391f',
                 },
             });
         }
@@ -71,8 +76,8 @@ export default function Page() {
 
     const confirmDelete = async (uuid: string) => {
         try {
-            await deleteComment({ uuid }).unwrap();
-            setDeleteConfirm({ uuid: null });
+            await deleteComment({uuid}).unwrap();
+            setDeleteConfirm({uuid: null});
             refetch();
         } catch (error) {
             console.error("Failed to delete comment", error);
@@ -85,12 +90,13 @@ export default function Page() {
             if (userData === undefined) {
                 router.push("/login");
             } else {
-                await likeData({ uuid });
+                await likeData({uuid});
                 setIsLiked((prev) => !prev);
                 toast.success("ការចូលចិត្តជោគជ័យ", {
                     style: {
                         color: "white",
                         background: "#22bb33",
+                        border: '1px solid #22bb33',
                     },
                 });
             }
@@ -100,6 +106,7 @@ export default function Page() {
                 style: {
                     color: "white",
                     background: "#e0391f",
+                    border: '1px solid #e0391f',
                 },
             });
         }
@@ -138,10 +145,12 @@ export default function Page() {
     };
 
     if (error) return <div className="p-4 text-red-500">{error}</div>;
-    if (!blogDetail) return <div className="p-4">Blog post not found.</div>;
+    if (isLoading || !blogDetail) {
+        return <SkeletonBlogDetail />;
+    }
 
     return (
-        <article className="pb-20 mx-3 max-w-md mx-auto">
+        <article className="pb-20 max-w-md mx-auto">
             {/* Blog Info */}
             <div className="flex justify-between items-start p-4">
                 <div className="flex flex-wrap gap-2 w-1/2">
@@ -161,7 +170,11 @@ export default function Page() {
                     )}
                 </div>
                 <span className="text-sm text-gray-500 justify-end">
-                    {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(blogDetail.created_at))} • {blogDetail.views} views
+                    {new Intl.DateTimeFormat("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric"
+                    }).format(new Date(blogDetail.created_at))} • {blogDetail.views} views
                 </span>
             </div>
 
@@ -186,8 +199,10 @@ export default function Page() {
                     const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
                     return (
-                        <Link key={index} href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="block min-w-[8rem]">
-                            <img src={thumbnailUrl} alt={`YouTube Video ${index + 1}`} className="rounded-lg object-cover w-42 h-24" />
+                        <Link key={index} href={youtubeUrl} target="_blank" rel="noopener noreferrer"
+                              className="block min-w-[8rem]">
+                            <img src={thumbnailUrl} alt={`YouTube Video ${index + 1}`}
+                                 className="rounded-lg object-cover w-42 h-24"/>
                         </Link>
                     );
                 })}
@@ -202,26 +217,26 @@ export default function Page() {
                         height={1000}
                         src={`${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.user?.avatar}` || "/assets/placeholder.png"}
                         alt={"Profile"}
-                        className="rounded-md w-10 h-10 object-cover"
+                        className="rounded-md w-12 h-12 object-cover"
                     />
-                    <p className="text-lg">
-                        By <span className="underline text-lg text-medium text-black">{blogDetail.user?.name}</span>
+                    <p className="text-xl text-primary ">
+                        BY <br/><span className="underline text-lg text-medium text-black">{blogDetail.user?.name}</span>
                     </p>
                 </div>
 
                 {/* Like & Comment Buttons */}
                 <div className="flex gap-4">
                     <button onClick={handleLiked} className="py-5 px-2">
-                        <ThumbsUp className={`w-5 h-5 ${isLiked ? "text-blue-500" : "text-gray-500"}`} />
+                        <ThumbsUp className={`w-5 h-5 ${isLiked ? "text-blue-500" : "text-gray-500"}`}/>
                     </button>
                     <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
-                        <MessageCircle className="w-5 h-5" />
+                        <MessageCircle className="w-5 h-5"/>
                     </button>
                     <button onClick={handleToggleBookmark} className="text-gray-600 hover:text-gray-900">
                         {isBookmarked ? (
-                            <BookmarkCheck className="w-6 h-6 text-yellow-500" />
+                            <BookmarkCheck className="w-6 h-6 text-yellow-500"/>
                         ) : (
-                            <Bookmark className="w-6 h-6" />
+                            <Bookmark className="w-6 h-6"/>
                         )}
                     </button>
                 </div>
@@ -231,10 +246,10 @@ export default function Page() {
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
                     <div className="bg-white w-11/12 md:w-[400px] rounded-lg p-6 shadow-lg">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center ">
                             <h2 className="text-lg font-semibold">Comments</h2>
                             <button onClick={() => setIsModalOpen(false)}>
-                                <X className="w-6 h-6 text-gray-500 hover:text-gray-700" />
+                                <X className="w-6 h-6 text-gray-500 hover:text-gray-700"/>
                             </button>
                         </div>
 
@@ -266,7 +281,7 @@ export default function Page() {
                                                     </button>
                                                     {userData?.data?.uuid === comment.user?.uuid && (
                                                         <button
-                                                            onClick={() => setDeleteConfirm({ uuid: comment.uuid })}
+                                                            onClick={() => setDeleteConfirm({uuid: comment.uuid})}
                                                             className="text-red-500 hover:text-red-700"
                                                         >
                                                             Delete
@@ -291,7 +306,8 @@ export default function Page() {
                                                                     className="w-10 h-10 rounded-full object-cover"
                                                                 />
                                                                 <div className="bg-blue-100 rounded-lg p-2.5">
-                                                                    <span className="font-semibold">{reply.user?.name}</span>
+                                                                    <span
+                                                                        className="font-semibold">{reply.user?.name}</span>
                                                                     <p className="text-sm">{reply.content}</p>
                                                                 </div>
                                                             </div>
@@ -304,7 +320,7 @@ export default function Page() {
                                                                 </button>
                                                                 {userData?.data?.uuid === reply.user?.uuid && (
                                                                     <button
-                                                                        onClick={() => setDeleteConfirm({ uuid: reply.uuid })}
+                                                                        onClick={() => setDeleteConfirm({uuid: reply.uuid})}
                                                                         className="text-red-500 hover:text-red-700"
                                                                     >
                                                                         Delete
@@ -329,8 +345,9 @@ export default function Page() {
                                 placeholder={replyToUuid ? "Replying to comment..." : "Write a comment..."}
                                 className="w-full p-2 border rounded-lg"
                             />
-                            <button onClick={handleCommentSubmit} className="ml-2 p-2 bg-blue-500 text-white rounded-lg">
-                                <Send className="w-5 h-5" />
+                            <button onClick={handleCommentSubmit}
+                                    className="ml-2 p-2 bg-blue-500 text-white rounded-lg">
+                                <Send className="w-5 h-5"/>
                             </button>
                         </div>
                     </div>
@@ -350,7 +367,7 @@ export default function Page() {
                                 Yes
                             </button>
                             <button
-                                onClick={() => setDeleteConfirm({ uuid: null })}
+                                onClick={() => setDeleteConfirm({uuid: null})}
                                 className="ml-2 px-4 py-2 bg-gray-300 rounded-lg"
                             >
                                 No
@@ -360,7 +377,7 @@ export default function Page() {
                 </div>
             )}
 
-            <p className="text-lg text-black/65">{blogDetail.content}</p>
+            <p className="text-lg text-black/65 px-4">{blogDetail.content}</p>
         </article>
     );
 }

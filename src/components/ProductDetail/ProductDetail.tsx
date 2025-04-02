@@ -32,7 +32,7 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import SkeletonFeedback from "@/components/home/SkeletonFeedback";
 
-type Prop  = {
+type Prop = {
     uuid: string;
 }
 
@@ -42,7 +42,7 @@ export default function ProductDetail({uuid}: Prop) {
 
     const userData = user?.data;
 
-    // add to wishlist api
+    // add to wish-list api
     const [createWishlist] = useCreateWishListProductMutation();
 
     // get product detail api
@@ -53,7 +53,7 @@ export default function ProductDetail({uuid}: Prop) {
     // to get data object
     const result = data?.data;
 
-    // handle add item to wishlist
+    // handle add item to wish-list
     const addToWishList = async () => {
         try {
             const response = await createWishlist({product_uuid: uuid});
@@ -64,7 +64,8 @@ export default function ProductDetail({uuid}: Prop) {
                     },
                 });
             } else {
-                toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                toast.success("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
+                    "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
                     style: {
                         background: "#bb2124",
                     },
@@ -92,13 +93,17 @@ export default function ProductDetail({uuid}: Prop) {
             if (response.data) {
                 toast.success("ការបញ្ចូលទៅកាន់កន្ត្រកបានជោគជ័យ", {
                     style: {
+                        color: "white",
                         background: "#22bb33",
+                        border: "1px solid #22bb33",
                     },
                 });
             } else {
                 toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់កន្ត្រកបាន", {
                     style: {
+                        color: "white",
                         background: "#bb2124",
+                        border: "1px solid #22bb33",
                     },
                 });
             }
@@ -106,7 +111,9 @@ export default function ProductDetail({uuid}: Prop) {
             console.log(error);
             toast.error("ការបញ្ចូលទៅកាន់កន្ត្រកមិនបានជោគជ័យ", {
                 style: {
-                    background: "#bb2124",
+                    color: "white",
+                    background: "#e0391f",
+                    border: '1px solid #e0391f',
                 },
             });
         }
@@ -211,7 +218,7 @@ export default function ProductDetail({uuid}: Prop) {
                                 </div>
                             )}
 
-                            {/* hearticon add to wishlist */}
+                            {/* hearticon add to wish-list */}
                             <button onClick={() => addToWishList()} className="relative">
                                 <div
                                     className="rounded-full h-[30px] w-[30px] bg-primary opacity-20 flex items-center justify-center"></div>

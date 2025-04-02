@@ -1,7 +1,7 @@
 import { o2API } from "../api";
 export const wishlistAPI = o2API.injectEndpoints({
   endpoints: (builder) => ({
-    // add product to wishlist
+    // add product to wish-list
     createWishListProduct: builder.mutation<any, { product_uuid: string }>({
       query: ({ product_uuid }) => ({
         url: `api/wishlists/add`,
@@ -20,7 +20,7 @@ export const wishlistAPI = o2API.injectEndpoints({
       providesTags: ["WishList"],
     }),
 
-    // detele product from wishlist
+    // detele product from wish-list
     deleteWishListProduct: builder.mutation<any, { wishlist_uuid: string }>({
       query: ({ wishlist_uuid }) => ({
         url: `api/wishlists/remove`,

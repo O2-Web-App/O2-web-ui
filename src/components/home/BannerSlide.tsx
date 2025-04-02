@@ -14,14 +14,14 @@ import "swiper/css/pagination";
 import {useGetDiscountBannerProductQuery} from "@/app/redux/service/product";
 import SkeletonBannerDiscount from "@/components/home/SkeletonBannerDiscount";
 
-type Slide = {
-    name: string;
-    discount_percentage: string;
-    image: string;
-    uuid: string;
-}
+// type Slide = {
+//     name: string;
+//     discount_percentage: string;
+//     image: string;
+//     uuid: string;
+// }
 
-const BannerSlide: React.FC = () => {
+const DiscountBannerSlide: React.FC = () => {
 
     const {data, isLoading, error} = useGetDiscountBannerProductQuery();
 
@@ -46,41 +46,51 @@ const BannerSlide: React.FC = () => {
                 isLoading ? (
                     <SkeletonBannerDiscount/>
                 ) : (
-                    <section className="w-full rounded-[10px]">
-                        <div className=" w-full rounded-[10px]">
-                            <ul className="h-[180px] w-full rounded-[10px]">
-                                <Swiper
-                                    className={`h-full w-full rounded-[10px]`}
-                                    // navigation
-                                    pagination={{type: "bullets", clickable: true}}
-                                    autoplay={true}
-                                    loop={true}
-                                    modules={[Autoplay, Navigation]}
-                                >
-                                    {discounts.map((discount) => (
-                                        <SwiperSlide key={discount.uuid}>
-                                            <div
-                                                className="h-full w-full absolute left-0 top-0"
-                                                style={{
-                                                    background: `url(${process.env.NEXT_PUBLIC_O2_API_URL + discount.image}) center center / cover scroll no-repeat`,
-                                                }}
-                                            ></div>
-                                            <div
-                                                className="h-full w-full absolute left-0 top-0 bg-black opacity-20"></div>
-                                            <div className="relative z-10 h-full flex items-center justify-start">
-                                                <div className=" flex flex-col pl-10">
-                                                    <p className="text-red-600 text-xl font-bold">{discount.discount_percentage}%<span
-                                                        className=" text-sm px-1 font-light text-white">OFF</span></p>
-                                                    <p className="text-2xl uppercase text-white font-normal">
-                                                        {discount.name}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            </ul>
-                        </div>
+                    <section className={` w-full`}>
+                        {
+                            discounts.length === 0 ? (
+                                <></>
+                            ) : (
+                                <section className="w-full rounded-[10px] mb-5">
+                                    <div className=" w-full rounded-[10px]">
+                                        <ul className="h-[180px] w-full rounded-[10px]">
+                                            <Swiper
+                                                className={`h-full w-full rounded-[10px]`}
+                                                // navigation
+                                                pagination={{type: "bullets", clickable: true}}
+                                                autoplay={true}
+                                                loop={true}
+                                                modules={[Autoplay, Navigation]}
+                                            >
+                                                {discounts.map((discount) => (
+                                                    <SwiperSlide key={discount.uuid}>
+                                                        <div
+                                                            className="h-full w-full absolute left-0 top-0"
+                                                            style={{
+                                                                background: `url(${process.env.NEXT_PUBLIC_O2_API_URL + discount.image}) center center / cover scroll no-repeat`,
+                                                            }}
+                                                        ></div>
+                                                        <div
+                                                            className="h-full w-full absolute left-0 top-0 bg-black opacity-20"></div>
+                                                        <div
+                                                            className="relative z-10 h-full flex items-center justify-start">
+                                                            <div className=" flex flex-col pl-10">
+                                                                <p className="text-red-600 text-xl font-bold">{discount.discount_percentage}%<span
+                                                                    className=" text-sm px-1 font-light text-white">OFF</span>
+                                                                </p>
+                                                                <p className="text-2xl uppercase text-white font-normal">
+                                                                    {discount.name}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                ))}
+                                            </Swiper>
+                                        </ul>
+                                    </div>
+                                </section>
+                            )
+                        }
                     </section>
                 )
             }
@@ -88,4 +98,4 @@ const BannerSlide: React.FC = () => {
     );
 };
 
-export default BannerSlide;
+export default DiscountBannerSlide;
