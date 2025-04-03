@@ -12,7 +12,7 @@ RUN npm install --legacy-peer-deps --production
 COPY . .
 
 # Install Tailwind CSS and its peer dependencies
-RUN npm install tailwindcss postcss autoprefixer
+RUN npm install tailwindcss postcss autoprefixer --legacy-peer-deps
 
 # Build the Next.js app
 RUN npm run build
