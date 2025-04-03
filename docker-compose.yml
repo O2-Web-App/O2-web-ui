@@ -1,6 +1,20 @@
 services:
-  nextjs:
-    build: .
+  cam-o2-ui:
+    image: cam-o2-v.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cam-o2-ui
     ports:
       - "3000:3000"
     restart: always
+    environment:
+      - NODE_ENV=dev
+      - PORT=3000
+      - GENERATE_SOURCEMAP=false
+#    networks:
+#      - cam-o2-network
+#
+#networks:
+#  cam-o2-network:
+#    external: true
