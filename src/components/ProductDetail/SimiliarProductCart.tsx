@@ -21,22 +21,22 @@ export default function SimiliarProductCart({uuid}: { uuid: string }) {
         uuid: uuid,
     });
 
-    //get wish-list item
+    //get wishlist item
     const wishlistData = useGetAllProductWishlistQuery({});
 
-    // delete item from  wish-list
+    // delete item from  wishlist
     const [deleteWishListItem] = useDeleteWishListProductMutation();
 
-    // get wish-list data
+    // get wishlist data
     const wishListResult = wishlistData.data?.data;
 
     // to get data object
     const result = productDetailData?.data?.data.similar_products;
 
-    // add to wish-list
+    // add to wishlist
     const [createWishlist] = useCreateWishListProductMutation();
 
-    // function handle toggle change if item is in wish-list or not
+    // function handle toggle change if item is in wishlist or not
     const handleWishlistToggle = async (similarProUUID: string) => {
         const inWishListItem = wishListResult?.find(
             (item: any) => item.product_uuid === similarProUUID

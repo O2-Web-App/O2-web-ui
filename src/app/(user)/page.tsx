@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         siteName: "CAM-02 APP",
         images: [
             {
-                url: "https://cam02app.com//storage/uploads/50095dd3-2263-4f69-b7e5-515b8cbfef7e.jpg",
+                url: "https://cam02-app.com/storage/uploads/50095dd3-2263-4f69-b7e5-515b8cbfef7e.jpg",
                 alt: "CAM-02 APP - Promoting Khmer Children’s Products",
             },
         ],
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 
 
 export default function Page() {
-
 
     return (
         <HomePageComponent/>

@@ -17,10 +17,10 @@ export default function Wishlist() {
     // add product to cart
     const [addToCart] = useCreateAddToCartMutation();
 
-    // delete product in wish-list
+    // delete product in wishlist
     const [deleteWishListProduct] = useDeleteWishListProductMutation();
 
-    // get all product in wish-list
+    // get all product in wishlist
     const {data: wishlistData, isLoading} = useGetAllProductWishlistQuery({});
     const result = wishlistData?.data;
 
@@ -30,7 +30,7 @@ export default function Wishlist() {
     //   base image
     const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 
-    // handle delete wish-list item
+    // handle delete wishlist item
     const handleDeleteWishlistItem = async (wishlist_uuid: string) => {
         try {
             const response = await deleteWishListProduct({wishlist_uuid});

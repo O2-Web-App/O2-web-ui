@@ -34,7 +34,7 @@ export function FeedbackDrawerComponent() {
             <DrawerTrigger asChild>
                 <Button className="font-light text-white">ផ្ដល់យោបល់</Button>
             </DrawerTrigger>
-            <DrawerContent className={` bg-white flex justify-start items-start`}>
+            <DrawerContent className={` bg-white flex justify-start items-start rounded-t-[45px]`}>
                 <div className=" w-full flex flex-col items-start">
                     <DrawerHeader className={` w-full flex flex-col justify-start items-start`}>
                         <DrawerTitle>យើងចូលចិត្តមតិកែលម្អរបស់អ្នក!</DrawerTitle>

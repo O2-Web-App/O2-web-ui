@@ -112,7 +112,7 @@ const navLinks = [
         ),
     },
     {
-        href: "/wish-list",
+        href: "/wishlist",
         label: "បញ្ជី",
         icon: (
             <svg

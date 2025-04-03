@@ -42,7 +42,7 @@ export default function ProductDetail({uuid}: Prop) {
 
     const userData = user?.data;
 
-    // add to wish-list api
+    // add to wishlist api
     const [createWishlist] = useCreateWishListProductMutation();
 
     // get product detail api
@@ -53,7 +53,7 @@ export default function ProductDetail({uuid}: Prop) {
     // to get data object
     const result = data?.data;
 
-    // handle add item to wish-list
+    // handle add item to wishlist
     const addToWishList = async () => {
         try {
             const response = await createWishlist({product_uuid: uuid});
@@ -218,7 +218,7 @@ export default function ProductDetail({uuid}: Prop) {
                                 </div>
                             )}
 
-                            {/* hearticon add to wish-list */}
+                            {/* hearticon add to wishlist */}
                             <button onClick={() => addToWishList()} className="relative">
                                 <div
                                     className="rounded-full h-[30px] w-[30px] bg-primary opacity-20 flex items-center justify-center"></div>

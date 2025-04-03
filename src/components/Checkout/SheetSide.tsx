@@ -212,18 +212,18 @@ export default function SheetSide() {
         remarks: "",
     };
 
-    const googleMapUrlRegex = /^(https?:\/\/)?(www\.)?(google\.[a-z]{2,6}\/maps|goo\.gl\/maps)(\/\?ftid=[^&]+&entry=[^&]+|\/.+|\/[a-zA-Z0-9]+)$/;
-
     const validationSchema = Yup.object({
         phone_number: Yup.string().required("អ្នកត្រូវបញ្ជូលលេខទូរស័ព្ទ"),
         google_map_link: Yup.string()
-            // .matches(googleMapUrlRegex, "តំណភ្ជាប់ Google Map មិនត្រឹមត្រូវ")
+            .matches(/^(https:\/\/)?(www\.)?(google\.com\/maps|goo\.gl\/maps)\/.*/i, "តំណភ្ជាប់ Google Map មិនត្រឹមត្រូវ")
             .required("អ្នកត្រូវបញ្ជូល Google Map Url"),
         email: Yup.string()
             .required("អ៉ីម៉ែលរបស់អ្នកមិនត្រឹមត្រូវ")
             .email("អ្នកត្រូវបញ្ជូលអ៉ីម៉ែលរបស់អ្នក"),
         remarks: Yup.string().max(500, "remarks must be under 500 characters"),
     });
+
+
 
     const handleSubmit = (values: FormValues) => {
         setFormData(values);
@@ -375,7 +375,7 @@ export default function SheetSide() {
             {/* confirmation_step*/}
             <Sheet open={secondSheetOpen} onOpenChange={setSecondSheetOpen}>
                 <SheetContent
-                    className="bg-card_color h-[704px] flex flex-col justify-between  rounded-tr-[45px] rounded-tl-[45px] "
+                    className="bg-card_color h-[704px] flex flex-col justify-between  rounded-tr-[45px] rounded-tl-[45px] overflow-auto scrollbar-hide"
                     side={"bottom"}
                 >
                     <SheetTitle className="mb-5 text-title">ការបញ្ជាក់</SheetTitle>
