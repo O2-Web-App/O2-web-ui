@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/wish-list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/wishlist/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/wishlist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/wishlist.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/SimiliarProductCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/SimiliarProductCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackDrawerComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackDrawerComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +111,7 @@
       <workItem from="1743599701188" duration="9585000" />
       <workItem from="1743679877082" duration="1608000" />
       <workItem from="1743681822830" duration="616000" />
-      <workItem from="1743687224136" duration="2914000" />
+      <workItem from="1743687224136" duration="3702000" />
     </task>
     <servers />
   </component>
