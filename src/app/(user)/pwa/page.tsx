@@ -74,8 +74,8 @@ export default function Home() {
           <ol className="list-decimal pl-5 space-y-2">
             <li>Open this site in Safari.</li>
             <li>Tap the <strong>Share</strong> icon at the bottom of the screen.</li>
-            <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
-            <li>Tap <strong>"Add"</strong> in the top right corner.</li>
+            <li>Scroll down and tap <strong>&quot;Add to Home Screen&quot;</strong>.</li>
+            <li>Tap <strong>&quot;Add&quot;</strong> in the top right corner.</li>
           </ol>
         </div>
       )}

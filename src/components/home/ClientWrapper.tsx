@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import NoInternetPage from "@/app/no-internet/page";
 import StoreProvider from "@/app/StoreProvider";
-import FloatButton from "@/components/home/FloatButton";
+// import FloatButton from "@/components/home/FloatButton";
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
     const [isOnline, setIsOnline] = useState(true);
