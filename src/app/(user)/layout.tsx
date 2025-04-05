@@ -4,6 +4,7 @@ import {Suwannaphum} from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import {Toaster} from "@/components/ui/sonner";
 import {TooltipProvider} from '@radix-ui/react-tooltip'
+import FloatButton from "@/components/home/FloatButton";
 
 const suwannaphum = Suwannaphum({
     weight: ["100", "300", "400", "700", "900"],
@@ -32,6 +33,7 @@ export default function RootLayout({
         <main className="w-full">
             <TooltipProvider>
                 {children}
+                <FloatButton />
             </TooltipProvider>
             <Toaster position="top-center" />
         </main>

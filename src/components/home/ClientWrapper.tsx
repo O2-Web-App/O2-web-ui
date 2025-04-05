@@ -39,7 +39,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
                     {children}
                     {!isPwa && (
                         <div className="fixed bottom-5 right-5 z-50">
-                            <FloatButton />
+                            {/* <FloatButton /> */}
                         </div>
                     )}
                 </>
