@@ -8,7 +8,7 @@ import {
     DrawerTitle,
     DrawerTrigger
 } from "@/components/ui/drawer";
-import {FaArrowRightLong} from "react-icons/fa6";
+// import {FaArrowRightLong} from "react-icons/fa6";
 
 import {
     Select,

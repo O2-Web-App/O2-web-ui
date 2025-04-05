@@ -1,6 +1,4 @@
-import { FaHeart } from "react-icons/fa";
-import { GoClock } from "react-icons/go";
-import { HiOutlineFire } from "react-icons/hi2";
+
 import React from "react";
 import { useGetPreOrderProductQuery } from "@/app/redux/service/product";
 import { DataType } from "@/app/types/ProductDetail";

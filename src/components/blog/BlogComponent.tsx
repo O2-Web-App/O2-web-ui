@@ -1,6 +1,6 @@
 'use client';
-import {ChevronLeft, Plus} from "lucide-react";
-import {IoIosArrowBack, IoIosSearch} from "react-icons/io";
+import { Plus} from "lucide-react";
+import {IoIosArrowBack} from "react-icons/io";
 import {Input} from "@/components/ui/input";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import CardBlogComponent from "@/components/Components/CardComponents/CardBlogComponent";
@@ -58,6 +58,7 @@ export default function BlogComponent() {
                     border: '1px solid #e0391f',
                 },
             });
+            console.log(error)
         }
     };
 

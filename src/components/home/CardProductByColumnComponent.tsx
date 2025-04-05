@@ -24,7 +24,7 @@ export default function CardProductByColumnComponent({
                                                          single_image,
                                                          name,
                                                          discounted_price,
-                                                         discount_percentage,
+                                                        //  discount_percentage,
                                                          price,
                                                          category_name,
                                                          created_at,

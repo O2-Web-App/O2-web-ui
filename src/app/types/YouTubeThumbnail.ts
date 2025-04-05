@@ -37,6 +37,7 @@ export function getYouTubeThumbnail(
         return `https://img.youtube.com/vi/${videoId}/${qualityMap[quality]}.jpg`;
     } catch (error) {
         console.error("Invalid YouTube URL:", url);
+        console.log(error)
         return null;
     }
 }

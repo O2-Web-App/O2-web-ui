@@ -21,7 +21,7 @@ export default function CardProductByRowComponent({
                                                       uuid,
                                                       single_image,
                                                       name,
-                                                      discounted_price,
+                                                    //   discounted_price,
                                                       price,
                                                       category_name,
                                                       created_at
