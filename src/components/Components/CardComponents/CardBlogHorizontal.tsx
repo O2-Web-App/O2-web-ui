@@ -107,19 +107,19 @@ const CardBlogHorizontal = ({
                     onClick={() => router.push(`/blog/${id}`)}
                     className="w-full text-left px-4 py-2 hover:bg-gray-100"
                   >
-                    View
+                    មើលលំអិត
                   </button>
                   <button
                     onClick={() => router.push(`/editBlog/${id}`)}
                     className="w-full text-left px-4 py-2 hover:bg-gray-100"
                   >
-                    Edit
+                    កែប្រែ
                   </button>
                   <button
                     onClick={() => setShowConfirmModal(true)} // Trigger the confirmation modal
                     className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
                   >
-                    Delete
+                    លុប
                   </button>
                 </div>
               )}
@@ -145,7 +145,7 @@ const CardBlogHorizontal = ({
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)} // Close the modal without action
         onConfirm={handleDeleteClick} // Handle the delete action
-        message="Do you really want to delete this blog?" // Custom message
+        message="តើអ្នកពិតជាចង់លុប blog នេះមែនទេ​ ?" // Custom message
       />
     </div>
   );

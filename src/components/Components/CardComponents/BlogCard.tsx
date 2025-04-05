@@ -31,7 +31,7 @@ const CardBlog = ({
     image,
 }: CardBlogHorizontalProps) => {
     return (
-        <div className="w-full mx-auto py-4">
+        <div className="w-full mx-auto py-4 ">
             <div className="flex justify-between gap-4 items-start">
                 {/* Image */}
                 <Link href={`/blog/${id}`} className="w-24 h-24 aspect-square rounded-lg overflow-hidden flex-shrink-0">
