@@ -7,6 +7,7 @@ import provinceSlice from "./features/selectProvince";
 import emailSlice from "./features/email";
 import optSlice from "./features/opt";
 import orderSlice from "./features/order";
+
 // create store
 export const makeStore = () => {
   return configureStore({

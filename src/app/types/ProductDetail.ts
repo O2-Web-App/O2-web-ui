@@ -21,8 +21,37 @@ export type DataType = {
 }
 
 export type RecommendationType = {
-    data: {
-        data: DataType[];
-    };
+    data: DataType[];
 };
+
+
+// Updated types based on your API response
+export type DataSelect = {
+    data: MainSelect[];
+}
+
+export type MainSelect = {
+    uuid: string;
+    name: string;
+    subcategories: SubSelect[];
+}
+
+export type SubSelect = {
+    uuid: string;
+    name: string;
+    is_deleted: number;
+    created_at: string;
+    updated_at: string;
+}
+
+type DiscountData = {
+    uuid: string;
+    name: string;
+    image: string;
+    discount_percentage: string;
+}
+
+export type DiscountBannerType = {
+    data: DiscountData[];
+}
 

@@ -5,30 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/O2-web-ui.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/category/cosmetics.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/category/diet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/category/milk.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/category/product-marketing.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/category/speaker.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/category/vegetable.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/CardProductComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/FilterComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/SkeletonProductComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/product.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/select.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +33,7 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;22.14.0&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.13.10&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/free_lance/O2-web-ui/public/category&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/O2-web-ui&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -68,9 +47,13 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\free_lance\O2-web-ui\public" />
       <recent name="D:\free_lance\O2-web-ui\public\category" />
       <recent name="$PROJECT_DIR$/public/banner" />
       <recent name="$PROJECT_DIR$/public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\free_lance\O2-web-ui\src\components" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -105,6 +88,33 @@
       <workItem from="1742892909474" duration="3931000" />
       <workItem from="1742902441809" duration="375000" />
       <workItem from="1742913460174" duration="19850000" />
+      <workItem from="1742952827042" duration="123000" />
+      <workItem from="1742954713852" duration="4351000" />
+      <workItem from="1742993909761" duration="5000" />
+      <workItem from="1743001991233" duration="8410000" />
+      <workItem from="1743087990160" duration="10955000" />
+      <workItem from="1743133507250" duration="11223000" />
+      <workItem from="1743173159168" duration="2156000" />
+      <workItem from="1743179906028" duration="8583000" />
+      <workItem from="1743217845562" duration="1874000" />
+      <workItem from="1743232908994" duration="439000" />
+      <workItem from="1743234065920" duration="6157000" />
+      <workItem from="1743249650844" duration="7389000" />
+      <workItem from="1743285429133" duration="4720000" />
+      <workItem from="1743302634947" duration="3101000" />
+      <workItem from="1743348941540" duration="4337000" />
+      <workItem from="1743397137788" duration="6087000" />
+      <workItem from="1743434574918" duration="8789000" />
+      <workItem from="1743472357974" duration="4698000" />
+      <workItem from="1743497957347" duration="3820000" />
+      <workItem from="1743513119507" duration="6000" />
+      <workItem from="1743521649904" duration="853000" />
+      <workItem from="1743592057306" duration="422000" />
+      <workItem from="1743599701188" duration="9585000" />
+      <workItem from="1743679877082" duration="1608000" />
+      <workItem from="1743681822830" duration="616000" />
+      <workItem from="1743687224136" duration="4729000" />
+      <workItem from="1743705902724" duration="305000" />
     </task>
     <servers />
   </component>

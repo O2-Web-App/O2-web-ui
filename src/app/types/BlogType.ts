@@ -149,7 +149,7 @@ export interface Comment {
 }
 
 // Blog Type
-export interface Blog {
+export type Blog=  {
     uuid: string;
     title: string;
     content: string;
@@ -160,7 +160,7 @@ export interface Blog {
     views: number;
     created_at: string;
     updated_at: string;
-    tags: string[];
+    tags: string[]; // Explicitly define tags as string array
     user: User;
     likes_count: number;
     comments_count: number;
@@ -170,10 +170,7 @@ export interface Blog {
 }
 
 // API Response Type
-export interface BlogDetailApiResponse {
-    date: string;
-    code: number;
-    message: string;
+export type BlogDetailApiResponse = {
     data: Blog;
 }
 

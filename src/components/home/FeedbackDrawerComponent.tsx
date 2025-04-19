@@ -14,20 +14,27 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import {Textarea} from "@/components/ui/textarea";
+import {usePostFeedbackMutation} from "@/app/redux/service/feedback";
 
 export function FeedbackDrawerComponent() {
-    const [goal, setGoal] = React.useState(350)
+    const [message, setMessage] = React.useState("");
+    const [postFeedback] = usePostFeedbackMutation();
 
-    function onClick(adjustment: number) {
-        setGoal(Math.max(200, Math.min(400, goal + adjustment)))
-    }
+    const handleSubmit = async () => {
+        try {
+            await postFeedback({ message, type: "general" }).unwrap();
+            setMessage(""); // Clear the message after successful submission
+        } catch (error) {
+            console.error("Failed to submit feedback:", error);
+        }
+    };
 
     return (
         <Drawer>
             <DrawerTrigger asChild>
                 <Button className="font-light text-white">ផ្ដល់យោបល់</Button>
             </DrawerTrigger>
-            <DrawerContent className={` bg-white flex justify-start items-start`}>
+            <DrawerContent className={` bg-white flex justify-start items-start rounded-t-[45px]`}>
                 <div className=" w-full flex flex-col items-start">
                     <DrawerHeader className={` w-full flex flex-col justify-start items-start`}>
                         <DrawerTitle>យើងចូលចិត្តមតិកែលម្អរបស់អ្នក!</DrawerTitle>
@@ -37,15 +44,19 @@ export function FeedbackDrawerComponent() {
                     </DrawerHeader>
 
                     <section className={`w-full  px-5`}>
-                        <Textarea className={`min-h-[140px]`} placeholder="មតិកែលម្អរបស់អ្នកមានតម្លៃសម្រាប់យើង"/>
+                        <Textarea
+                            className={`min-h-[140px]`}
+                            placeholder="មតិកែលម្អរបស់អ្នកមានតម្លៃសម្រាប់យើង"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        />
                     </section>
 
                     <DrawerFooter className={` flex flex-row w-full justify-end`}>
-
                         <DrawerClose asChild>
                             <Button variant="outline">បោះបង់</Button>
                         </DrawerClose>
-                        <Button className={` text-white`}>បញ្ជូនមតិកែលម្អ</Button>
+                        <Button className={` text-white`} onClick={handleSubmit} disabled={!message.trim()}>បញ្ជូនមតិកែលម្អ</Button>
                     </DrawerFooter>
                 </div>
             </DrawerContent>

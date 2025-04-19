@@ -55,13 +55,15 @@ const LoginComponent = () => {
       console.log(error);
     }
   };
-
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  console.log("before function login called")
   const handleLogin = async (user: ValueTypes) => {
     setIsLoading(true);
+    console.log("After function login called")
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_O2_API_URL}api/login`,
+        `/api/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -70,30 +72,28 @@ const LoginComponent = () => {
       );
 
       const result = await response.json();
-      console.log("Login API Response:", result);
+      console.log("result in login component:", result);
+      console.log("response :", response)
 
-      if (response.ok && result?.data?.access_token) {
-        const { access_token, refresh_token } = result.data;
 
-        console.log("✅ Extracted Access Token:", access_token);
-
+      if (response.ok) {
+        
+        const access_token = result?.accessToken;
+        console.log("access token in function login :", access_token);
+        console.log("message in function login :", result?.message);
         // Store tokens in Redux
-        dispatch(setAccessToken(access_token));
+        if(access_token !== undefined){
+          dispatch(setAccessToken(access_token));
 
-        // Store refresh token in cookies
-        document.cookie = `refresh_token=${refresh_token}; path=/; Secure; HttpOnly; SameSite=Strict`;
-
-        // Save in localStorage for persistence
-        localStorage.setItem("access_token", access_token);
-
-        // toast({
-        //   title: "Login Successful 🎉",
-        //   description: "Redirecting to dashboard...",
-        //   variant: "success",
-        //   duration: 2000,
-        // });
-
+        toast.success("Login Successfully ", {
+          style: {
+            background: "#22bb33",
+            color: "white",
+          },
+        });
         router.push(`/`);
+        }
+        
       } else {
         toast.success("អ៉ីម៉ែលឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ", {
           style: {
@@ -102,12 +102,6 @@ const LoginComponent = () => {
         });
       }
     } catch (error) {
-      // toast({
-      //   title: "Login Failed",
-
-      //   variant: "error",
-      //   duration: 3000,
-      // });
       console.error("❌ Login Error:", error);
     } finally {
       setIsLoading(false);

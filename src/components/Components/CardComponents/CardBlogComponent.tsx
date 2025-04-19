@@ -59,10 +59,10 @@ const CardBlogComponent = ({
                         )}
                     </div>
                 </div>
-                <div className="absolute top-4 right-4 z-10">
+                <div className="absolute top-4 right-4 z-10 min-w-[80px]  ">
                     <button
                         onClick={() => bookmarks(id)} 
-                        className="p-2 bg-white/80 backdrop-blur-sm rounded-lg hover:bg-white/90 transition-colors"
+                        className="p-2 bg-white/80 backdrop-blur-sm rounded-lg hover:bg-white/90 transition-colors "
                     >
                         {isBookmarked ?<BookmarkCheck className="w-6 h-6 text-yellow-500"/>: <Bookmark className="w-5 h-5 " />}
                         

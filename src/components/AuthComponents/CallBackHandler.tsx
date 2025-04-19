@@ -14,7 +14,7 @@
 //   useEffect(() => {
 //     const handleCallback = async () => {
 //       try {
-//         const searchParams = new URLSearchParams(window.location.search);
+//         const searchParams = new URLSearchParams(window.location.search&filter);
 //         const code = searchParams.get('code');
 
 //         if (!code) {
@@ -93,7 +93,7 @@
 //   useEffect(() => {
 //     const handleCallback = async () => {
 //       try {
-//         const searchParams = new URLSearchParams(window.location.search);
+//         const searchParams = new URLSearchParams(window.location.search&filter);
 //         const code = searchParams.get('code');
 //         console.log('Received code:', code);
 //         if (!code) {
@@ -143,9 +143,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/redux/hooks';
-import { setAccessToken } from '@/redux/feature/auth/authSlice';
-import Loading from '../General/Loading';
+import {useAppDispatch} from "@/app/redux/hooks";
 
 
 const CallbackHandler: React.FC = () => {
@@ -190,7 +188,7 @@ const CallbackHandler: React.FC = () => {
         console.log('Access token:', data.accessToken);
 
         // Store access token in Redux
-        dispatch(setAccessToken(data.accessToken));
+        // dispatch(setAccessToken(data.accessToken));
 
         // Optional: Verify the /me endpoint
 
@@ -210,7 +208,7 @@ const CallbackHandler: React.FC = () => {
     <div className="flex justify-center items-center h-screen">
       
       {/* <h1 className='text-red-500'>hello</h1> */}
-            <Loading/>
+      {/*      <Loading/>*/}
     </div>
   }
 

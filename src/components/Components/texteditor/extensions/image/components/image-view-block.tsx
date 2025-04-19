@@ -10,8 +10,8 @@ import { useImageActions } from '../hooks/use-image-actions'
 import { blobUrlToBase64, randomId } from '../../../utils'
 import { InfoCircledIcon, TrashIcon } from '@radix-ui/react-icons'
 import { ImageOverlay } from './image-overlay'
-import { Spinner } from '../../../spinner'
 import type { UploadReturnType } from '../image'
+import Image from 'next/image'
 
 const MAX_HEIGHT = 600
 const MIN_HEIGHT = 120
@@ -173,12 +173,13 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({ editor, node, selected
         }))
 
         updateAttributes(normalizedData)
-      } catch (error) {
+      } catch (error: any) {
         setImageState(prev => ({
           ...prev,
           error: true,
           isServerUploading: false
         }))
+        console.log(error)
       }
     }
 
@@ -205,7 +206,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({ editor, node, selected
             <div className="relative h-full">
               {imageState.isServerUploading && !imageState.error && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Spinner className="size-7" />
+                  {/* <Spinner className="size-7" /> */}
                 </div>
               )}
 
@@ -220,7 +221,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({ editor, node, selected
                 isZoomed={imageState.isZoomed}
                 onZoomChange={() => setImageState(prev => ({ ...prev, isZoomed: false }))}
               >
-                <img
+                <Image
                   className={cn('h-auto rounded object-contain transition-shadow', {
                     'opacity-0': !imageState.imageLoaded || imageState.error
                   })}

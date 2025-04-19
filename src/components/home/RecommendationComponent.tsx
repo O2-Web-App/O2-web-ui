@@ -1,17 +1,17 @@
 import React from "react";
-import { useGetRecommendationProductQuery } from "@/app/redux/service/product";
-import { DataType } from "@/app/types/ProductDetail";
-import { useRouter } from "next/navigation";
-import { SkeletonProductComponent } from "@/components/home/SkeletonProductComponent";
-import CardProductComponent from "@/components/home/CardProductComponent";
+import {useGetRecommendationProductQuery} from "@/app/redux/service/product";
+import {DataType} from "@/app/types/ProductDetail";
+import {useRouter} from "next/navigation";
+import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
+import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
 
 export default function RecommendationComponent() {
-    const { data, isLoading, error } = useGetRecommendationProductQuery();
+    const {data, isLoading, error} = useGetRecommendationProductQuery();
     const router = useRouter();
 
     if (error) return <div>Error loading recommendations</div>;
 
-    const recommendations = data?.data?.data || [];
+    const recommendations = data?.data || [];
 
     // Add click handler for "See More"
     const handleSeeMore = () => {
@@ -21,9 +21,12 @@ export default function RecommendationComponent() {
     return (
         <section>
             {isLoading ? (
-                <SkeletonProductComponent />
+                <SkeletonProductComponent/>
             ) : (
                 <section className="flex flex-col">
+                    {
+                        recommendations.length === 0 && <div></div>
+                    }
                     <div className="flex justify-between items-end">
                         <h1 className="text-2xl font-normal">ត្រូវបានណែនាំសម្រាប់អ្នក</h1>
                         <p
@@ -35,7 +38,7 @@ export default function RecommendationComponent() {
                     </div>
                     <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
                         {recommendations.map((recommendation: DataType) => (
-                            <CardProductComponent
+                            <CardProductByRowComponent
                                 key={recommendation.uuid}
                                 uuid={recommendation.uuid}
                                 single_image={recommendation.single_image}

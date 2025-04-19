@@ -1,81 +1,27 @@
-'use client';
+import HomePageComponent from "@/components/home/HomePageComponent";
+import {Metadata} from "next";
 
-import React, {useState} from 'react';
-import SplashScreenComponent from "@/components/home/SplashScreenComponent";
-import dataSlider from "@/lib/slider_data.json";
-import BannerSlide from "@/components/home/BannerSlide";
-import {Input} from "@/components/ui/input";
-import {FiSearch} from "react-icons/fi";
-import CategoryComponent from "@/components/home/CategoryComponent";
-import RecommendationComponent from "@/components/home/RecommendationComponent";
-import FeedbackSlide from "@/components/home/FeedbackSlide";
-import feedback from "@/lib/feedback_data.json";
-import {FeedbackDrawerComponent} from "@/components/home/FeedbackDrawerComponent";
-import PopularProductComponent from "@/components/home/PopularProductComponent";
-import PreOrderProductComponent from "@/components/home/PreOrderProductComponent";
-import DiscountProductComponent from "@/components/home/DiscountProductComponent";
-import { PiSlidersHorizontalBold } from "react-icons/pi";
-import FilterComponent from "@/components/home/FilterComponent";
 
+export const metadata: Metadata = {
+    title: "CAM-02 APP - Support Khmer Local Products",
+    description: "Discover CAM-02 APP, your platform to order quality products and agricultural goods made by Khmer children, with easy QR payments and a vibrant community.",
+    openGraph: {
+        title: "CAM-02 APP - Support Khmer Local Products",
+        description: "Discover CAM-02 APP, your platform to order quality products and agricultural goods made by Khmer children, with easy QR payments and a vibrant community.",
+        siteName: "CAM-02 APP",
+        images: [
+            {
+                url: "https://cam02-app.com/storage/uploads/50095dd3-2263-4f69-b7e5-515b8cbfef7e.jpg",
+                alt: "CAM-02 APP - Promoting Khmer Children’s Products",
+            },
+        ],
+    },
+};
 
 
 export default function Page() {
-    const [showSplash, setShowSplash] = useState(true);
-
-    const handleSplashComplete = () => {
-        setShowSplash(false);
-    };
 
     return (
-        <div className="relative">
-            {/* Splash Screen */}
-            {showSplash && <SplashScreenComponent onComplete={handleSplashComplete}/>}
-
-            {/* main section */}
-            {!showSplash && (
-                <section className="flex min-h-screen flex-col px-5 gap-7">
-
-                    {/* Search section*/}
-                    <section className=" sticky top-[65px] z-50 bg-background_color py-4">
-                        <section className=" relative ">
-                            <Input className=" pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
-                                   type="text" placeholder="ស្វែងរកនៅទីនេះ...."/>
-                            <FiSearch className=" absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3"/>
-                            <FilterComponent/>
-                        </section>
-                    </section>
-
-                    {/* Banner Slide */}
-                    <BannerSlide data={dataSlider}/>
-
-                    {/* Category section*/}
-                    <CategoryComponent/>
-
-                    {/* Recommendation section */}
-                    <RecommendationComponent/>
-
-                    {/* Popular section */}
-                    <PopularProductComponent/>
-
-                    {/* Order section */}
-                    <PreOrderProductComponent/>
-
-                    <DiscountProductComponent/>
-
-
-                    {/*    Feedback section*/}
-                    <section className="flex flex-col">
-                        <div className="flex justify-between items-end">
-                            <h1 className="text-2xl font-normal">មតិយោបល់របស់អតិថិជន</h1>
-                            <FeedbackDrawerComponent/>
-                        </div>
-                        <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
-                            <FeedbackSlide/>
-                        </div>
-                    </section>
-
-                </section>
-            )}
-        </div>
+        <HomePageComponent/>
     )
 }

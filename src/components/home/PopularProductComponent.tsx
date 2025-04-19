@@ -4,7 +4,7 @@ import {useGetPopularProductQuery} from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
-import CardProductComponent from "@/components/home/CardProductComponent";
+import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
 
 export default function PopularProductComponent() {
     const router = useRouter();
@@ -29,7 +29,9 @@ export default function PopularProductComponent() {
                 isLoading ? (
                     <SkeletonProductComponent/>
                 ) : (
-                    <section className="flex flex-col">
+                    <section className="flex flex-col">{
+                        popular === 0 && <div></div>
+                    }
                         <div className="flex justify-between items-end">
                             <h1 className="text-2xl font-normal">ផលិតផលដែលពេញនិយមបំផុត</h1>
                             <p
@@ -39,9 +41,9 @@ export default function PopularProductComponent() {
                                 មើលបន្ថែម
                             </p>
                         </div>
-                        <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
+                        <div className="flex flex-row gap-3 scrollbar-hide py-3 overflow-auto">
                             {popular.map((product: DataType) => (
-                                <CardProductComponent
+                                <CardProductByRowComponent
                                     key={product.uuid}
                                     uuid={product.uuid}
                                     single_image={product.single_image}

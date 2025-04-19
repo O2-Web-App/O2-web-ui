@@ -1,34 +1,28 @@
-
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-    const { pathname } = request.nextUrl;
+  console.log("========| Middleware Running |========");
+  console.log("=> Request URL: ", request.url);
+  console.log("=> Request Method: ", request.method);
 
-    // Check if the URL is the root path and redirect to /km
-    if (pathname === '/') {
-        const response = NextResponse.redirect(new URL('/km', request.url));
-        return response;
-    }
+  const cookies = request.cookies;
+  const accessToken = cookies.get("o2-refresh-token"); // Assuming your access token is named 'authToken'
 
+  // If there's no access token and the user is trying to access a protected page, redirect to login
+  if (!accessToken && !request.url.includes("/login")) {
+    console.log("=> No access token, redirecting to login...");
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
-  // Check for refresh token or any other condition if needed
-  const refreshToken = request.cookies.get("normplov-refresh-token");
-
-    if (!refreshToken) {
-        console.log("No refresh token found, redirecting to login...");
-        return NextResponse.redirect(new URL('login', request.url));
-    }
-
-  console.log("Refresh token found, allowing request...");
-
+  // If access token exists or user is trying to access the login page, allow the request to continue
   return NextResponse.next();
 }
 
-// Apply the middleware to the necessary routes
+// multiple middleware
 export const config = {
-    matcher: ["/:lang/test/all/", "/", "/:lang/test/personality/", "/:lang/test/skill/", "/:lang/test/learningStyle/", "/:lang/test/value/", "/:lang/test/interest/", "/:lang/test-result/all/", "/:lang/test-result/skill/", "/:lang/test-result/learningStyle/", "/:lang/test-result/value/", "/:lang/test-result/interest/",  
-       "/:lang/profile-about-user","/:lang/profile-bookmark",
-       "/:lang/profile-quiz-history", "/:lang/profile-draft", "/:lang/chat-with-ai/"]
-   
+  matcher: ["/", "/setting", "/bookmark", "/addBlog", "/cart", "/myBlog", "/editBlog"], 
+//   compiler: {
+//     removeConsole: true,
+// }
 };

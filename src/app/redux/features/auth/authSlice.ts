@@ -15,7 +15,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAccessToken(state, action: PayloadAction<string | null>) {
-      console.log("AuthSlice Access Token Set in Redux:", action.payload); // Log token
       state.token = action.payload;
     },
     clearToken: (state) => {

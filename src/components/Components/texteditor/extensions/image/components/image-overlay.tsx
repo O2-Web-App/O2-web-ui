@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Spinner } from '../../../spinner'
+// import { Spinner } from '../../../spinner'
 import { cn } from '@/lib/utils'
 
 export const ImageOverlay = React.memo(() => {
@@ -10,7 +10,7 @@ export const ImageOverlay = React.memo(() => {
         'absolute inset-0 rounded bg-[var(--mt-overlay)] opacity-100 transition-opacity'
       )}
     >
-      <Spinner className="size-7" />
+      {/* <Spinner className="size-7" /> */}
     </div>
   )
 })
