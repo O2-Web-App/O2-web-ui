@@ -1,9 +1,23 @@
-how to update sonarqube enterpirse 10.0 to latest 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-pros and con 
+/* Hide scrollbar but allow scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
-problem when update to lts version 
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
-compare btw version 10 and 10.7 
+.swiper {
+  height: 100%;
+  width: 100%;
+}
 
-budget when upgrade 
+.swiper .swiper-pagination-bullet-active {
+  transform: scale(2);
+  transform-origin: center;
+}
