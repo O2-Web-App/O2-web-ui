@@ -16,18 +16,31 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({ email, password }),
     }
   );
-  console.log("response in login route :",response)
 
-  // If the request fails, return an error message to the client-side
+  const text = await response.text(); // always safe
+  console.log("Backend raw response:", text);
+
   if (!response.ok) {
-    return NextResponse.json({
-      message: "Failed to login",
-    });
+    console.error("❌ Backend returned error status:", response.status);
+    return NextResponse.json(
+      { message: "Failed to login" },
+      { status: response.status }
+    );
   }
-  // If the request is successful, parse the response body to get the data
 
+  let result;
+  try {
+    result = JSON.parse(text);
+  } catch (error) {
+    console.error("❌ Failed to parse backend JSON:", error);
+    return NextResponse.json(
+      { message: "Server error: invalid response" },
+      { status: 500 }
+    );
+  }
+
+  // If the request is successful, parse the response body to get the data
   const data = await response.json();
-  console.log("data in route login :",data)
   const user = data.data?.user || null;
   const accessToken = data.data?.access_token || null;
   const refreshToken = data.data?.refresh_token;

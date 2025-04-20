@@ -1,84 +1,58 @@
 "use client";
-import { useEffect, useState } from "react";
 
-interface BeforeInstallPromptEvent extends Event {
-  readonly platforms: string[];
-  readonly userChoice: Promise<{
-    outcome: "accepted" | "dismissed";
-    platform: string;
-  }>;
-  prompt(): Promise<void>;
-}
+import React from "react";
 
-export default function Home() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showInstallMessage, setShowInstallMessage] = useState(false);
-  const [isPwa, setIsPwa] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
-
-  useEffect(() => {
-    console.log("Mounted Home component");
-
-    // Detect if already running in standalone (PWA) mode
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsPwa(true);
-    }
-
-    // Detect iOS (for manual instructions)
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    if (/iphone|ipad|ipod/.test(userAgent)) {
-      setIsIOS(true);
-    }
-
-    const handleBeforeInstallPrompt = (event: BeforeInstallPromptEvent) => {
-      console.log("beforeinstallprompt event captured");
-      event.preventDefault();
-      setDeferredPrompt(event);
-      setShowInstallMessage(true);
-    };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt as EventListener);
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt as EventListener);
-    };
-  }, []);
-
-  const handleInstallClick = async () => {
-    if (!deferredPrompt) return alert("Install not available");
-    await deferredPrompt.prompt();
-    const result = await deferredPrompt.userChoice;
-    console.log("Install result:", result.outcome);
-    setDeferredPrompt(null);
-    setShowInstallMessage(false);
-  };
-
+export default function InstallPwaPage() {
   return (
-    <div className="w-full mx-auto text-center items-center h-screen flex flex-col justify-center p-4">
-      <p className="text-2xl mb-5">Install our app</p>
+    <div className=" flex flex-col items-center justify-center ">
+      <div className=" p-6 w-full ">
+        <h1 className="text-3xl font-bold text-center text-accent mb-6">
+          Install Our App For IOS Device
+        </h1>
+        <p className="text-center text-gray-700 mb-6">
+          Follow these simple steps to add the app to your home screen!
+        </p>
 
-      {isPwa && <p className="text-green-500">App already installed</p>}
-
-      {!isPwa && showInstallMessage && (
-        <div>
-          <p className="mb-4">Install our app for a better experience!</p>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded" onClick={handleInstallClick}>
-            Install App
-          </button>
-        </div>
-      )}
-
-      {!isPwa && isIOS && (
-        <div className="mt-10 bg-yellow-100 p-4 rounded-lg max-w-md text-sm text-left">
-          <p className="font-bold mb-2">How to install on iOS:</p>
-          <ol className="list-decimal pl-5 space-y-2">
-            <li>Open this site in Safari.</li>
-            <li>Tap the <strong>Share</strong> icon at the bottom of the screen.</li>
-            <li>Scroll down and tap <strong>&quot;Add to Home Screen&quot;</strong>.</li>
-            <li>Tap <strong>&quot;Add&quot;</strong> in the top right corner.</li>
-          </ol>
-        </div>
-      )}
+        <ol className="list-decimal list-inside space-y-4 text-gray-800">
+          <li className="flex items-start gap-2">
+            <span className="text-2xl">🧭</span>
+            <span>
+              Open <strong>Safari</strong> browser on your iPhone or iPad.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-2xl">🌐</span>
+            <span>
+              Visit our website: <strong>https://cam-o2.com</strong>
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-2xl">📤</span>
+            <span>
+              Tap the <strong>Share</strong> button (the square with an arrow
+              pointing up).
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-2xl">➕</span>
+            <span>
+              Scroll down and tap <strong>"Add to Home Screen"</strong>.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-2xl">✅</span>
+            <span>
+              Tap <strong>Add</strong> on the top right. Done!
+            </span>
+          </li>
+        </ol>
+      </div>
+      <div className="p-6 w-full text-center ">
+        <h1 className="text-3xl font-bold text-accent mb-6">
+          Install Our App For Android Device
+        </h1>
+        <p className="text-gray-700">Click the install icon on button right concer below 👇</p>
+      </div>
     </div>
   );
 }
