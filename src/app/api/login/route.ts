@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   // Make a POST request to the Our API
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_O2_API_URL}api/login`,
+    `${process.env.NEXT_PUBLIC_O2_API_URL}/api/login`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -31,6 +31,7 @@ export async function POST(req: NextRequest) {
   let result;
   try {
     result = JSON.parse(text);
+    console.log("result:",result)
   } catch (error) {
     console.error("❌ Failed to parse backend JSON:", error);
     return NextResponse.json(
@@ -40,9 +41,13 @@ export async function POST(req: NextRequest) {
   }
 
   // If the request is successful, parse the response body to get the data
-  const data = await response.json();
+  // const data = await response.json();
+  const data = result;
+  console.log("result data :", result)
   const user = data.data?.user || null;
+  console.log("user data:",user)
   const accessToken = data.data?.access_token || null;
+  console.log("accessToken data :", accessToken)
   const refreshToken = data.data?.refresh_token;
 
   // Serialize the refresh token and set it as a cookie with

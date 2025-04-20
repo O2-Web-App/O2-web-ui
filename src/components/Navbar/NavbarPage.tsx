@@ -400,7 +400,7 @@ export default function NavbarPage() {
                                                                 unoptimized
                                                                 width={45}
                                                                 height={45}
-                                                                className="rounded-full border-2 border-primary"
+                                                                className="rounded-full border-2 border-primary object-cover w-12 h-12"
                                                             />
                                                             <div>
                                                                 <div className="text-lg content-start text-start">

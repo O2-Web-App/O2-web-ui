@@ -59,7 +59,8 @@ const nextConfig = withPWA({
       "orange1.jpg",
       "167.172.69.43",
       "example.com",
-      "img.youtube.com"
+      "img.youtube.com",
+      "cam-o2-api.shop"
     ],
   },
 });
