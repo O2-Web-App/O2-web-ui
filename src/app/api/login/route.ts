@@ -9,27 +9,45 @@ export async function POST(req: NextRequest) {
   // Make a POST request to the Our API
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_O2_API_URL}api/login`,
+    `${process.env.NEXT_PUBLIC_O2_API_URL}/api/login`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     }
   );
-  console.log("response in login route :",response)
 
-  // If the request fails, return an error message to the client-side
+  const text = await response.text(); // always safe
+  console.log("Backend raw response:", text);
+
   if (!response.ok) {
-    return NextResponse.json({
-      message: "Failed to login",
-    });
+    console.error("❌ Backend returned error status:", response.status);
+    return NextResponse.json(
+      { message: "Failed to login" },
+      { status: response.status }
+    );
   }
-  // If the request is successful, parse the response body to get the data
 
-  const data = await response.json();
-  console.log("data in route login :",data)
+  let result;
+  try {
+    result = JSON.parse(text);
+    console.log("result:",result)
+  } catch (error) {
+    console.error("❌ Failed to parse backend JSON:", error);
+    return NextResponse.json(
+      { message: "Server error: invalid response" },
+      { status: 500 }
+    );
+  }
+
+  // If the request is successful, parse the response body to get the data
+  // const data = await response.json();
+  const data = result;
+  console.log("result data :", result)
   const user = data.data?.user || null;
+  console.log("user data:",user)
   const accessToken = data.data?.access_token || null;
+  console.log("accessToken data :", accessToken)
   const refreshToken = data.data?.refresh_token;
 
   // Serialize the refresh token and set it as a cookie with

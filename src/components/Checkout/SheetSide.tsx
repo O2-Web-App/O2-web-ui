@@ -9,7 +9,7 @@ import {FaCheckSquare} from "react-icons/fa";
 import {useEffect, useState} from "react";
 import ConfirmationStep from "../Stepper/ConfirmationStep";
 import Stepper from "../Stepper/InformationStep";
-import {DotLottieReact} from "@lottiefiles/dotlottie-react";
+// import {DotLottieReact} from "@lottiefiles/dotlottie-react";
 
 import {
     AlertDialog,

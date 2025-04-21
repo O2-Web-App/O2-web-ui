@@ -143,7 +143,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { setAccessToken} from "@/app/redux/features/auth/authSlice";
 import {useAppDispatch} from "@/app/redux/hooks";
 
 

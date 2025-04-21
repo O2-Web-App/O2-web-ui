@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import {FaHeart} from "react-icons/fa";
+// import {FaHeart} from "react-icons/fa";
 import {MdOutlineShoppingCart} from "react-icons/md";
 import {GoStarFill} from "react-icons/go";
 import {useGetAllProductWishlistQuery} from "@/app/redux/service/wishlist";

@@ -1,9 +1,6 @@
 'use client';
 import {IoIosArrowBack} from "react-icons/io";
 import {DataType} from "@/app/types/ProductDetail";
-import {FaHeart} from "react-icons/fa";
-import {GoClock} from "react-icons/go";
-import {HiOutlineFire} from "react-icons/hi2";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {useGetFilterListProductQuery, useGetSearchProductQuery} from "@/app/redux/service/product";
@@ -41,7 +38,7 @@ export default function SearchAndFilter({params}: Props) {
     const {data, isLoading} = isSearch ? searchQuery : filterQuery;
     const products = data?.data || [];
     const title = isSearch ? `Search: ${searchTerm}` : 'Filtered Products';
-
+    console.log("title:",title)
     const [searchValue, setSearchValue] = useState('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

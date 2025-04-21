@@ -15,7 +15,7 @@ const MyBlogPage = () => {
   const router = useRouter()
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md px-4 mx-auto">
       <div className="flex items-center pr-4 py-7 gap-8">
               <div className="p-2 bg-gray-100 rounded-full">
                 <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />

@@ -19,20 +19,20 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
       <div className="bg-white rounded-lg p-6 w-[350px] text-center">
-        <h2 className="text-xl font-semibold mb-4">Are you sure?</h2>
-        <p className="mb-4">{message}</p>
-        <div className="flex justify-end gap-8">
+        <h2 className="text-xl font-semibold mb-4">តើអ្នកពិតជាចង់លុបមែនទេ​ ?</h2>
+        <p className="mb-4 text-lg ">{message}</p>
+        <div className="flex justify-end gap-5 mt-3 px-3.5">
           <button
             onClick={onClose} // Close the modal without action
-            className="px-4 py-2 bg-gray-300 text-black rounded-lg"
+            className="px-4 py-2 bg-gray-300 text-black text-lg rounded-lg w-14 text-center"
           >
-            No
+            ទេ
           </button>
           <button
             onClick={onConfirm} // Confirm the action
-            className="px-4 py-2 bg-red-600 text-white rounded-lg"
+            className="px-4 py-2 bg-red-600 text-white text-lg rounded-lg w-20 text-center"
           >
-            Yes
+            លុប
           </button>
         </div>
       </div>

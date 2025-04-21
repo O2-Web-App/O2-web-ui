@@ -5,9 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/about-us/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/about-us/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/product/[id]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_128x128.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_152x152.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_192x192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_384x384.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_48x48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_512x512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_72x72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo_96x96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/sw.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/workbox-e43f5367.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(user)/pwa/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/BannerComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/ClientWrapper.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/FloatButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/magicui/animated-shiny-text.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/magicui/sparkles-text.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/bookmark/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/bookmark/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/myBlog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/myBlog/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/login/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/refresh/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/refresh/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/redux/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/YouTubeThumbnail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/YouTubeThumbnail.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/CallBackHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/CallBackHandler.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout/SheetSide.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/BlogCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/BlogCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/CardBlogHorizontal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Components/CardComponents/PopupConfirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Components/CardComponents/PopupConfirm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/blog/BlogComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/blog/BlogComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/FilterComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FilterComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/alert-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/alert-dialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/command.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/command.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,26 +70,26 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;22.14.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.13.10&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/OHH-LAL/ACLEDA/oracle/deploy&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\free_lance\\O2-web-ui\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Merging dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "22.14.0",
+    "javascript.nodejs.core.library.typings.version": "22.13.10",
+    "last_opened_file_path": "D:/OHH-LAL/ACLEDA/oracle/deploy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\free_lance\\O2-web-ui\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\free_lance\O2-web-ui\public" />
@@ -120,7 +165,7 @@
       <workItem from="1744076648144" duration="4000" />
       <workItem from="1744138886985" duration="673000" />
       <workItem from="1744158486733" duration="789000" />
-      <workItem from="1745200627341" duration="861000" />
+      <workItem from="1745200627341" duration="1636000" />
     </task>
     <servers />
   </component>

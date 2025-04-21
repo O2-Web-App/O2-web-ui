@@ -17,7 +17,7 @@ export async function POST() {
   try {
     // Make API call to refresh the token
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_O2_API_URL}api/refresh`,
+      `${process.env.NEXT_PUBLIC_O2_API_URL}/api/refresh`,
       {
         method: "POST",
         headers: {

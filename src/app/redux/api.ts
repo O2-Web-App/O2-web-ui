@@ -1,9 +1,6 @@
 import {
   createApi,
   fetchBaseQuery,
-  FetchBaseQueryError,
-  QueryReturnValue,
-  BaseQueryApi,
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "./store";
 import { setAccessToken } from "./features/auth/authSlice";
