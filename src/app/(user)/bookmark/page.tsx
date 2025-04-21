@@ -56,7 +56,7 @@ export default function Home() {
                 ) : error ? (
                     <p className="text-center text-red-500">Failed to load bookmarks. Please try again later.</p>
                 ) : articles.length === 0 ? (
-                    <p className="text-center text-gray-500">No bookmarks found.</p>
+                    <p className="text-center text-red-500">មិនមានការរក្សាទុក</p>
                 ) : (
                     articles.map((article) => (
                         <div className="border-b" key={article.uuid}>

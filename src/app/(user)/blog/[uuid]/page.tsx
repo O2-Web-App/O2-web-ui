@@ -186,11 +186,11 @@ export default function Page() {
                     ? blogDetail.image
                     : `${process.env.NEXT_PUBLIC_O2_API_URL}${blogDetail.image}`}
                 alt={blogDetail.title}
-                className="min-w-84 h-64 object-cover rounded-lg mx-auto"
+                className="min-w-84 h-64 object-cover rounded-2xl mx-auto px-2"
             />
 
             {/* YouTube Videos as Thumbnails */}
-            <div className="flex gap-4 overflow-x-auto py-4">
+            <div className="flex gap-4 overflow-x-auto py-4 px-2">
                 {blogDetail.youtube_videos.map((videoUrl, index) => {
                     const thumbnailUrl = getYouTubeThumbnail(videoUrl, "hq");
                     if (!thumbnailUrl) return null;
@@ -220,7 +220,7 @@ export default function Page() {
                         className="rounded-md w-12 h-12 object-cover"
                     />
                     <p className="text-xl text-primary ">
-                        BY <br/><span className="underline text-lg text-medium text-black">{blogDetail.user?.name}</span>
+                        BY : <span className="underline text-lg text-medium text-black">{blogDetail.user?.name}</span>
                     </p>
                 </div>
 

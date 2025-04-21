@@ -37,7 +37,7 @@ export default function FloatButton() {
     <div>
       <Button
         onClick={handleInstallClick}
-        className="fixed right-5 bottom-5 z-50 bg-primary p-3.5 w-18 h-18 text-white rounded-full"
+        className="fixed right-8 bottom-10 z-50 bg-primary p-3.5 w-18 h-18 text-white rounded-full"
       >
         <Download className="h-[30px] w-[30px]" />
       </Button>
