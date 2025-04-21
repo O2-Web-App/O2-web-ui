@@ -5,24 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/blog/BlogDetailComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/about-us/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/about-us/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/blog/[uuid]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(user)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/product/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/blog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/blog.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/ProductDetail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/CarouselImage/CarouselImage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FilterComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FilterComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/HomePageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/HomePageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/SkeletonCategoryProduct.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/SkeletonCategoryProduct.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +120,7 @@
       <workItem from="1744076648144" duration="4000" />
       <workItem from="1744138886985" duration="673000" />
       <workItem from="1744158486733" duration="789000" />
+      <workItem from="1745200627341" duration="861000" />
     </task>
     <servers />
   </component>

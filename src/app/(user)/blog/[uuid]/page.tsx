@@ -8,7 +8,7 @@ type ParamProps = {
 
 async function getBlogMetadata(uuid: string): Promise<Blog | null> {
     try {
-        const res = await fetch(`http://167.172.69.43/api/blogs/${uuid}`);
+        const res = await fetch(`https://cam-o2-api.shop/api/blogs/${uuid}`);
         if (!res.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
         }

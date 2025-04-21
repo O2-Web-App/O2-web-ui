@@ -10,7 +10,7 @@ type ParamProps = {
 
 async function getProductMetadata(id: string): Promise<DataType | null> {
     try {
-        const res = await fetch(`http://167.172.69.43/api/products/${id}`);
+        const res = await fetch(`https://cam-o2-api.shop/api/products/${id}`);
         if (!res.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
         }
