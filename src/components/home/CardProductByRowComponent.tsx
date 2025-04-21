@@ -14,6 +14,7 @@ type Props = {
     price: number;
     category_name: string;
     created_at: string;
+    order_count: number;
 }
 
 
@@ -24,7 +25,8 @@ export default function CardProductByRowComponent({
                                                       discounted_price,
                                                       price,
                                                       category_name,
-                                                      created_at
+                                                      created_at,
+                                                      order_count
                                                   }: Props) {
     const router = useRouter();
     const env = process.env.NEXT_PUBLIC_O2_API_URL;
@@ -104,7 +106,7 @@ export default function CardProductByRowComponent({
                     <span className="w-1 h-1 rounded-full bg-primary"></span>
                     <div className="flex justify-start items-center gap-1">
                         <HiOutlineFire className="text-gray-500 w-[14px] h-[14px]"/>
-                        <p className="font-light text-gray-500 text-sm">បានលក់</p>
+                        <p className="font-light text-gray-500 text-sm">បានលក់ {order_count}</p>
                     </div>
                 </div>
             </div>

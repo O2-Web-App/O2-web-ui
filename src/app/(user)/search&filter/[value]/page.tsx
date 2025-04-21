@@ -98,7 +98,7 @@ export default function SearchAndFilter({params}: Props) {
                                         price={product.price}
                                         category_name={product.category_name}
                                         created_at={product.created_at}
-                                        stock={product.stock}
+                                        order_count={product.order_count}
                                     />
                                 ))
                             ) : (

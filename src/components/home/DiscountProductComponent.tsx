@@ -53,7 +53,7 @@ export default function DiscountProductComponent() {
                                         price={discount.price}
                                         category_name={discount.category_name}
                                         created_at={discount.created_at}
-                                        stock={discount.stock}
+                                        order_count={discount.order_count}
                                     />
                                 ))}
                             </div>

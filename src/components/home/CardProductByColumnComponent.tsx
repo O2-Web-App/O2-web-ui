@@ -16,7 +16,7 @@ type Props = {
     price: number;
     category_name: string;
     created_at: string;
-    stock: number;
+    order_count: number;
 }
 
 export default function CardProductByColumnComponent({
@@ -28,7 +28,7 @@ export default function CardProductByColumnComponent({
                                                          price,
                                                          category_name,
                                                          created_at,
-                                                         stock
+                                                         order_count
                                                      }: Props) {
     const router = useRouter();
     const [createWishlist] = useCreateWishListProductMutation();
@@ -117,7 +117,7 @@ export default function CardProductByColumnComponent({
                     <div className="flex justify-start items-center gap-1">
                         <HiOutlineFire className="text-gray-500 w-[14px] h-[14px]"/>
                         <p className="font-light text-gray-500 text-sm">បានលក់</p>
-                        <p className="font-light text-gray-500 text-sm">{stock}</p>
+                        <p className="font-light text-gray-500 text-sm">{order_count}</p>
                     </div>
                 </div>
             </div>

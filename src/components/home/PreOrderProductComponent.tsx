@@ -32,6 +32,7 @@ const PreOrderList = ({ preorders }: { preorders: DataType[] }) => (
                 price={preorder.price}
                 category_name={preorder.category_name}
                 created_at={preorder.created_at}
+                order_count={preorder.order_count}
             />
         ))}
     </div>

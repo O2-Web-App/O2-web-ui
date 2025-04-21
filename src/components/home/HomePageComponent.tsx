@@ -1,10 +1,10 @@
 'use client';
 
-import React, {useState} from 'react';
-import {useRouter} from "next/navigation";
+import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/navigation";
 import SplashScreenComponent from "@/components/home/SplashScreenComponent";
-import {Input} from "@/components/ui/input";
-import {FiSearch} from "react-icons/fi";
+import { Input } from "@/components/ui/input";
+import { FiSearch } from "react-icons/fi";
 import CategoryComponent from "@/components/home/CategoryComponent";
 import RecommendationComponent from "@/components/home/RecommendationComponent";
 import PopularProductComponent from "@/components/home/PopularProductComponent";
@@ -15,13 +15,25 @@ import FeedbackComponent from "@/components/home/FeedbackComponent";
 import DiscountBannerSlide from "@/components/home/BannerSlide";
 
 export default function HomePageComponent() {
-
-    const [showSplash, setShowSplash] = useState(true);
+    const [showSplash, setShowSplash] = useState(false); // Splash screen state
+    const [splashCompleted, setSplashCompleted] = useState(false); // Track splash completion
     const [searchValue, setSearchValue] = useState('');
     const router = useRouter();
 
+    // Check if splash has been shown on component mount
+    useEffect(() => {
+        const hasSeenSplash = localStorage.getItem('hasSeenSplash');
+        if (!hasSeenSplash) {
+            setShowSplash(true); // Show splash only if not seen before
+        } else {
+            setSplashCompleted(true); // Skip splash and go straight to content
+        }
+    }, []);
+
     const handleSplashComplete = () => {
         setShowSplash(false);
+        setSplashCompleted(true); // Mark splash as completed to render main content
+        localStorage.setItem('hasSeenSplash', 'true'); // Mark splash as seen
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,50 +49,48 @@ export default function HomePageComponent() {
     return (
         <section className="relative">
             {/* Splash Screen */}
-            {showSplash && <SplashScreenComponent onComplete={handleSplashComplete}/>}
+            {showSplash && <SplashScreenComponent onComplete={handleSplashComplete} />}
 
-            {/* main section */}
-            {!showSplash && (
-                <section className="flex min-h-screen flex-col px-5  ">
-
-                    {/* Search section*/}
-                    <section className=" sticky top-[65px] z-50 bg-background_color py-4">
-                        <section className=" relative ">
+            {/* Main section - Only render after splash is completed */}
+            {splashCompleted && (
+                <section className="flex min-h-screen flex-col px-5">
+                    {/* Search section */}
+                    <section className="sticky top-[65px] z-50 bg-background_color py-4">
+                        <section className="relative">
                             <Input
-                                className=" pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
+                                className="pl-[45px] bg-white rounded-3xl border-gray-100 text-lg h-[45px]"
                                 type="text"
                                 placeholder="ស្វែងរកនៅទីនេះ...."
                                 value={searchValue}
                                 onChange={handleInputChange}
                                 onKeyPress={handleKeyPress}
                             />
-                            <FiSearch className=" absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3"/>
-                            <FilterComponent/>
+                            <FiSearch className="absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3" />
+                            <FilterComponent />
                         </section>
                     </section>
 
                     {/* Discount Banner Slide */}
-                    <DiscountBannerSlide/>
+                    <DiscountBannerSlide />
 
-                    {/* Category section*/}
-                    <CategoryComponent/>
+                    {/* Category section */}
+                    <CategoryComponent />
 
                     {/* Recommendation section */}
-                    <RecommendationComponent/>
+                    <RecommendationComponent />
 
                     {/* Popular section */}
-                    <PopularProductComponent/>
+                    <PopularProductComponent />
 
                     {/* Order section */}
-                    <PreOrderProductComponent/>
+                    <PreOrderProductComponent />
 
-                    <DiscountProductComponent/>
+                    <DiscountProductComponent />
 
                     {/* Feedback section */}
-                    <FeedbackComponent/>
-
+                    <FeedbackComponent />
                 </section>
             )}
         </section>
-    )
+    );
 }

@@ -10,12 +10,18 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 import {Skeleton} from "@/components/ui/skeleton";
 
-export default function CarouselImage({uuid}: { uuid: string }) {
+type ProductDetailProps = {
+    uuid: string;
+}
+
+
+
+export default function CarouselImage({uuid}: ProductDetailProps) {
     const [api, setApi] = useState<CarouselApi | null>(null);
     const [current, setCurrent] = useState<number | null>(null);
-    const [isMounted, setIsMounted] = useState(false); // ✅ Track hydration
+    const [isMounted, setIsMounted] = useState(false);
 
-    // get prodcut detail
+    // get product detail
     const {data,isLoading} = useGetProductDetailByUUIDQuery({
         uuid: uuid,
     });

@@ -87,7 +87,7 @@ export default function CategoryProduct({params}: Props) {
                                     discount_percentage={product.discount_percentage}
                                     category_name={product.category_name}
                                     created_at={product.created_at}
-                                    stock={product.stock}
+                                    order_count={product.order_count}
                                 />
                             ))}
                         </div>

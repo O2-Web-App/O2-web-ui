@@ -47,6 +47,7 @@ export default function RecommendationComponent() {
                                 price={recommendation.price}
                                 category_name={recommendation.category_name}
                                 created_at={recommendation.created_at}
+                                order_count={recommendation.order_count}
                             />
                         ))}
                     </div>

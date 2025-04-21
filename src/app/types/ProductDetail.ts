@@ -11,7 +11,7 @@ export type DataType = {
     price: number;
     discount_percentage: string;
     discounted_price: number;
-    stock: number;
+    order_count: number;
     is_recommended: number;
     average_rating: number;
     single_image: string;

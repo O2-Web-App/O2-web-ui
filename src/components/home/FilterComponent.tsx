@@ -50,7 +50,6 @@ export default function FilterComponent() {
         setPriceValue(value);
     };
 
-    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading filters</div>;
 
     return (

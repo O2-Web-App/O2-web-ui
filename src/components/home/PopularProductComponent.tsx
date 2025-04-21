@@ -52,6 +52,7 @@ export default function PopularProductComponent() {
                                     price={product.price}
                                     category_name={product.category_name}
                                     created_at={product.created_at}
+                                    order_count={product.order_count}
                                 />
                             ))}
                         </div>
