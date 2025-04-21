@@ -56,14 +56,14 @@ const LoginComponent = () => {
     }
   };
   // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  console.log("before function login called")
+  console.log("before function login called");
   const handleLogin = async (user: ValueTypes) => {
     setIsLoading(true);
-    console.log("After function login called")
+    console.log("After function login called");
 
     try {
       const response = await fetch(
-        `/api/login`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST}api/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -73,27 +73,24 @@ const LoginComponent = () => {
 
       const result = await response.json();
       console.log("result in login component:", result);
-      console.log("response :", response)
-
+      console.log("response :", response);
 
       if (response.ok) {
-        
         const access_token = result?.accessToken;
         console.log("access token in function login :", access_token);
         console.log("message in function login :", result?.message);
         // Store tokens in Redux
-        if(access_token !== undefined){
+        if (access_token !== undefined) {
           dispatch(setAccessToken(access_token));
 
-        toast.success("Login Successfully ", {
-          style: {
-            background: "#22bb33",
-            color: "white",
-          },
-        });
-        router.push(`/`);
+          toast.success("Login Successfully ", {
+            style: {
+              background: "#22bb33",
+              color: "white",
+            },
+          });
+          router.push(`/`);
         }
-        
       } else {
         toast.success("អ៉ីម៉ែលឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ", {
           style: {
