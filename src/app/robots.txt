@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /private/
+
+Sitemap: https://cam-o2.com/sitemap.xml

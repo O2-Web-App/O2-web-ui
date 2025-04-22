@@ -6,14 +6,18 @@ type ParamProps = {
     params: Promise<{ uuid: string }>;
 };
 
+type ApiResponse = {
+    data: Blog;
+}
+
 async function getBlogMetadata(uuid: string): Promise<Blog | null> {
     try {
         const res = await fetch(`https://cam-o2-api.shop/api/blogs/${uuid}`);
         if (!res.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
         }
-        const data = await res.json();
-        return data;
+        const response: ApiResponse = await res.json();
+        return response.data;
     } catch (error) {
         return null;
     }
@@ -25,18 +29,18 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const {uuid} = await params;
     const blog = await getBlogMetadata(uuid);
-    console.log(blog);
 
     if (!blog) {
         return {title: "Blog Not Found"};
     }
 
+    const image = "https://cam-o2-api.shop/" + blog.image;
     const previousImages = (await parent).openGraph?.images || [];
     return {
         title: blog.title,
         openGraph: {
             title: blog.title,
-            images: [blog.image],
+            images: image,
         },
     };
 }

@@ -1,26 +1,23 @@
 import HomePageComponent from "@/components/home/HomePageComponent";
 import {Metadata} from "next";
 
-
 export const metadata: Metadata = {
-    title: "CAM-02 APP - Support Khmer Local Products",
-    description: "Discover CAM-02 APP, your platform to order quality products and agricultural goods made by Khmer children, with easy QR payments and a vibrant community.",
+    title: "Home - CAM-02 APP",
+    description: " CAM-02 APP, your go-to platform for discovering and ordering high-quality Khmer products, exclusive discounts, and seamless QR payments, all while supporting local communities.",
     openGraph: {
-        title: "CAM-02 APP - Support Khmer Local Products",
-        description: "Discover CAM-02 APP, your platform to order quality products and agricultural goods made by Khmer children, with easy QR payments and a vibrant community.",
+        title: "Home - CAM-02 APP",
+        description: " CAM-02 APP, your go-to platform for discovering and ordering high-quality Khmer products, exclusive discounts, and seamless QR payments, all while supporting local communities.",
         siteName: "CAM-02 APP",
         images: [
             {
-                url: "https://cam-o2-api.shop/storage/uploads/a1de1f7f-d61e-4741-8bbc-347c9f34e4e1.jpg",
-                alt: "CAM-02 APP - Promoting Khmer Children’s Products",
+                url: "https://cam-o2-api.shop/storage/uploads/76434377-7e43-4865-9a09-866f7668ec0b.jpg",
+                alt: "CAM-02 APP - Home",
             },
         ],
     },
 };
 
-
 export default function Page() {
-
     return (
         <HomePageComponent/>
     )

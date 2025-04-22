@@ -9,17 +9,19 @@ export default function NoInternetPage() {
     const handleRetry = () => {
         if (navigator.onLine) {
             router.refresh(); // Refresh the page if internet is back
+        } else {
+            alert("Still no internet connection. Please try again later.");
         }
     };
 
     return (
         <div className="w-full h-screen flex flex-col items-center justify-center">
             <div className="text-start max-w-[350px] space-y-5">
-                <div className={` w-full flex justify-center`}>
+                <div className="w-full flex justify-center">
                     <Image
                         className="my-5 text-center"
                         unoptimized
-                        src="/no-internet.png" // Ensure this image exists in /public
+                        src={`/no-internet.png`}
                         alt="No Internet"
                         width={300}
                         height={300}
@@ -31,6 +33,7 @@ export default function NoInternetPage() {
                 <Button
                     onClick={handleRetry}
                     className="bg-primary text-white w-[350px]"
+                    aria-label="Retry connection"
                 >
                     ព្យាយាមម្តងទៀត
                 </Button>

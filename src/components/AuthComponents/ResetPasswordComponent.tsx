@@ -83,7 +83,7 @@ export default function ResetPasswordComponent() {
                 <div className="w-[100px] h-[100px] rounded-full bg-white flex items-center justify-center">
                     <Image
                         alt="logo"
-                        src={"/logo.png"}
+                        src={"/new-logo-o2.png"}
                         width={150}
                         height={150}
                         unoptimized

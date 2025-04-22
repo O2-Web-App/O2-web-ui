@@ -12,7 +12,7 @@ export const metadata: Metadata = {
         siteName: "CAM-02 APP",
         images: [
             {
-                url: "https://cam-o2-api.shop/storage/uploads/a1de1f7f-d61e-4741-8bbc-347c9f34e4e1.jpg",
+                url: "https://cam-o2-api.shop/storage/uploads/76434377-7e43-4865-9a09-866f7668ec0b.jpg",
                 alt: "CAM-02 APP Privacy Policy",
             },
         ],
