@@ -130,12 +130,12 @@ export default function BlogComponent() {
                                                 tag={blog.tags || []}
                                                 description={blog.title}
                                                 image={
-                                                    blog?.user?.avatar &&
-                                                    typeof blog.user.avatar === "string" &&
-                                                    blog.user.avatar.startsWith("http")
-                                                        ? blog.user.avatar
-                                                        : blog?.user?.avatar
-                                                            ? `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.user.avatar}`
+                                                    blog?.image &&
+                                                    typeof blog.image === "string" &&
+                                                    blog.image.startsWith("http")
+                                                        ? blog.image
+                                                        : blog?.image
+                                                            ? `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.image}`
                                                             : "/assets/placeholder.png"
                                                 }
                                                 author={blog.user?.name || "Anonymous"}
