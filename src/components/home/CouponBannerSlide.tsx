@@ -11,20 +11,19 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {useGetDiscountBannerProductQuery} from "@/app/redux/service/product";
+import {useGetCouponBannerProductQuery} from "@/app/redux/service/product";
 import SkeletonBannerDiscount from "@/components/home/SkeletonBannerDiscount";
 
 // type Slide = {
 //     name: string;
-//     discount_percentage: string;
+//     coupon_percentage: string;
 //     image: string;
 //     uuid: string;
 // }
 
-const DiscountBannerSlide: React.FC = () => {
+const CouponBannerSlide: React.FC = () => {
 
-    const {data, isLoading, error} = useGetDiscountBannerProductQuery();
-
+    const {data, isLoading, error} = useGetCouponBannerProductQuery();
 
     // Handle error state
     if (error) {
@@ -37,8 +36,8 @@ const DiscountBannerSlide: React.FC = () => {
         );
     }
 
-    // Extract discounts from API response
-    const discounts = data?.data || [];
+    // Extract coupons from API response
+    const coupons = data?.data || [];
 
     return (
         <section>
@@ -48,10 +47,10 @@ const DiscountBannerSlide: React.FC = () => {
                 ) : (
                     <section className={` w-full`}>
                         {
-                            discounts.length === 0 ? (
+                            coupons.length === 0 ? (
                                 <></>
                             ) : (
-                                <section className="w-full rounded-[10px] mb-5">
+                                <section className="w-full rounded-[10px] mb-10">
                                     <div className=" w-full rounded-[10px]">
                                         <ul className="h-[180px] w-full rounded-[10px]">
                                             <Swiper
@@ -62,12 +61,12 @@ const DiscountBannerSlide: React.FC = () => {
                                                 loop={true}
                                                 modules={[Autoplay, Navigation]}
                                             >
-                                                {discounts.map((discount) => (
-                                                    <SwiperSlide key={discount.uuid}>
+                                                {coupons.map((coupon: { uuid: React.Key; image: string ; }) => (
+                                                    <SwiperSlide key={coupon.uuid}>
                                                         <div
                                                             className="h-full w-full absolute left-0 top-0"
                                                             style={{
-                                                                background: `url(${process.env.NEXT_PUBLIC_O2_API_URL + discount.image}) center center / cover scroll no-repeat`,
+                                                                background: `url(${process.env.NEXT_PUBLIC_O2_API_URL + coupon.image}) center center / cover scroll no-repeat`,
                                                             }}
                                                         ></div>
                                                         <div
@@ -75,12 +74,12 @@ const DiscountBannerSlide: React.FC = () => {
                                                         <div
                                                             className="relative z-10 h-full flex items-center justify-start">
                                                             <div className=" flex flex-col pl-10">
-                                                            {/*    <p className="text-red-600 text-xl font-bold">{discount.discount_percentage}%<span*/}
-                                                            {/*        className=" text-sm px-1 font-light text-white">OFF</span>*/}
-                                                            {/*    </p>*/}
-                                                            {/*    <p className="text-2xl uppercase text-white font-normal">*/}
-                                                            {/*        {discount.name}*/}
-                                                            {/*    </p>*/}
+                                                                {/*    <p className="text-red-600 text-xl font-bold">{coupon.coupon_percentage}%<span*/}
+                                                                {/*        className=" text-sm px-1 font-light text-white">OFF</span>*/}
+                                                                {/*    </p>*/}
+                                                                {/*    <p className="text-2xl uppercase text-white font-normal">*/}
+                                                                {/*        {coupon.name}*/}
+                                                                {/*    </p>*/}
                                                             </div>
                                                         </div>
                                                     </SwiperSlide>
@@ -98,4 +97,4 @@ const DiscountBannerSlide: React.FC = () => {
     );
 };
 
-export default DiscountBannerSlide;
+export default CouponBannerSlide;

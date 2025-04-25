@@ -45,8 +45,7 @@ export default function CardProductByColumnComponent({
                     },
                 });
             } else {
-                toast.success("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
-                    "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
                     style: {
                         background: "#bb2124",
                     },
