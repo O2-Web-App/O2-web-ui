@@ -17,8 +17,13 @@ import { toast } from "sonner";
 import { RegisterFormType } from "@/app/types/Auth";
 import { useAppDispatch } from "@/app/redux/hooks";
 import { setEmail } from "@/app/redux/features/email";
+import { FaCheckSquare } from "react-icons/fa";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
+import AcceptTermsCheckbox from "./AcceptTermsButton";
 
 export default function RegisterComponet() {
+  const [isRead, setIsRead] = useState(false)
   const router = useRouter();
 
   // dispatch email
@@ -71,6 +76,7 @@ export default function RegisterComponet() {
     email: "",
     password: "",
     password_confirmation: "",
+    acceptTerms: false,
   };
   const validationSchema = Yup.object({
     name: Yup.string().required("អ្នកត្រូវបញ្ជូលឈ្មោះរបស់អ្នក"),
@@ -83,6 +89,8 @@ export default function RegisterComponet() {
     password_confirmation: Yup.string()
       .oneOf([Yup.ref("password")], "ពាក្យសម្ងាត់របស់អ្នកមិនដូចគ្នា")
       .required("អ្នកត្រូវបញ្ជូលពាក្យសម្ងាត់បញ្ជាក់"),
+    acceptTerms: Yup.boolean()
+      .oneOf([true], "សូមអនុញ្ញាតលក្ខខណ្ឌនិងគោលការណ៍"),
   });
 
   return (
@@ -172,7 +180,8 @@ export default function RegisterComponet() {
                   <ErrorDynamic name="password_confirmation" component="div" />
                 </div>
               </div>
-
+              {/* Accept terms  */}
+              <AcceptTermsCheckbox id="acceptTerms" name={"acceptTerms"}/>
               <div className="mt-6">
                 <Button
                   type="submit"

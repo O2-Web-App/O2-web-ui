@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation";
 import {toast} from "sonner";
 
 export default function Home() {
-    const {data, isLoading, error} = useGetAllBookmarkQuery();
+    const {data, isLoading} = useGetAllBookmarkQuery();
     const router = useRouter();
     const articles = data?.data || [];
     const [toggleBookmark] = useAddBookmarkMutation();
@@ -53,8 +53,8 @@ export default function Home() {
             <div className="px-4 py-2">
                 {isLoading ? (
                     <p className="text-center text-gray-500">Loading bookmarks...</p>
-                ) : error ? (
-                    <p className="text-center text-red-500">Failed to load bookmarks. Please try again later.</p>
+                // ) : error ? (
+                //     <p className="text-center text-red-500">Failed to load bookmarks. Please try again later.</p>
                 ) : articles.length === 0 ? (
                     <p className="text-center text-red-500">មិនមានការរក្សាទុក</p>
                 ) : (

@@ -1,6 +1,6 @@
-import {ArrowLeft} from "lucide-react";
+import { ArrowLeft, ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import {Metadata} from "next";
+import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
@@ -25,7 +25,11 @@ export default function page() {
     return (
         <section className="mx-5">
             <div className="flex gap-10 py-8 items-center">
-                <Link href={`/`}><ArrowLeft className="w-8 h-8"/></Link>
+                <Link href={`/`}>
+                    <div className="p-2 bg-gray-100 rounded-full">
+                        <ChevronLeft size={24} className="cursor-pointer text-primary" />
+                    </div>
+                </Link>
                 <h1 className="text-2xl">Privacy Policy</h1>
             </div>
             <p className="text-black/60 text-lg">O2 Free Classifieds strives to offer its visitors the many advantages

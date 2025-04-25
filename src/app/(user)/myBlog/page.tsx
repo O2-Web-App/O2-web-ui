@@ -9,11 +9,11 @@ import { useRouter } from "next/navigation";
 
 const MyBlogPage = () => {
   const [search, ] = useState("")
-  const { data, error, isLoading } = useGetMyBlogQuery({search});
+  const { data, isLoading } = useGetMyBlogQuery({search});
 
   const blogs = data?.data.data || [];
   const router = useRouter()
-
+console.log("blog length:",blogs.length)
   return (
     <div className="max-w-md px-4 mx-auto">
       <div className="flex items-center pr-4 py-7 gap-8">
@@ -32,10 +32,10 @@ const MyBlogPage = () => {
             className="w-full h-24 bg-gray-200 animate-pulse mb-4 rounded-lg"
           />
         ))
-      ) : error ? (
-        <p className="text-red-500">Failed to load blogs.</p>
+      // ) : error ? (
+      //   <p className="text-red-500">Failed to load blogs.</p>
       ) : blogs.length === 0 ? (
-        <p className="text-gray-500">You have not written any blogs yet.</p>
+        <p className="text-red-500 text-center py-2.5 text-lg">មិនមានទន្និន័យ</p>
       ) : (
         blogs.map((blog: any) => (
           <CardBlogHorizontal
