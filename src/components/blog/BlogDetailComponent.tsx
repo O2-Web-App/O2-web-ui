@@ -2,8 +2,7 @@
 
 import React, {useState, useEffect} from "react";
 import Image from "next/image";
-import {MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck} from "lucide-react";
-import {useParams} from "next/navigation";
+import {MessageCircle, X, Send, ThumbsUp, Bookmark, BookmarkCheck, Share2} from "lucide-react";
 import {
     usePostCommentMutation, useGetCommentQuery, usePostLikeMutation,
     useDeleteCommentMutation, useAddBookmarkMutation, useGetBlogDetailQuery
@@ -15,12 +14,14 @@ import Link from "next/link";
 import {Comment} from "@/app/types/BlogType";
 import {getYouTubeThumbnail} from "@/app/types/YouTubeThumbnail";
 import SkeletonBlogDetail from "@/components/blog/SkeletonBlogDetail";
+import ShareBlogComponent from "@/components/blog/ShareBlogComponent";
 
-type PropsType ={
-    uuid : string;
+type PropsType = {
+    uuid: string;
+    linkMetadata : string;
 }
 
-export default function BlogDetailComponent({uuid}: PropsType) {
+export default function BlogDetailComponent({uuid , linkMetadata}: PropsType) {
     const [error] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
@@ -236,6 +237,9 @@ export default function BlogDetailComponent({uuid}: PropsType) {
                     <button onClick={() => setIsModalOpen(true)} className="text-gray-600 hover:text-gray-900">
                         <MessageCircle className="w-5 h-5"/>
                     </button>
+
+                    <ShareBlogComponent linkMetadata={linkMetadata}/>
+
                     <button onClick={handleToggleBookmark} className="text-gray-600 hover:text-gray-900">
                         {isBookmarked ? (
                             <BookmarkCheck className="w-6 h-6 text-yellow-500"/>

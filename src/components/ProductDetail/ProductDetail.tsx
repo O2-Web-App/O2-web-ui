@@ -9,8 +9,6 @@ import {FaHeart} from "react-icons/fa";
 import {IoCartOutline} from "react-icons/io5";
 import {toast} from "sonner";
 import FeedbackCard from "../FeedbackCard/FeedbackCard";
-import SimiliarProductCart from "./SimiliarProductCart";
-
 import {
     Carousel,
     CarouselContent,
@@ -31,6 +29,7 @@ import {useCreateUserFeedbackProductQueryMutation} from "@/app/redux/service/pro
 import {Skeleton} from "@/components/ui/skeleton";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import SkeletonFeedback from "@/components/home/SkeletonFeedback";
+import SimilarProductCart from "./SimiliarProductCart";
 
 type Prop = {
     uuid: string;
@@ -64,8 +63,7 @@ export default function ProductDetail({uuid}: Prop) {
                     },
                 });
             } else {
-                toast.success("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
-                    "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                toast.success("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
                     style: {
                         background: "#bb2124",
                     },
@@ -240,77 +238,87 @@ export default function ProductDetail({uuid}: Prop) {
                         <ReadMoreMotion text={result?.description || "No Descriptio "}/>
 
                         {/* similar product */}
-                        <p className="text-title my-5">ផលិតផលស្រដៀងគ្នា</p>
-                        <SimiliarProductCart uuid={uuid}/>
+                        <SimilarProductCart uuid={uuid}/>
 
                         {/* user feedback on product */}
-                        <div className="flex justify-between items-center w-full mt-5 text-center">
-                            <p className="text-title ">មតិយោបល់របស់អតិថិជន</p>
-                            <Sheet open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
-                                {userData?.data !== undefined ? (
-                                    <SheetTrigger>
-                                        <div className="rounded-[10px] p-2 w-max-full bg-accent">
-                                            <p className="text-body text-center text-card_color">
-                                                ផ្តល់យោបល់
-                                            </p>
-                                        </div>
-                                    </SheetTrigger>
-                                ) : null}
-                                <SheetContent
-                                    className="bg-card_color rounded-tr[40px] rounded-tl-[40px] p-5"
-                                    side={"bottom"}
-                                >
-                                    <SheetTitle className="text-title ">
-                                        យើងចូលចិត្តមតិកែលម្អរបស់អ្នក!
-                                    </SheetTitle>
-                                    <p className="text-body text-description my-3">
-                                        {" "}
-                                        មតិកែលម្អរបស់អ្នកជួយយើងកែលម្អវេទិការបស់យើង។ តើអ្នកគិតយ៉ាងណាដែរ?
-                                    </p>
-                                    <StarRating onChange={setUserRating}/>
-                                    <textarea
-                                        className="w-full my-3 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                        placeholder="មតិកែលម្អរបស់អ្នកមានតម្លៃសម្រាប់យើង"
-                                        value={comment}
-                                        onChange={handleCommentChange}
-                                        rows={4}
-                                    />
+                        {
+                            result?.feedbacks?.length === 0 ? (
+                                <div>
+                                </div>
+                            ) : (
+                                <div className={` w-full h-auto`}>
+                                    <div className="flex justify-between items-center w-full mt-5 text-center">
+                                        <p className="text-title ">មតិយោបល់របស់អតិថិជន</p>
+                                        <Sheet open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
+                                            {userData?.data !== undefined ? (
+                                                <SheetTrigger>
+                                                    <div className="rounded-[10px] p-2 w-max-full bg-accent">
+                                                        <p className="text-body text-center text-card_color">
+                                                            ផ្តល់យោបល់
+                                                        </p>
+                                                    </div>
+                                                </SheetTrigger>
+                                            ) : null}
+                                            <SheetContent
+                                                className="bg-card_color rounded-tr[40px] rounded-tl-[40px] p-5"
+                                                side={"bottom"}
+                                            >
+                                                <SheetTitle className="text-title ">
+                                                    យើងចូលចិត្តមតិកែលម្អរបស់អ្នក!
+                                                </SheetTitle>
+                                                <p className="text-body text-description my-3">
+                                                    {" "}
+                                                    មតិកែលម្អរបស់អ្នកជួយយើងកែលម្អវេទិការបស់យើង។ តើអ្នកគិតយ៉ាងណាដែរ?
+                                                </p>
+                                                <StarRating onChange={setUserRating}/>
+                                                <textarea
+                                                    className="w-full my-3 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                                                    placeholder="មតិកែលម្អរបស់អ្នកមានតម្លៃសម្រាប់យើង"
+                                                    value={comment}
+                                                    onChange={handleCommentChange}
+                                                    rows={4}
+                                                />
 
-                                    <div className="w-full flex justify-end">
-                                        <SheetClose
-                                            className="border-[1px]  text-font_description border-primary p-3 rounded-lg mr-4">
-                                            បោះបង់
-                                        </SheetClose>
-                                        <div
-                                            onClick={() => handleUserFeedback()}
-                                            className="p-3 text-font_description bg-primary rounded-lg text-card_color"
-                                        >
-                                            បញ្ជូនមតិកែលម្អ
-                                        </div>
+                                                <div className="w-full flex justify-end">
+                                                    <SheetClose
+                                                        className="border-[1px]  text-font_description border-primary p-3 rounded-lg mr-4">
+                                                        បោះបង់
+                                                    </SheetClose>
+                                                    <div
+                                                        onClick={() => handleUserFeedback()}
+                                                        className="p-3 text-font_description bg-primary rounded-lg text-card_color"
+                                                    >
+                                                        បញ្ជូនមតិកែលម្អ
+                                                    </div>
+                                                </div>
+                                            </SheetContent>
+                                        </Sheet>
                                     </div>
-                                </SheetContent>
-                            </Sheet>
-                        </div>
-                        <div className="w-full">
-                            <Carousel
-                                className="w-full"
-                                plugins={[Autoplay({delay: 3000})]}
-                                opts={{loop: true}}
-                            >
-                                <CarouselContent className="flex">
-                                    {result?.feedbacks.map((feedback: FeedbackType, index: number) => (
-                                        <CarouselItem key={index} className="min-w-full ">
-                                            <FeedbackCard
-                                                user={feedback.user}
-                                                rating={feedback.rating}
-                                                created_at={feedback.created_at}
-                                                comment={feedback.comment}
-                                            />
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                            </Carousel>
-                        </div>
+                                    <div className="w-full">
+                                        <Carousel
+                                            className="w-full"
+                                            plugins={[Autoplay({delay: 3000})]}
+                                            opts={{loop: true}}
+                                        >
+                                            <CarouselContent className="flex">
+                                                {result?.feedbacks.map((feedback: FeedbackType, index: number) => (
+                                                    <CarouselItem key={index} className="min-w-full ">
+                                                        <FeedbackCard
+                                                            user={feedback.user}
+                                                            rating={feedback.rating}
+                                                            created_at={feedback.created_at}
+                                                            comment={feedback.comment}
+                                                        />
+                                                    </CarouselItem>
+                                                ))}
+                                            </CarouselContent>
+                                        </Carousel>
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        {/* button feedback */}
 
                         {/* add to cart */}
                         <div

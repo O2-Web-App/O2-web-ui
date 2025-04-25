@@ -48,7 +48,10 @@ export async function generateMetadata(
 export default async function Page({params}: ParamProps) {
     const resolvedParams = await params;
     const blogUUID = resolvedParams.uuid;
+    const linkMetadata = "https://cam-o2.com/blog/" + blogUUID;
+    console.log("linkMetadata : ", linkMetadata);
+
     return (
-        <BlogDetailComponent uuid={blogUUID}/>
+        <BlogDetailComponent uuid={blogUUID} linkMetadata={linkMetadata}/>
     );
 }

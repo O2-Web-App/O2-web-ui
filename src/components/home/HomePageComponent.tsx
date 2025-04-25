@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from "next/navigation";
+import React, {useState, useEffect} from 'react';
+import {useRouter} from "next/navigation";
 import SplashScreenComponent from "@/components/home/SplashScreenComponent";
-import { Input } from "@/components/ui/input";
-import { FiSearch } from "react-icons/fi";
+import {Input} from "@/components/ui/input";
+import {FiSearch} from "react-icons/fi";
 import CategoryComponent from "@/components/home/CategoryComponent";
 import RecommendationComponent from "@/components/home/RecommendationComponent";
 import PopularProductComponent from "@/components/home/PopularProductComponent";
@@ -13,6 +13,7 @@ import DiscountProductComponent from "@/components/home/DiscountProductComponent
 import FilterComponent from "@/components/home/FilterComponent";
 import FeedbackComponent from "@/components/home/FeedbackComponent";
 import DiscountBannerSlide from "@/components/home/BannerSlide";
+import CouponBannerSlide from "@/components/home/CouponBannerSlide";
 
 export default function HomePageComponent() {
     const [showSplash, setShowSplash] = useState(false); // Splash screen state
@@ -49,7 +50,7 @@ export default function HomePageComponent() {
     return (
         <section className="relative">
             {/* Splash Screen */}
-            {showSplash && <SplashScreenComponent onComplete={handleSplashComplete} />}
+            {showSplash && <SplashScreenComponent onComplete={handleSplashComplete}/>}
 
             {/* Main section - Only render after splash is completed */}
             {splashCompleted && (
@@ -65,30 +66,34 @@ export default function HomePageComponent() {
                                 onChange={handleInputChange}
                                 onKeyPress={handleKeyPress}
                             />
-                            <FiSearch className="absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3" />
-                            <FilterComponent />
+                            <FiSearch className="absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3"/>
+                            <FilterComponent/>
                         </section>
                     </section>
 
                     {/* Discount Banner Slide */}
-                    <DiscountBannerSlide />
+                    <DiscountBannerSlide/>
 
                     {/* Category section */}
-                    <CategoryComponent />
+                    <CategoryComponent/>
 
                     {/* Recommendation section */}
-                    <RecommendationComponent />
+                    <RecommendationComponent/>
 
                     {/* Popular section */}
-                    <PopularProductComponent />
+                    <PopularProductComponent/>
 
                     {/* Order section */}
-                    <PreOrderProductComponent />
+                    <PreOrderProductComponent/>
 
-                    <DiscountProductComponent />
+                    {/* Coupon Banner Slide */}
+                    <CouponBannerSlide/>
+
+                    {/*Discount section*/}
+                    <DiscountProductComponent/>
 
                     {/* Feedback section */}
-                    <FeedbackComponent />
+                    <FeedbackComponent/>
                 </section>
             )}
         </section>

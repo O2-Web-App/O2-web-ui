@@ -56,7 +56,7 @@ export default function PurchaseHistoryComponent() {
                     <div className="p-2 bg-gray-100 rounded-full">
                         <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
                     </div>
-                    <h1 className="flex-1 text-center text-xl font-medium">
+                    <h1 className="flex-1 text-center text-2xl font-medium">
                         ប្រវត្តិការទិញ
                     </h1>
                 </div>

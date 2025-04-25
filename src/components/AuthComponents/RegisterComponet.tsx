@@ -17,13 +17,9 @@ import { toast } from "sonner";
 import { RegisterFormType } from "@/app/types/Auth";
 import { useAppDispatch } from "@/app/redux/hooks";
 import { setEmail } from "@/app/redux/features/email";
-import { FaCheckSquare } from "react-icons/fa";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
 import AcceptTermsCheckbox from "./AcceptTermsButton";
 
 export default function RegisterComponet() {
-  const [isRead, setIsRead] = useState(false)
   const router = useRouter();
 
   // dispatch email

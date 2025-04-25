@@ -12,7 +12,7 @@ import {GoHeart} from "react-icons/go";
 import {GoHeartFill} from "react-icons/go";
 import {toast} from "sonner";
 
-export default function SimiliarProductCart({uuid}: { uuid: string }) {
+export default function SimilarProductCart({uuid}: { uuid: string }) {
     const router = useRouter();
     const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
 
@@ -21,10 +21,10 @@ export default function SimiliarProductCart({uuid}: { uuid: string }) {
         uuid: uuid,
     });
 
-    //get wishlist item
+    // get wishlist item
     const wishlistData = useGetAllProductWishlistQuery({});
 
-    // delete item from  wishlist
+    // delete item from wishlist
     const [deleteWishListItem] = useDeleteWishListProductMutation();
 
     // get wishlist data
@@ -63,8 +63,7 @@ export default function SimiliarProductCart({uuid}: { uuid: string }) {
                         },
                     });
                 } else {
-                    toast.error("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
-                        "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                    toast.error("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
                         style: {
                             background: "#bb2124",
                         },
@@ -77,34 +76,44 @@ export default function SimiliarProductCart({uuid}: { uuid: string }) {
     };
 
     return (
-        <div className="flex space-x-3 overflow-x-auto whitespace-nowrap w-full  scrollbar-hide">
-            {result?.map((item: SimilarProduct, index: number) => (
-                <div
-                    key={index}
-                    className="w-[200px] min-w-[150px] bg-primary-light-10 p-2 rounded-lg"
-                >
-                    <Image
-                        width={200}
-                        height={120}
-                        onClick={() => router.push(`/product/${item.uuid}`)}
-                        src={imageBaseUrl + item.single_image}
-                        alt={item.name}
-                        className="object-contain w-full h-[120px] rounded-md"
-                    />
-                    <div className="flex justify-between text-body items-center mt-4 ">
-                        <p className="text-body truncate w-[90%]">{item.name}</p>
-                        <button onClick={() => handleWishlistToggle(item.uuid)}>
-                            {wishListResult?.some(
-                                (wishListItem: any) => wishListItem.product_uuid === item.uuid
-                            ) ? (
-                                <GoHeartFill className="text-primary"/>
-                            ) : (
-                                <GoHeart className="text-primary"/>
-                            )}
-                        </button>
+        <section className="w-full">
+            {result?.length === 0 ? (
+                <div></div>
+            ) : (
+                <>
+                    <p className="text-title my-5">ផលិតផលស្រដៀងគ្នា</p>
+                    <div className="flex space-x-3 overflow-x-auto whitespace-nowrap w-full scrollbar-hide">
+                        {result?.map((item: SimilarProduct, index: number) => (
+                            <div
+                                key={index}
+                                className="w-[200px] min-w-[150px] bg-primary-light-10 p-2 rounded-lg"
+                            >
+                                <Image
+                                    width={200}
+                                    height={120}
+                                    onClick={() => router.push(`/product/${item.uuid}`)}
+                                    src={imageBaseUrl + item.single_image}
+                                    alt={item.name}
+                                    className="object-contain w-full h-[120px] rounded-md"
+                                />
+                                <div className="flex justify-between text-body items-center mt-4">
+                                    <p className="text-body truncate w-[90%]">{item.name}</p>
+                                    <button onClick={() => handleWishlistToggle(item.uuid)}>
+                                        {wishListResult?.some(
+                                            (wishListItem: any) =>
+                                                wishListItem.product_uuid === item.uuid
+                                        ) ? (
+                                            <GoHeartFill className="text-primary" />
+                                        ) : (
+                                            <GoHeart className="text-primary" />
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </div>
-            ))}
-        </div>
+                </>
+            )}
+        </section>
     );
 }

@@ -46,7 +46,7 @@ export default function Home() {
             <header className="sticky top-0 z-10 border-b">
                 <div className="flex items-center p-4">
                     <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary"/>
-                    <h1 className="flex-1 text-center text-xl font-medium">ការរក្សាទុក</h1>
+                    <h1 className="flex-1 text-center text-2xl font-medium">ការរក្សាទុក</h1>
                 </div>
             </header>
 

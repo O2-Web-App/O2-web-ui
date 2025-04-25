@@ -22,7 +22,7 @@ export default function CardProductByRowComponent({
                                                       uuid,
                                                       single_image,
                                                       name,
-                                                    //   discounted_price,
+                                                      //   discounted_price,
                                                       price,
                                                       category_name,
                                                       created_at,
@@ -45,8 +45,7 @@ export default function CardProductByRowComponent({
                     },
                 });
             } else {
-                toast.error("ផលិតផលមាននៅក្នុងបញ្ជីចង់បានរួចហើយ។" +
-                    "សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
+                toast.error("សូមចូលគណីដើម្បីបញ្ចូលទៅកាន់បញ្ជីបាន", {
                     style: {
                         color: "white",
                         background: "#e0391f",
