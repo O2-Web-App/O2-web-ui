@@ -1,19 +1,21 @@
 'use client';
-import { Plus} from "lucide-react";
-import {IoIosArrowBack} from "react-icons/io";
-import {Input} from "@/components/ui/input";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import { Plus } from "lucide-react";
+import { IoIosArrowBack } from "react-icons/io";
+import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import CardBlogComponent from "@/components/Components/CardComponents/CardBlogComponent";
-import {BlogPost} from "@/app/types/BlogType";
+import { BlogPost } from "@/app/types/BlogType";
 import CardBlog from "@/components/Components/CardComponents/BlogCard";
-import React, {useState} from "react";
-import {useRouter} from "next/navigation";
-import {useAddBookmarkMutation, useGetALLBlogQuery, useGetBlogTopQuery} from "@/app/redux/service/blog";
-import {useGetUserQuery} from "@/app/redux/service/user";
-import {toast} from "sonner";
-import {FiSearch} from "react-icons/fi";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAddBookmarkMutation, useGetALLBlogQuery, useGetBlogTopQuery } from "@/app/redux/service/blog";
+import { useGetUserQuery } from "@/app/redux/service/user";
+import { toast } from "sonner";
+import { FiSearch } from "react-icons/fi";
 import SkeletonRecommendationBlog from "@/components/blog/SkeletonRecommendationBlog";
 import SkeletonGetAllBlog from "@/components/blog/SkeletonGetAllBlog";
+import Lottie from "lottie-react";
+import animationData from "../../../public/assets/no-data.json";
 
 export default function BlogComponent() {
 
@@ -22,9 +24,9 @@ export default function BlogComponent() {
 
     const [toggleBookmark] = useAddBookmarkMutation();
     // const { data: tagsData } = useGetALLTagQuery();
-    const {data: topBlogs, isLoading: isTopLoading} = useGetBlogTopQuery();
-    const {data: allBlogs, isLoading: isAllLoading} = useGetALLBlogQuery({search});
-    const {data: userData} = useGetUserQuery();
+    const { data: topBlogs, isLoading: isTopLoading } = useGetBlogTopQuery();
+    const { data: allBlogs, isLoading: isAllLoading } = useGetALLBlogQuery({ search });
+    const { data: userData } = useGetUserQuery();
 
     const listBlog = allBlogs?.data?.data || [];
 
@@ -38,7 +40,7 @@ export default function BlogComponent() {
                 return;
             }
 
-            await toggleBookmark({blog_uuid: uuid}).unwrap();
+            await toggleBookmark({ blog_uuid: uuid }).unwrap();
 
             toast.success(
                 isCurrentlyBookmarked ? "Bookmark removed" : "Bookmark added",
@@ -85,7 +87,7 @@ export default function BlogComponent() {
                     />
                 </div>
                 <div className="relative">
-                    <FiSearch className="absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3"/>
+                    <FiSearch className="absolute top-2 left-0 text-gray-400 w-7 h-7 ml-3" />
                     <Input
                         placeholder="Search Blog ..."
                         value={search}
@@ -100,7 +102,7 @@ export default function BlogComponent() {
                                 onClick={() => router.push("/addBlog")}
                                 className="rounded-full bg-primary p-2"
                             >
-                                <Plus className="text-white"/>
+                                <Plus className="text-white" />
                             </button>
                         </TooltipTrigger>
                         <TooltipContent side="top">
@@ -115,7 +117,7 @@ export default function BlogComponent() {
             <section className={` w-full `}>
                 {
                     isTopLoading ? (
-                        <SkeletonRecommendationBlog/>
+                        <SkeletonRecommendationBlog />
                     ) : (
                         <section className={`flex flex-col w-full `}>
                             <h2 className="text-3xl px-4 text-semibold">Recommendation</h2>
@@ -131,8 +133,8 @@ export default function BlogComponent() {
                                                 description={blog.title}
                                                 image={
                                                     blog?.image &&
-                                                    typeof blog.image === "string" &&
-                                                    blog.image.startsWith("http")
+                                                        typeof blog.image === "string" &&
+                                                        blog.image.startsWith("http")
                                                         ? blog.image
                                                         : blog?.image
                                                             ? `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.image}`
@@ -143,8 +145,8 @@ export default function BlogComponent() {
                                                 view={blog.views}
                                                 profile={
                                                     blog?.user?.avatar &&
-                                                    typeof blog.user.avatar === "string" &&
-                                                    blog.user.avatar.startsWith("http")
+                                                        typeof blog.user.avatar === "string" &&
+                                                        blog.user.avatar.startsWith("http")
                                                         ? blog.user.avatar
                                                         : blog?.user?.avatar
                                                             ? `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.user.avatar}`
@@ -158,7 +160,10 @@ export default function BlogComponent() {
                                         </div>
                                     ))
                                 ) : (
-                                    <></>
+                                    <div className="grid justify-center py-3">
+                                        <Lottie animationData={animationData} loop={true} className="w-40 h-40 object-none" />
+                                        <p className="text-red-500 text-center text-lg">មិនមានទន្និន័យ</p>
+                                    </div>
                                 )}
                             </div>
 
@@ -173,7 +178,7 @@ export default function BlogComponent() {
             <section className={` w-full `}>
                 {
                     isAllLoading ? (
-                        <SkeletonGetAllBlog/>
+                        <SkeletonGetAllBlog />
                     ) : (
                         <section className={` w-full `}>
 
@@ -203,7 +208,10 @@ export default function BlogComponent() {
                                         );
                                     })
                                 ) : (
-                                    <p>No blogs found.</p>
+                                    <div className="grid justify-center py-3">
+                                    <Lottie animationData={animationData} loop={true} className="w-42"/>
+                                    <p className="text-red-500 text-center text-lg mb-[-200px]">មិនមានទន្និន័យ</p>
+                                  </div>
                                 )}
                             </div>
 

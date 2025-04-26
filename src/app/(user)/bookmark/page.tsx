@@ -4,6 +4,8 @@ import CardBlogBookmark from "@/components/Components/CardComponents/CardBookmar
 import {useGetAllBookmarkQuery, useAddBookmarkMutation} from "@/app/redux/service/blog";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
+import Lottie from "lottie-react";
+import animationData from "../../../../public/assets/no-data.json"
 
 export default function Home() {
     const {data, isLoading} = useGetAllBookmarkQuery();
@@ -56,7 +58,10 @@ export default function Home() {
                 // ) : error ? (
                 //     <p className="text-center text-red-500">Failed to load bookmarks. Please try again later.</p>
                 ) : articles.length === 0 ? (
-                    <p className="text-center text-red-500">មិនមានការរក្សាទុក</p>
+                    <div className="grid justify-center py-3">
+          <Lottie animationData={animationData} loop={true} className="w-40 h-40 object-none"/>
+          <p className="text-red-500 text-center text-lg">មិនមានទន្និន័យ</p>
+        </div>
                 ) : (
                     articles.map((article) => (
                         <div className="border-b" key={article.uuid}>
