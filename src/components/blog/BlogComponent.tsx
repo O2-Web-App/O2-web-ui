@@ -74,14 +74,14 @@ export default function BlogComponent() {
         }) || [];
 
     return (
-        <section className="max-w-md mx-auto">
+        <section className=" mx-auto">
 
             {/* Search and Add Button */}
-            <section className="flex justify-between items-center my-4 px-4 ">
-                <div className="bg-gray-100 rounded-full overflow-hidden p-2">
+            <section className="gap-2 flex justify-between items-center my-4 ml-3 mr-3">
+                <div className="bg-gray-100 rounded-full overflow-hidden p-2 w-[40px] h-[40px]">
                     <IoIosArrowBack
                         onClick={() => router.back()}
-                        className="cursor-pointer h-[30px] w-[30px] text-primary"
+                        className="cursor-pointer h-full w-full text-primary"
                     />
                 </div>
                 <div className="relative">
@@ -90,7 +90,7 @@ export default function BlogComponent() {
                         placeholder="Search Blog ..."
                         value={search}
                         onChange={(e: any) => setSearch(e.target.value)}
-                        className="w-64 h-[45px] pl-12 py-2.5 border rounded-2xl focus:border-primary/60 focus:primary/60"
+                        className="w-64 h-[43px] pl-12 py-2.5 border rounded-2xl focus:border-primary/60 focus:primary/60"
                     />
                 </div>
                 <TooltipProvider>
