@@ -370,6 +370,7 @@ export default function NavbarPage() {
                 alt="Logo"
                 width={50}
                 height={50}
+                unoptimized
                 className="w-full h-full object-cover "
               />
             </Link>

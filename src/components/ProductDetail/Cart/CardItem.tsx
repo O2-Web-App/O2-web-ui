@@ -114,6 +114,7 @@ export default function CardItem() {
                                                 width={100}
                                                 height={100}
                                                 className="object-cover w-full h-full"
+                                                unoptimized
                                                 src={image}
                                                 alt={item?.name}
                                             />

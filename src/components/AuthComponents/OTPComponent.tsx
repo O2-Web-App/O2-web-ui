@@ -127,6 +127,7 @@ export default function VerifyComponent() {
                         src={"/new-logo-o2.png"}
                         width={150}
                         height={150}
+                        unoptimized
                         className="object-cover rounded-full h-full w-full"
                     />
                 </div>

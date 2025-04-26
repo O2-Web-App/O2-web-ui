@@ -144,7 +144,8 @@ export default function Wishlist() {
                                                 src={imageBaseUrl + item?.single_image}
                                                 width={100}
                                                 height={100}
-                                                alt=""
+                                                alt="image"
+                                                unoptimized
                                                 className="h-full w-full object-cover"
                                             />
                                         </div>

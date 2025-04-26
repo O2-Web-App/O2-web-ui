@@ -91,6 +91,7 @@ export default function SimilarProductCart({uuid}: { uuid: string }) {
                                 <Image
                                     width={200}
                                     height={120}
+                                    unoptimized
                                     onClick={() => router.push(`/product/${item.uuid}`)}
                                     src={imageBaseUrl + item.single_image}
                                     alt={item.name}
@@ -103,9 +104,9 @@ export default function SimilarProductCart({uuid}: { uuid: string }) {
                                             (wishListItem: any) =>
                                                 wishListItem.product_uuid === item.uuid
                                         ) ? (
-                                            <GoHeartFill className="text-primary" />
+                                            <GoHeartFill className="text-primary"/>
                                         ) : (
-                                            <FaRegHeart className="text-primary" />
+                                            <FaRegHeart className="text-primary"/>
                                         )}
                                     </button>
                                 </div>

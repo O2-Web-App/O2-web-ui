@@ -23,6 +23,7 @@ export default function SplashScreenComponent({ onComplete }: SplashScreenProps)
                     src="/new-logo-o2.png"
                     alt="Logo"
                     width={70}
+                    unoptimized
                     height={70}
                     className="object-cover"
                 />

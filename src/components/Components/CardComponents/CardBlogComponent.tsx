@@ -1,11 +1,11 @@
-import { Bookmark, BookmarkCheck } from 'lucide-react';
+import {Bookmark, BookmarkCheck} from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 interface BlogProp {
     id: string;
-    tag: {uuid: string; name: string} [];  
+    tag: { uuid: string; name: string } [];
     description: string;
     image: string;
     author: string;
@@ -26,17 +26,17 @@ const formatDate = (dateString: string) => {
 };
 
 const CardBlogComponent = ({
-    id,
-    tag,
-    description,
-    image,
-    author,
-    date,
-    view,
-    profile,
-    isBookmarked,
-    bookmarks,
-}: BlogProp) => {
+                               id,
+                               tag,
+                               description,
+                               image,
+                               author,
+                               date,
+                               view,
+                               profile,
+                               isBookmarked,
+                               bookmarks,
+                           }: BlogProp) => {
     return (
         <div className="min-w-80 min-h-64 sm:w-64" key={id}>
             <div className="relative">
@@ -61,12 +61,13 @@ const CardBlogComponent = ({
                 </div>
                 <div className="absolute top-4 right-1 z-10 min-w-[57px]  ">
                     <button
-                        onClick={() => bookmarks(id)} 
+                        onClick={() => bookmarks(id)}
                         className="p-2 bg-white/80 backdrop-blur-sm rounded-lg hover:bg-white/90 transition-colors "
                     >
-                        {isBookmarked ?<BookmarkCheck className="w-6 h-6 text-yellow-500"/>: <Bookmark className="w-5 h-5 " />}
-                        
-                        
+                        {isBookmarked ? <BookmarkCheck className="w-6 h-6 text-yellow-500"/> :
+                            <Bookmark className="w-5 h-5 "/>}
+
+
                     </button>
                 </div>
 
@@ -77,6 +78,7 @@ const CardBlogComponent = ({
                         alt="image"
                         width={1000}
                         height={1000}
+                        unoptimized
                         className="w-96 h-56 object-cover rounded-2xl"
                     />
                 </Link>
@@ -94,6 +96,7 @@ const CardBlogComponent = ({
                             alt="Author avatar"
                             width={48}
                             height={48}
+                            unoptimized
                             className="w-full h-full object-cover"
                         />
                     </div>

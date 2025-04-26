@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import {useGetDiscountBannerProductQuery} from "@/app/redux/service/product";
 import SkeletonBannerDiscount from "@/components/home/SkeletonBannerDiscount";
+import Image from "next/image";
 
 // type Slide = {
 //     name: string;
@@ -64,23 +65,30 @@ const DiscountBannerSlide: React.FC = () => {
                                             >
                                                 {discounts.map((discount) => (
                                                     <SwiperSlide key={discount.uuid}>
-                                                        <div
-                                                            className="h-full w-full absolute left-0 top-0"
-                                                            style={{
-                                                                background: `url(${process.env.NEXT_PUBLIC_O2_API_URL + discount.image}) center center / cover scroll no-repeat`,
-                                                            }}
-                                                        ></div>
+                                                        <Image
+                                                            className={` w-full h-full rounded-[10px]`}
+                                                            src={process.env.NEXT_PUBLIC_O2_API_URL + discount.image}
+                                                            unoptimized
+                                                            height={100}
+                                                            width={100}
+                                                            alt={`${discount.name}`}/>
+                                                        {/*<div*/}
+                                                        {/*    className="h-full w-full absolute left-0 top-0"*/}
+                                                        {/*    style={{*/}
+                                                        {/*        background: `url(${process.env.NEXT_PUBLIC_O2_API_URL + discount.image}) center center / cover scroll no-repeat`,*/}
+                                                        {/*    }}*/}
+                                                        {/*></div>*/}
                                                         <div
                                                             className="h-full w-full absolute left-0 top-0 bg-black opacity-20"></div>
                                                         <div
                                                             className="relative z-10 h-full flex items-center justify-start">
                                                             <div className=" flex flex-col pl-10">
-                                                            {/*    <p className="text-red-600 text-xl font-bold">{discount.discount_percentage}%<span*/}
-                                                            {/*        className=" text-sm px-1 font-light text-white">OFF</span>*/}
-                                                            {/*    </p>*/}
-                                                            {/*    <p className="text-2xl uppercase text-white font-normal">*/}
-                                                            {/*        {discount.name}*/}
-                                                            {/*    </p>*/}
+                                                                {/*    <p className="text-red-600 text-xl font-bold">{discount.discount_percentage}%<span*/}
+                                                                {/*        className=" text-sm px-1 font-light text-white">OFF</span>*/}
+                                                                {/*    </p>*/}
+                                                                {/*    <p className="text-2xl uppercase text-white font-normal">*/}
+                                                                {/*        {discount.name}*/}
+                                                                {/*    </p>*/}
                                                             </div>
                                                         </div>
                                                     </SwiperSlide>
