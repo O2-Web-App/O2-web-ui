@@ -76,7 +76,13 @@ const CardBlogHorizontal = ({
         {/* Content */}
         <div className="flex-1 space-y-1 w-full items-center">
           <div className="flex justify-between gap-y-3">
-            <div className="flex flex-wrap gap-2 items-center">
+            {/* Blog Title */}
+          <Link href={`/blog/${id}`}>
+            <h1 className="text-xl font-semibold tracking-tight truncate max-w-[250px]">
+              {title}
+            </h1>
+          </Link>
+            {/* <div className="flex flex-wrap gap-2 items-center">
               {tags.length > 0 ? (
                 tags.map((tag) => (
                   <span
@@ -91,7 +97,7 @@ const CardBlogHorizontal = ({
                   Untagged
                 </span>
               )}
-            </div>
+            </div> */}
 
             {/* Right-side Menu */}
             <div className="relative">
@@ -131,12 +137,7 @@ const CardBlogHorizontal = ({
             <span>{formatDate(date)} • {view} views</span>
           </div>
 
-          {/* Blog Title */}
-          <Link href={`/blog/${id}`}>
-            <h1 className="text-xl font-semibold tracking-tight truncate max-w-[250px]">
-              {title}
-            </h1>
-          </Link>
+          
         </div>
       </div>
 

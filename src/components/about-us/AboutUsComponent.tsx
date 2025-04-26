@@ -218,26 +218,26 @@ export default function AboutUsComponent() {
                         {/* Phone */}
                         <div className="flex items-center gap-3">
                             <Phone className="w-6 h-6 text-gray-600"/>
-                            <a href="tel:0987654213" className="text-gray-700 hover:text-blue-500 transition">
-                                098 765 421 3
+                            <a href="tel:061200558" className="text-gray-700 hover:text-blue-500 transition">
+                            061 200 558
                             </a>
                         </div>
 
                         {/* Email */}
                         <div className="flex items-center gap-3">
                             <Mail className="w-6 h-6 text-gray-600"/>
-                            <a href="mailto:camo2.info88@gmail.com"
+                            <a href="mailto:O2Project@proton.me"
                                className="text-gray-700 hover:text-blue-500 transition">
-                                camo2.info88@gmail.com
+                                O2Project@proton.me
                             </a>
                         </div>
 
                         {/* Facebook */}
                         <div className="flex items-center gap-3">
                             <Facebook className="w-6 h-6 text-gray-600"/>
-                            <a href="https://facebook.O2/" target="_blank" rel="noopener noreferrer"
+                            <a href="https://www.facebook.com/share/1BaLiMVK2K/" target="_blank" rel="noopener noreferrer"
                                className="text-gray-700 hover:text-blue-500 transition">
-                                https://facebook.O2/
+                                One-House One-Garden
                             </a>
                         </div>
 
@@ -248,7 +248,7 @@ export default function AboutUsComponent() {
                                target="_blank"
                                rel="noopener noreferrer"
                                className="text-gray-700 hover:text-blue-500 transition">
-                                Sangkat Tonle Bassac, Khan Chamkarmon Phnom Penh
+                                Chamkar O'luk Village, Sangkat Kakap II, Khan Pou Senchey, Phnom Penh
                             </a>
                         </div>
                     </div>

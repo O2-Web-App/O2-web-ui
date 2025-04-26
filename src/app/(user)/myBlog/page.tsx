@@ -6,6 +6,8 @@ import CardBlogHorizontal from "@/components/Components/CardComponents/CardBlogH
 import { useGetMyBlogQuery } from "@/app/redux/service/blog";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Lottie from "lottie-react";
+import animationData from "../../../../public/assets/no-data.json"
 
 const MyBlogPage = () => {
   const [search,] = useState("")
@@ -32,7 +34,10 @@ const MyBlogPage = () => {
         // ) : error ? (
         //   <p className="text-red-500">Failed to load blogs.</p>
       ) : blogs.length === 0 ? (
-        <p className="text-red-500 text-center py-2.5 text-lg">មិនមានទន្និន័យ</p>
+        <div className="grid justify-center py-3">
+          <Lottie animationData={animationData} loop={true} className="w-40 h-40 object-none"/>;
+          <p className="text-red-500 text-center text-lg">មិនមានទន្និន័យ</p>
+        </div>
       ) : (
         blogs.map((blog: any) => (
           <CardBlogHorizontal

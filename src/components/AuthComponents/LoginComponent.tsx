@@ -79,7 +79,7 @@ const LoginComponent = () => {
         if (access_token !== undefined) {
           dispatch(setAccessToken(access_token));
 
-          toast.success("Login Successfully ", {
+          toast.success("ចូលគណនីបានជោគជ័យ ", {
             style: {
               background: "#22bb33",
               color: "white",
