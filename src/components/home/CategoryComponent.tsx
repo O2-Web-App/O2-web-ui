@@ -29,7 +29,7 @@ export default function CategoryComponent() {
                         {categories.map((category: Category) => (
                             <div
                                 key={category.id}
-                                className="flex items-center max-w-[300px] gap-5 bg-white border-gray-200 border rounded-full px-5 py-2 hover:bg-white hover:transform hover:-translate-y-1 transition-transform duration-200"
+                                className="flex items-center max-w-[600px] gap-5 bg-white border-gray-200 border rounded-full px-5 py-2 hover:bg-white hover:transform hover:-translate-y-1 transition-transform duration-200"
                             >
                                 <div className="bg-primary/20 p-2 rounded-full flex items-center justify-center">
                                     <div

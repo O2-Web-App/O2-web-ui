@@ -79,8 +79,6 @@ const DiscountBannerSlide: React.FC = () => {
                                                         {/*    }}*/}
                                                         {/*></div>*/}
                                                         <div
-                                                            className="h-full w-full absolute left-0 top-0 bg-black opacity-20"></div>
-                                                        <div
                                                             className="relative z-10 h-full flex items-center justify-start">
                                                             <div className=" flex flex-col pl-10">
                                                                 {/*    <p className="text-red-600 text-xl font-bold">{discount.discount_percentage}%<span*/}
