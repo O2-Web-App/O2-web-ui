@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         images: [
             {
                 url: "https://cam-o2-api.shop/storage/uploads/76434377-7e43-4865-9a09-866f7668ec0b.jpg",
-                alt: "CAM-02 APP - Home",
+                alt: "CAM-02 APP",
             },
         ],
     },

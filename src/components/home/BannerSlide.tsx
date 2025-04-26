@@ -66,7 +66,7 @@ const DiscountBannerSlide: React.FC = () => {
                                                 {discounts.map((discount) => (
                                                     <SwiperSlide key={discount.uuid}>
                                                         <Image
-                                                            className={` w-full h-full rounded-[10px]`}
+                                                            className={` w-full h-full rounded-[10px] bg-cover`}
                                                             src={process.env.NEXT_PUBLIC_O2_API_URL + discount.image}
                                                             unoptimized
                                                             height={100}
