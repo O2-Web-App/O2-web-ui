@@ -4,8 +4,13 @@ import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
+import {UserPayload, UserResponse} from "@/app/redux/service/user";
 
-export default function RecommendationComponent() {
+type Props = {
+    userData : UserResponse | undefined;
+}
+
+export default function RecommendationComponent( {userData} : Props) {
     const {data, isLoading, error} = useGetRecommendationProductQuery();
     const router = useRouter();
 
@@ -48,6 +53,7 @@ export default function RecommendationComponent() {
                                 category_name={recommendation.category_name}
                                 created_at={recommendation.created_at}
                                 order_count={recommendation.order_count}
+                                userData={userData}
                             />
                         ))}
                     </div>

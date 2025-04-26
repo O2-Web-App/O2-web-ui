@@ -4,8 +4,13 @@ import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import CardProductByColumnComponent from "@/components/home/CardProductByColumnComponent";
 import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductDiscountComponent";
+import {UserPayload, UserResponse} from "@/app/redux/service/user";
 
-export default function DiscountProductComponent() {
+type Props = {
+    userData : UserResponse | undefined;
+}
+
+export default function DiscountProductComponent({userData} : Props ) {
     // Fetch discount products using the RTK Query hook
     const {data, isLoading, error} = useGetDiscountProductQuery();
     const router = useRouter();
@@ -54,6 +59,7 @@ export default function DiscountProductComponent() {
                                         category_name={discount.category_name}
                                         created_at={discount.created_at}
                                         order_count={discount.order_count}
+                                        userData={userData}
                                     />
                                 ))}
                             </div>

@@ -49,7 +49,7 @@ export default function AboutUsComponent() {
 
 
     return (
-        <section className="max-w-md mx-auto bg-gray-50 min-h-screen">
+        <section className="max-w-md mx-auto bg-gray-50 min-h-screen overflow-hidden ">
             {/* Main Content */}
             <section className="pb-4">
                 {/* Hero Banner */}

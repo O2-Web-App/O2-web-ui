@@ -10,6 +10,7 @@ import {setAccessToken} from "@/app/redux/features/auth/authSlice";
 import {useAppDispatch} from "@/app/redux/hooks";
 import {
     Sheet,
+    SheetClose,
     SheetContent,
     SheetDescription,
     SheetHeader,
@@ -37,7 +38,8 @@ const navLinks = [
                 className="lucide lucide-settings text-gray-500"
             >
                 <path
-                    d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                    d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                />
                 <circle cx="12" cy="12" r="3"/>
             </svg>
         ),
@@ -82,7 +84,8 @@ const navLinks = [
             >
                 <circle cx="16" cy="16" r="6"/>
                 <path
-                    d="M7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2"/>
+                    d="M7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2"
+                />
                 <path d="M16 14v2l1 1"/>
             </svg>
         ),
@@ -128,9 +131,11 @@ const navLinks = [
                 className="lucide lucide-folder-heart text-gray-500"
             >
                 <path
-                    d="M11 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v1.5"/>
+                    d="M11 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v1.5"
+                />
                 <path
-                    d="M13.9 17.45c-1.2-1.2-1.14-2.8-.2-3.73a2.43 2.43 0 0 1 3.44 0l.36.34.34-.34a2.43 2.43 0 0 1 3.45-.01c.95.95 1 2.53-.2 3.74L17.5 21Z"/>
+                    d="M13.9 17.45c-1.2-1.2-1.14-2.8-.2-3.73a2.43 2.43 0 0 1 3.44 0l.36.34.34-.34a2.43 2.43 0 0 1 3.45-.01c.95.95 1 2.53-.2 3.74L17.5 21Z"
+                />
             </svg>
         ),
     },
@@ -171,11 +176,13 @@ const navLinks = [
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="lucide lucide-library-big-icon lucide-library-big text-gray-500">
+                className="lucide lucide-library-big-icon lucide-library-big text-gray-500"
+            >
                 <rect width="8" height="18" x="3" y="3" rx="1"/>
                 <path d="M7 3v18"/>
                 <path
-                    d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/>
+                    d="M20.4 18.9是要把这个值改成什么？c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"
+                />
             </svg>
         ),
     },
@@ -218,7 +225,8 @@ const navLinks = [
                 className="lucide lucide-shield-alert text-gray-500"
             >
                 <path
-                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                />
                 <path d="M12 8v4"/>
                 <path d="M12 16h.01"/>
             </svg>
@@ -289,7 +297,8 @@ const navLinks_NoAccount = [
                 className="lucide lucide-shield-alert text-gray-500"
             >
                 <path
-                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                />
                 <path d="M12 8v4"/>
                 <path d="M12 16h.01"/>
             </svg>
@@ -301,7 +310,7 @@ export default function NavbarPage() {
     const pathname = usePathname();
     const {data, isLoading} = useGetUserQuery();
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [isPopup, setIsPopup] = useState(false)
+    const [isPopup, setIsPopup] = useState(false);
     const router = useRouter();
     const dispatch = useAppDispatch();
 
@@ -333,17 +342,14 @@ export default function NavbarPage() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch(
-                `/api/logout`,
-                {
-                    method: "POST",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-                    },
-                }
-            );
+            const response = await fetch(`/api/logout`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+                },
+            });
 
             if (response.ok) {
                 dispatch(setAccessToken(null));
@@ -361,64 +367,64 @@ export default function NavbarPage() {
 
     const isRender = pathname === "/success-payment" || pathname === "/verify";
 
-    return (
-        isLoading ? (
-            <SkeletonNavbar/>
-        ) : (
-            <div className="sticky top-0 z-50">
-                {!isRender ? (
-                    <div className="w-full bg-white border-b border-b-slate-100">
-                        <header className="flex items-center justify-between max-w-[95%] mx-auto p-[12px]">
-                            <Link href="/" className="w-[40px] h-[40px]">
-                                <Image
-                                    src="/new-logo-o2.png"
-                                    alt="Logo"
-                                    width={50}
-                                    height={50}
-                                    className="w-full h-full object-cover "
-                                />
-                            </Link>
-                            <div className="flex space-x-5 items-center">
-                                <Cart/>
-                                <Sheet>
-                                    <SheetTrigger asChild>
-                                        <div>
-                                            <Menu className="cursor-pointer" size={27}/>
-                                        </div>
-                                    </SheetTrigger>
-                                    <SheetContent className="bg-white w-[300px]">
-                                        <SheetHeader>
-                                            <SheetDescription>
-                                                {isLoggedIn ? (
-                                                    <div>
-                                                        <SheetTitle className="text-xl flex justify-start font-normal">
-                                                            ព័ត៌មានគណនី
-                                                        </SheetTitle>
-                                                        <div className="flex items-center justify-start space-x-3 mt-4">
-                                                            <Image
-                                                                src={avatarUrl}
-                                                                alt="User Avatar"
-                                                                unoptimized
-                                                                width={45}
-                                                                height={45}
-                                                                className="rounded-full border-2 border-primary object-cover w-12 h-12"
-                                                            />
-                                                            <div>
-                                                                <div className="text-lg content-start text-start">
-                                                                    {data?.data?.name || "User"}
-                                                                </div>
-                                                                <div className="text-sm text-description">
-                                                                    {data?.data?.email || "Email"}
-                                                                </div>
+    return isLoading ? (
+        <SkeletonNavbar/>
+    ) : (
+        <div className="sticky top-0 z-50">
+            {!isRender ? (
+                <div className="w-full bg-white border-b border-b-slate-100">
+                    <header className="flex items-center justify-between max-w-[95%] mx-auto p-[12px]">
+                        <Link href="/" className="w-[40px] h-[40px]">
+                            <Image
+                                src="/new-logo-o2.png"
+                                alt="Logo"
+                                width={50}
+                                height={50}
+                                className="w-full h-full object-cover"
+                            />
+                        </Link>
+                        <div className="flex space-x-5 items-center">
+                            <Cart/>
+                            <Sheet>
+                                <SheetTrigger asChild>
+                                    <div>
+                                        <Menu className="cursor-pointer" size={27}/>
+                                    </div>
+                                </SheetTrigger>
+                                <SheetContent className="bg-white w-[300px]">
+                                    <SheetHeader>
+                                        <SheetDescription>
+                                            {isLoggedIn ? (
+                                                <div>
+                                                    <SheetTitle className="text-xl flex justify-start font-normal">
+                                                        ព័ត៌មានគណនី
+                                                    </SheetTitle>
+                                                    <div className="flex items-center justify-start space-x-3 mt-4">
+                                                        <Image
+                                                            src={avatarUrl}
+                                                            alt="User Avatar"
+                                                            unoptimized
+                                                            width={45}
+                                                            height={45}
+                                                            className="rounded-full border-2 border-primary object-cover w-12 h-12"
+                                                        />
+                                                        <div>
+                                                            <div className="text-lg content-start text-start">
+                                                                {data?.data?.name || "User"}
+                                                            </div>
+                                                            <div className="text-sm text-description">
+                                                                {data?.data?.email || "Email"}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                ) : (
-                                                    <div>
-                                                        <SheetTitle className="text-xl flex justify-start font-normal">
-                                                            មិនមានគណនី
-                                                        </SheetTitle>
-                                                        <div className="flex justify-start space-x-2 items-center mt-4">
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <SheetTitle className="text-xl flex justify-start font-normal">
+                                                        មិនមានគណនី
+                                                    </SheetTitle>
+                                                    <div className="flex justify-start space-x-2 items-center mt-4">
+                                                        <SheetClose asChild>
                                                             <Link href="/login" className="flex space-x-2 items-center">
                                                                 <div>
                                                                     <svg
@@ -438,41 +444,42 @@ export default function NavbarPage() {
                                                                         <circle cx="12" cy="7" r="4"/>
                                                                     </svg>
                                                                 </div>
-                                                                <div className="text-lg text-gray-600">
-                                                                    ចូលគណនី
-                                                                </div>
+                                                                <div className="text-lg text-gray-600">ចូលគណនី</div>
                                                             </Link>
-                                                        </div>
-                                                        <div className="mt-6 space-y-4">
-                                                            {navLinks_NoAccount.map((link) => (
+                                                        </SheetClose>
+                                                    </div>
+                                                    <div className="mt-6 space-y-4">
+                                                        {navLinks_NoAccount.map((link) => (
+                                                            <SheetClose key={link.href} asChild>
                                                                 <Link
-                                                                    key={link.href}
                                                                     href={link.href}
                                                                     className="flex items-center space-x-2 text-lg hover:text-green-700"
                                                                 >
                                                                     <span>{link.icon}</span>
-                                                                    <span className="text-gray-600 mt-1">
-                                                                        {link.label}
-                                                                    </span>
+                                                                    <span
+                                                                        className="text-gray-600 mt-1">{link.label}</span>
                                                                 </Link>
-                                                            ))}
-                                                        </div>
+                                                            </SheetClose>
+                                                        ))}
                                                     </div>
-                                                )}
-                                            </SheetDescription>
-                                        </SheetHeader>
-                                        {isLoggedIn && (
-                                            <div className="mt-6 space-y-4">
-                                                {navLinks.map((link) => (
+                                                </div>
+                                            )}
+                                        </SheetDescription>
+                                    </SheetHeader>
+                                    {isLoggedIn && (
+                                        <div className="mt-6 space-y-4">
+                                            {navLinks.map((link) => (
+                                                <SheetClose key={link.href} asChild>
                                                     <Link
-                                                        key={link.href}
                                                         href={link.href}
                                                         className="flex items-center space-x-2 text-lg hover:text-green-700"
                                                     >
                                                         <span>{link.icon}</span>
                                                         <span className="text-gray-600">{link.label}</span>
                                                     </Link>
-                                                ))}
+                                                </SheetClose>
+                                            ))}
+                                            <SheetClose asChild>
                                                 <div
                                                     className="flex space-x-2 mt-6 cursor-pointer"
                                                     onClick={() => setIsPopup(true)}
@@ -497,41 +504,42 @@ export default function NavbarPage() {
                                                     </div>
                                                     <div className="text-lg text-red-700">ចាកចេញ</div>
                                                 </div>
-                                                {isPopup && (
-                                                    <div
-                                                        className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
-                                                        <div className="bg-white p-8 rounded-lg shadow-lg w-[370px]">
-                                                            <h2 className="text-lg font-semibold mb-2">តើអ្នកចង់ចាកចេញមែនទេ?</h2>
-                                                            <p className="mb-4"> បើអ្នកចុច &quot;ចាកចេញ&quot; អ្នកនឹងត្រូវបានបិទការប្រើប្រាស់របស់អ្នក។</p>
-                                                            <div className="flex justify-end gap-4">
-                                                                <Button
-                                                                    className="px-5 py-2 bg-gray-200 rounded hover:bg-gray-400"
-                                                                    onClick={() => setIsPopup(false)}
-                                                                >
-                                                                    ទេ
-                                                                </Button>
-                                                                <Button
-                                                                    className="px-7 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                                                                    onClick={handleLogout}
-                                                                >
-                                                                    ចាកចេញ
-                                                                </Button>
-                                                            </div>
+                                            </SheetClose>
+                                            {isPopup && (
+                                                <div
+                                                    className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
+                                                    <div className="bg-white p-8 rounded-lg shadow-lg w-[370px]">
+                                                        <h2 className="text-lg font-semibold mb-2">
+                                                            តើអ្នកចង់ចាកចេញមែនទេ?
+                                                        </h2>
+                                                        <p className="mb-4"> បើអ្នកចុច &quot;ចាកចេញ&quot; អ្នកនឹងត្រូវបានបិទការប្រើប្រាស់របស់អ្នក។</p>
+                                                        <div className="flex justify-end gap-4">
+                                                            <Button
+                                                                className="px-5 py-2 bg-gray-200 rounded hover:bg-gray-400"
+                                                                onClick={() => setIsPopup(false)}
+                                                            >
+                                                                ទេ
+                                                            </Button>
+                                                            <Button
+                                                                className="px-7 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                                                onClick={handleLogout}
+                                                            >
+                                                                ចាកចេញ
+                                                            </Button>
                                                         </div>
                                                     </div>
-                                                )}
-
-                                            </div>
-                                        )}
-                                    </SheetContent>
-                                </Sheet>
-                            </div>
-                        </header>
-                    </div>
-                ) : (
-                    <div></div>
-                )}
-            </div>
-        )
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </SheetContent>
+                            </Sheet>
+                        </div>
+                    </header>
+                </div>
+            ) : (
+                <div></div>
+            )}
+        </div>
     );
 }

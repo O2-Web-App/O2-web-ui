@@ -22,6 +22,7 @@ export default function Wishlist() {
 
     // get all product in wishlist
     const {data: wishlistData, isLoading} = useGetAllProductWishlistQuery({});
+
     const result = wishlistData?.data;
 
     // add all product to cart
@@ -51,6 +52,7 @@ export default function Wishlist() {
             console.log(error);
         }
     };
+
 
     //   handle item to cart
     const handleAddToCart = async (product_uuid: string) => {

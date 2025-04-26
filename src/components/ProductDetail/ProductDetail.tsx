@@ -30,6 +30,7 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import SkeletonFeedback from "@/components/home/SkeletonFeedback";
 import SimilarProductCart from "./SimiliarProductCart";
+import {FaRegHeart} from "react-icons/fa6";
 
 type Prop = {
     uuid: string;
@@ -217,12 +218,23 @@ export default function ProductDetail({uuid}: Prop) {
                             )}
 
                             {/* hearticon add to wishlist */}
-                            <button onClick={() => addToWishList()} className="relative">
-                                <div
-                                    className="rounded-full h-[30px] w-[30px] bg-primary opacity-20 flex items-center justify-center"></div>
-                                <FaHeart
-                                    className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-                            </button>
+                            {
+                                userData?.data === undefined ? (
+                                    <button onClick={() => addToWishList()} className="relative">
+                                        <div
+                                            className="rounded-full h-[30px] w-[30px] bg-primary opacity-20 flex items-center justify-center"></div>
+                                        <FaRegHeart
+                                            className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                                    </button>
+                                ) : (
+                                    <button onClick={() => addToWishList()} className="relative">
+                                        <div
+                                            className="rounded-full h-[30px] w-[30px] bg-primary opacity-20 flex items-center justify-center"></div>
+                                        <FaHeart
+                                            className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                                    </button>
+                                )
+                            }
                         </div>
 
                         {/* title */}
@@ -252,8 +264,8 @@ export default function ProductDetail({uuid}: Prop) {
                                         <Sheet open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
                                             {userData?.data !== undefined ? (
                                                 <SheetTrigger>
-                                                    <div className="rounded-[10px] p-2 w-max-full bg-accent">
-                                                        <p className="text-body text-center text-card_color">
+                                                    <div className="rounded-[10px] py-2 px-3 w-max-full bg-primary">
+                                                        <p className="text-sm text-center text-card_color">
                                                             ផ្តល់យោបល់
                                                         </p>
                                                     </div>

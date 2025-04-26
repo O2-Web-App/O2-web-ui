@@ -8,9 +8,9 @@ import {
 import {SimilarProduct} from "@/app/types/similarProducts";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
-import {GoHeart} from "react-icons/go";
 import {GoHeartFill} from "react-icons/go";
 import {toast} from "sonner";
+import {FaRegHeart} from "react-icons/fa6";
 
 export default function SimilarProductCart({uuid}: { uuid: string }) {
     const router = useRouter();
@@ -105,7 +105,7 @@ export default function SimilarProductCart({uuid}: { uuid: string }) {
                                         ) ? (
                                             <GoHeartFill className="text-primary" />
                                         ) : (
-                                            <GoHeart className="text-primary" />
+                                            <FaRegHeart className="text-primary" />
                                         )}
                                     </button>
                                 </div>

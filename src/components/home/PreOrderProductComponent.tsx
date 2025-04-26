@@ -1,43 +1,21 @@
-
 import React from "react";
-import { useGetPreOrderProductQuery } from "@/app/redux/service/product";
-import { DataType } from "@/app/types/ProductDetail";
-import { useRouter } from "next/navigation";
-import { SkeletonProductComponent } from "@/components/home/SkeletonProductComponent";
+import {useGetPreOrderProductQuery} from "@/app/redux/service/product";
+import {DataType} from "@/app/types/ProductDetail";
+import {useRouter} from "next/navigation";
+import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
+import {UserPayload, UserResponse} from "@/app/redux/service/user";
 
-const PreOrderHeader = ({ handleSeeMore }: { handleSeeMore: () => void }) => (
-    <div className="flex justify-between items-end">
-        <h1 className="text-2xl font-normal">បញ្ជាទិញផលិតផលជាមុន</h1>
-        <p
-            className="font-light text-primary-light cursor-pointer hover:underline"
-            onClick={handleSeeMore}
-        >
-            មើលបន្ថែម
-        </p>
-    </div>
-);
+// const PreOrderHeader = ({handleSeeMore}: { handleSeeMore: () => void }) => (
+//
+// );
+type Props = {
+    userData : UserResponse | undefined;
+}
 
-const PreOrderList = ({ preorders }: { preorders: DataType[] }) => (
-    <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
-        {preorders.map((preorder: DataType) => (
-            <CardProductByRowComponent
-                key={preorder.uuid}
-                uuid={preorder.uuid}
-                single_image={preorder.single_image}
-                name={preorder.name}
-                discounted_price={preorder.discounted_price}
-                price={preorder.price}
-                category_name={preorder.category_name}
-                created_at={preorder.created_at}
-                order_count={preorder.order_count}
-            />
-        ))}
-    </div>
-);
+export default function PreOrderProductComponent({userData}: Props) {
 
-export default function PreOrderProductComponent() {
-    const { data, isLoading, error } = useGetPreOrderProductQuery();
+    const {data, isLoading, error} = useGetPreOrderProductQuery();
     const router = useRouter();
 
     if (error) return <div>Error loading pre-orders</div>;
@@ -51,12 +29,36 @@ export default function PreOrderProductComponent() {
     return (
         <section>
             {isLoading ? (
-                <SkeletonProductComponent />
+                <SkeletonProductComponent/>
             ) : (
                 <section className="flex flex-col">
                     {preorders.length === 0 && <div></div>}
-                    <PreOrderHeader handleSeeMore={handleSeeMore} />
-                    <PreOrderList preorders={preorders} />
+                    <div className="flex justify-between items-end">
+                        <h1 className="text-2xl font-normal">បញ្ជាទិញផលិតផលជាមុន</h1>
+                        <p
+                            className="font-light text-primary-light cursor-pointer hover:underline"
+                            onClick={handleSeeMore}
+                        >
+                            មើលបន្ថែម
+                        </p>
+                    </div>
+
+                    <div className="flex gap-3 overflow-auto scrollbar-hide py-3">
+                        {preorders.map((preorder: DataType) => (
+                            <CardProductByRowComponent
+                                key={preorder.uuid}
+                                uuid={preorder.uuid}
+                                single_image={preorder.single_image}
+                                name={preorder.name}
+                                discounted_price={preorder.discounted_price}
+                                price={preorder.price}
+                                category_name={preorder.category_name}
+                                created_at={preorder.created_at}
+                                order_count={preorder.order_count}
+                                userData={userData}
+                            />
+                        ))}
+                    </div>
                 </section>
             )}
         </section>

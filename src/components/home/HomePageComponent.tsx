@@ -14,12 +14,14 @@ import FilterComponent from "@/components/home/FilterComponent";
 import FeedbackComponent from "@/components/home/FeedbackComponent";
 import DiscountBannerSlide from "@/components/home/BannerSlide";
 import CouponBannerSlide from "@/components/home/CouponBannerSlide";
+import {useGetUserQuery} from "@/app/redux/service/user";
 
 export default function HomePageComponent() {
     const [showSplash, setShowSplash] = useState(false); // Splash screen state
     const [splashCompleted, setSplashCompleted] = useState(false); // Track splash completion
     const [searchValue, setSearchValue] = useState('');
     const router = useRouter();
+    const {data: userData} = useGetUserQuery();
 
     // Check if splash has been shown on component mount
     useEffect(() => {
@@ -78,19 +80,20 @@ export default function HomePageComponent() {
                     <CategoryComponent/>
 
                     {/* Recommendation section */}
-                    <RecommendationComponent/>
+                    <RecommendationComponent userData={userData}/>
 
                     {/* Popular section */}
-                    <PopularProductComponent/>
+                    <PopularProductComponent userData={userData}/>
 
                     {/* Order section */}
-                    <PreOrderProductComponent/>
+                    <PreOrderProductComponent userData={userData}/>
 
                     {/* Coupon Banner Slide */}
                     <CouponBannerSlide/>
 
                     {/*Discount section*/}
-                    <DiscountProductComponent/>
+                    <DiscountProductComponent userData={userData} />
+
 
                     {/* Feedback section */}
                     <FeedbackComponent/>

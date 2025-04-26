@@ -1,5 +1,6 @@
 import {o2API} from "../api";
 import {DataSelect, DiscountBannerType, RecommendationType} from "@/app/types/ProductDetail";
+import {BaseQueryArg} from "@reduxjs/toolkit/query";
 
 export const productApi = o2API.injectEndpoints({
     endpoints: (builder) => ({
@@ -110,6 +111,15 @@ export const productApi = o2API.injectEndpoints({
             }),
             invalidatesTags: ["Product"],
         }),
+
+
+        // get all category service
+        getAllCategoryService: builder.query<any, void>({
+            query: () => ({
+                url: `api/services`,
+                method: "GET",
+            }),
+        }),
     }),
 });
 
@@ -126,4 +136,5 @@ export const {
     useCreateUserFeedbackProductQueryMutation,
     useGetDiscountBannerProductQuery,
     useGetCouponBannerProductQuery,
+    useGetAllCategoryServiceQuery,
 } = productApi;

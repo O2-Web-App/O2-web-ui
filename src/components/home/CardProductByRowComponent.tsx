@@ -1,10 +1,12 @@
 import {useRouter} from "next/navigation";
 import {FaHeart} from "react-icons/fa";
-import {GoClock} from "react-icons/go";
+import {GoClock, GoHeart} from "react-icons/go";
+import { FaRegHeart } from "react-icons/fa6";
 import {HiOutlineFire} from "react-icons/hi2";
 import TimeDifferenceComponent from "@/components/home/TimeDifferenceComponent";
 import {toast} from "sonner";
 import {useCreateWishListProductMutation} from "@/app/redux/service/wishlist";
+import {useGetUserQuery} from "@/app/redux/service/user";
 
 type Props = {
     uuid: string;
@@ -15,6 +17,7 @@ type Props = {
     category_name: string;
     created_at: string;
     order_count: number;
+    userData: any;
 }
 
 
@@ -26,11 +29,13 @@ export default function CardProductByRowComponent({
                                                       price,
                                                       category_name,
                                                       created_at,
-                                                      order_count
+                                                      order_count,
+                                                      userData
                                                   }: Props) {
     const router = useRouter();
     const env = process.env.NEXT_PUBLIC_O2_API_URL;
     const [createWishlist] = useCreateWishListProductMutation();
+    const {data} = useGetUserQuery();
 
     const addToWishList = async (e: React.MouseEvent) => {
         e.stopPropagation(); // Prevents the click from bubbling up to the parent div
@@ -76,15 +81,32 @@ export default function CardProductByRowComponent({
                     backgroundImage: `url(${env}${single_image})`
                 }}
             />
-            <button
-                onClick={addToWishList}
-                className="absolute top-5 right-5"
-            >
-                <div className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
-                </div>
-                <FaHeart
-                    className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-            </button>
+
+            {
+                userData == null ? (
+                    <button
+                        className="absolute top-5 right-5"
+                    >
+                        <div
+                            className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
+                        </div>
+                        <FaRegHeart
+                            className="text-primary-light absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                    </button>
+                ) : (
+                    <button
+                        onClick={addToWishList}
+                        className="absolute top-5 right-5"
+                    >
+                        <div
+                            className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
+                        </div>
+                        <FaHeart
+                            className="text-primary font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                    </button>
+                )
+            }
+
 
             <div className="flex flex-col gap-1 justify-start">
                 <p className="text-base font-light mt-2 line-clamp-1">{name}</p>

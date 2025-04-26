@@ -6,6 +6,7 @@ import TimeDifferenceComponent from "@/components/home/TimeDifferenceComponent";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
 import {useCreateWishListProductMutation} from "@/app/redux/service/wishlist";
+import {FaRegHeart} from "react-icons/fa6";
 
 type Props = {
     uuid: string;
@@ -17,6 +18,7 @@ type Props = {
     category_name: string;
     created_at: string;
     order_count: number;
+    userData: any;
 }
 
 export default function CardProductByColumnComponent({
@@ -24,11 +26,11 @@ export default function CardProductByColumnComponent({
                                                          single_image,
                                                          name,
                                                          discounted_price,
-                                                        //  discount_percentage,
                                                          price,
                                                          category_name,
                                                          created_at,
-                                                         order_count
+                                                         order_count,
+                                                         userData
                                                      }: Props) {
     const router = useRouter();
     const [createWishlist] = useCreateWishListProductMutation();
@@ -38,6 +40,7 @@ export default function CardProductByColumnComponent({
         e.stopPropagation(); // Prevents the click from bubbling up to the parent div
         try {
             const response = await createWishlist({product_uuid: uuid});
+            console.log(" Product response : ", uuid);
             if (response.data) {
                 toast.success("ការបញ្ចូលទៅកាន់បញ្ជីបានជោគជ័យ", {
                     style: {
@@ -74,7 +77,7 @@ export default function CardProductByColumnComponent({
                 }}
             />
             {
-                discounted_price === 0  || discounted_price === null ? (
+                discounted_price === 0 || discounted_price === null ? (
                     <></>
                 ) : (
                     <div
@@ -86,15 +89,31 @@ export default function CardProductByColumnComponent({
                 )
             }
 
-            <button
-                onClick={addToWishList}
-                className="absolute top-5 right-5"
-            >
-                <div className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
-                </div>
-                <FaHeart
-                    className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-            </button>
+            {
+                userData == null ? (
+                    <button
+                        className="absolute top-5 right-5"
+                    >
+                        <div
+                            className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
+                        </div>
+                        <FaRegHeart
+                            className="text-primary-light absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                    </button>
+                ) : (
+                    <button
+                        onClick={addToWishList}
+                        className="absolute top-5 right-5"
+                    >
+                        <div
+                            className="rounded-full h-[30px] w-[30px] bg-white opacity-60 flex items-center justify-center">
+                        </div>
+                        <FaHeart
+                            className="text-primary font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                    </button>
+                )
+            }
+
 
             <div className="flex flex-col gap-1 justify-start">
                 <p className="text-base font-light mt-2 line-clamp-1 ">{name}</p>

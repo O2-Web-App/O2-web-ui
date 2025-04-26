@@ -7,7 +7,7 @@ type ChangePasswordRequest = {
   new_password_confirmation: string;
 };
 
-type UserPayload = {
+export type UserPayload = {
   uuid: string;
   name: string;
   email: string;
@@ -24,7 +24,7 @@ type UserPayload = {
   updated_at: string;
 };
 
-type UserResponse = {
+export type UserResponse = {
   date: string;
   code: number;
   message: string;

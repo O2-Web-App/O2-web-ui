@@ -5,8 +5,15 @@ import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
+import {UserPayload, UserResponse} from "@/app/redux/service/user";
 
-export default function PopularProductComponent() {
+type Props = {
+    userData : UserResponse | undefined;
+}
+
+export default function PopularProductComponent(
+    {userData} : Props
+) {
     const router = useRouter();
     // Fetch recommended products using the RTK Query hook
     const {data, isLoading, error} = useGetPopularProductQuery();
@@ -33,7 +40,7 @@ export default function PopularProductComponent() {
                         popular === 0 && <div></div>
                     }
                         <div className="flex justify-between items-end">
-                            <h1 className="text-2xl font-normal">ផលិតផលដែលពេញនិយមបំផុត</h1>
+                            <h1 className="text-2xl font-normal">ផលិតផលដែលពេញនិយម</h1>
                             <p
                                 className="font-light text-primary-light cursor-pointer hover:underline"
                                 onClick={handleSeeMore}
@@ -53,6 +60,7 @@ export default function PopularProductComponent() {
                                     category_name={product.category_name}
                                     created_at={product.created_at}
                                     order_count={product.order_count}
+                                    userData={userData}
                                 />
                             ))}
                         </div>

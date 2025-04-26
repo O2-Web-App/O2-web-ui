@@ -63,7 +63,7 @@ const LoginComponent = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST}api/login`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST}/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

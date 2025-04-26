@@ -34,7 +34,7 @@ const FeedbackSlide: React.FC<FeedbackSlideProps> = ({feedback, env}) => {
                                 <SwiperSlide key={id}>
                                     <div className="flex gap-3">
                                         <Image
-                                            className="w-[40px] h-[40px] rounded-full bg-cover border border-primary"
+                                            className="w-[40px] h-[40px] rounded-full bg-auto border border-primary"
                                             width={100}
                                             height={100}
                                             unoptimized

@@ -16,12 +16,16 @@ import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import SkeletonCardItemComponent from "@/components/card/SkeletonCardItemComponent";
 
 export default function CardItem() {
+
     const router = useRouter();
 
     // get all item
     const { data:getAllCart, isLoading} = useGetAllCartQuery({});
+
+
     const data = getAllCart?.data?.cart_items;
 
+    console.log("  CART ITEM : ", data);
 
     // image base url
     const imageBaseUrl = process.env.NEXT_PUBLIC_O2_API_URL;
@@ -32,7 +36,9 @@ export default function CardItem() {
     // remove cart item
     const [removeCartItem] = useRemoveCartItemMutation({});
 
+
     const handleIncrease = async (product_uuid: string, newQuantity: number) => {
+
         const quantity = newQuantity + 1;
         const response = await updateCartQuantity({product_uuid, quantity});
         try {

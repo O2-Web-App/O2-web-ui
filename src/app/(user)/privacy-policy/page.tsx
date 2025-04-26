@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function page() {
 
     return (
-        <section className="mx-5">
+        <section className="mx-5 overflow-hidden">
             <div className="flex gap-10 py-8 items-center">
                 <Link href={`/`}><ArrowLeft className="w-8 h-8"/></Link>
                 <h1 className="text-2xl">Privacy Policy</h1>
