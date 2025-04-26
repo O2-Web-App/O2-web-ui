@@ -1,9 +1,9 @@
 "use client";
 
-import {ArrowLeft} from "lucide-react";
-import {useRouter} from "next/navigation";
-import {useGetOrdersQuery} from "@/app/redux/service/orderHistory";
-import {Order} from "@/app/types/purchaseHistoryType";
+import { ArrowLeft, ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useGetOrdersQuery } from "@/app/redux/service/orderHistory";
+import { Order } from "@/app/types/purchaseHistoryType";
 import OrderItem from "@/components/Components/OrderHistory";
 import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
@@ -16,7 +16,7 @@ dayjs.extend(isYesterday);
 
 export default function PurchaseHistoryComponent() {
 
-    const {data} = useGetOrdersQuery();
+    const { data, isLoading } = useGetOrdersQuery();
     const orders = data?.data || [];
     const router = useRouter();
 
@@ -53,8 +53,10 @@ export default function PurchaseHistoryComponent() {
         <section className="max-w-md mx-auto min-h-screen">
             <section className="sticky top-0 z-10 border-b">
                 <div className="flex items-center p-4">
-                    <ArrowLeft size={24} onClick={() => router.back()}/>
-                    <h1 className="flex-1 text-center text-xl font-medium">
+                    <div className="p-2 bg-gray-100 rounded-full">
+                        <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
+                    </div>
+                    <h1 className="flex-1 text-center text-2xl font-medium">
                         ប្រវត្តិការទិញ
                     </h1>
                 </div>
@@ -62,16 +64,18 @@ export default function PurchaseHistoryComponent() {
 
 
             <div className="px-4 py-2">
-                {orders.length === 0 ? (
-                    <SkeletonPurchaseHistory/>
-                ) : (
+                { isLoading ? (
+                    <SkeletonPurchaseHistory />
+                ) :orders.length === 0 ? (
+                        <p className="text-lg text-center text-red-500 py-2">មិនមានប្រវត្តិការទិញ</p>
+                ) :(
                     <>
                         {todayOrders.length > 0 && (
                             <section className={` flex flex-col gap-2 my-5`}>
                                 <div className="text-gray-500 text-sm "><span
                                     className="text-lg text-black/70">ថ្ងៃនេះ</span></div>
                                 {todayOrders.map((order: Order) => (
-                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order}/>
+                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
                                 ))}
                             </section>
                         )}
@@ -81,7 +85,7 @@ export default function PurchaseHistoryComponent() {
                                 <div className="text-gray-500 text-sm"><span
                                     className="text-lg text-black/70">ថ្ងៃម្សិលមិញ</span></div>
                                 {yesterdayOrders.map((order: Order) => (
-                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order}/>
+                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
                                 ))}
                             </section>
                         )}
@@ -94,7 +98,7 @@ export default function PurchaseHistoryComponent() {
                                             <div className="text-gray-500 text-sm  "><span
                                                 className="text-lg text-black/70">{date}</span></div>
                                             {orders.map((order: Order) => (
-                                                <OrderItem key={order.uuid} uuid={order.uuid} order={order}/>
+                                                <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
                                             ))}
                                         </div>
                                     )

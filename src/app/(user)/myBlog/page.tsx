@@ -8,21 +8,18 @@ import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const MyBlogPage = () => {
-  const [search, ] = useState("")
-  const { data, error, isLoading } = useGetMyBlogQuery({search});
+  const [search,] = useState("")
+  const { data, isLoading } = useGetMyBlogQuery({ search });
 
   const blogs = data?.data.data || [];
   const router = useRouter()
-
+  console.log("blog length:", blogs.length)
   return (
     <div className="max-w-md px-4 mx-auto">
-      <div className="flex items-center pr-4 py-7 gap-8">
-              <div className="p-2 bg-gray-100 rounded-full">
-                <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
-              </div>
-              <h1 className="text-2xl font-bold text-center">My Blog</h1>
-              
-            </div>
+      <div className="flex items-center p-4">
+        <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
+        <h1 className="flex-1 text-center text-2xl font-meduim">ប្លុករបស់ខ្ញុំ</h1>
+      </div>
 
       {isLoading ? (
         // Skeleton loader while data is fetching
@@ -32,10 +29,10 @@ const MyBlogPage = () => {
             className="w-full h-24 bg-gray-200 animate-pulse mb-4 rounded-lg"
           />
         ))
-      ) : error ? (
-        <p className="text-red-500">Failed to load blogs.</p>
+        // ) : error ? (
+        //   <p className="text-red-500">Failed to load blogs.</p>
       ) : blogs.length === 0 ? (
-        <p className="text-gray-500">You have not written any blogs yet.</p>
+        <p className="text-red-500 text-center py-2.5 text-lg">មិនមានទន្និន័យ</p>
       ) : (
         blogs.map((blog: any) => (
           <CardBlogHorizontal
@@ -50,8 +47,8 @@ const MyBlogPage = () => {
               blog.image?.startsWith("http")
                 ? blog.image
                 : blog.image
-                ? `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.image}`
-                : "/assets/placeholder.png"
+                  ? `${process.env.NEXT_PUBLIC_O2_API_URL}${blog.image}`
+                  : "/assets/placeholder.png"
             }
             bookmarks={() =>
               console.log(`Bookmark toggle for ${blog.uuid}`) // replace with your handler if needed

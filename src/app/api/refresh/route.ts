@@ -13,6 +13,7 @@ export async function POST() {
   }
 
   const refreshToken = credential.value;
+  console.log("refresh token:",refreshToken)
 
   try {
     // Make API call to refresh the token
@@ -39,6 +40,7 @@ export async function POST() {
     }
 
     const data = JSON.parse(rawResponse);
+    console.log("data in refreshh token:", data)
 
     const access_token = data?.data?.access_token;
     const refresh_token = data?.data.refresh_token;

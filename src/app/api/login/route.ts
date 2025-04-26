@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   );
 
   const text = await response.text(); // always safe
-  console.log("Backend raw response:", text);
+  // console.log("Backend raw response:", text);
 
   if (!response.ok) {
     console.error("❌ Backend returned error status:", response.status);
@@ -43,12 +43,13 @@ export async function POST(req: NextRequest) {
   // If the request is successful, parse the response body to get the data
   // const data = await response.json();
   const data = result;
-  console.log("result data :", result)
+  // console.log("result data :", result)
   const user = data.data?.user || null;
-  console.log("user data:",user)
+  // console.log("user data:",user)
   const accessToken = data.data?.access_token || null;
-  console.log("accessToken data :", accessToken)
+  // console.log("accessToken data :", accessToken)
   const refreshToken = data.data?.refresh_token;
+  // console.log("refresh token data:", refreshToken)
 
   // Serialize the refresh token and set it as a cookie with
   // (httpOnly, secure, path, and sameSite options) in the response headers to the client-side

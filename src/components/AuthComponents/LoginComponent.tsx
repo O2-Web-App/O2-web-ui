@@ -63,7 +63,7 @@ const LoginComponent = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST}/login`,
+        `/api/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -72,13 +72,9 @@ const LoginComponent = () => {
       );
 
       const result = await response.json();
-      console.log("result in login component:", result);
-      console.log("response :", response);
 
       if (response.ok) {
         const access_token = result?.accessToken;
-        console.log("access token in function login :", access_token);
-        console.log("message in function login :", result?.message);
         // Store tokens in Redux
         if (access_token !== undefined) {
           dispatch(setAccessToken(access_token));

@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation";
 import {toast} from "sonner";
 
 export default function Home() {
-    const {data, isLoading, error} = useGetAllBookmarkQuery();
+    const {data, isLoading} = useGetAllBookmarkQuery();
     const router = useRouter();
     const articles = data?.data || [];
     const [toggleBookmark] = useAddBookmarkMutation();
@@ -46,15 +46,15 @@ export default function Home() {
             <header className="sticky top-0 z-10 border-b">
                 <div className="flex items-center p-4">
                     <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary"/>
-                    <h1 className="flex-1 text-center text-xl font-medium">ការរក្សាទុក</h1>
+                    <h1 className="flex-1 text-center text-2xl font-medium">ការរក្សាទុក</h1>
                 </div>
             </header>
 
             <div className="px-4 py-2">
                 {isLoading ? (
                     <p className="text-center text-gray-500">Loading bookmarks...</p>
-                ) : error ? (
-                    <p className="text-center text-red-500">Failed to load bookmarks. Please try again later.</p>
+                // ) : error ? (
+                //     <p className="text-center text-red-500">Failed to load bookmarks. Please try again later.</p>
                 ) : articles.length === 0 ? (
                     <p className="text-center text-red-500">មិនមានការរក្សាទុក</p>
                 ) : (

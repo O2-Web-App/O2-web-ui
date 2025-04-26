@@ -21,8 +21,8 @@ export function middleware(request: NextRequest) {
 
 // multiple middleware
 export const config = {
-  matcher: ["/", "/setting", "/bookmark", "/addBlog", "/cart", "/myBlog", "/editBlog"], 
-//   compiler: {
-//     removeConsole: true,
-// }
+  matcher: ["/", "/setting", "/bookmark", "/addBlog", "/cart", "/myBlog", "/editBlog", "/bookmark", "/purchase-history", "/successs-payment", "/wishlist"], 
+  compiler: {
+    removeConsole: true,
+}
 };
