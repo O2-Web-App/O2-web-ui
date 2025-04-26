@@ -11,6 +11,7 @@ import React from "react";
 import {useRouter} from "next/navigation";
 import CardProductByColumnComponent from "@/components/home/CardProductByColumnComponent";
 import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductDiscountComponent";
+import {useGetUserQuery} from "@/app/redux/service/user";
 
 type Props = {
     params: Promise<{ name: string }>;
@@ -21,7 +22,7 @@ type Props = {
 export default function CategoryProduct({params}: Props) {
     const router = useRouter();
     const {name} = React.use(params);
-
+    const {data : userData} = useGetUserQuery();
     const recommendationQuery = useGetRecommendationProductQuery();
     const discountQuery = useGetDiscountProductQuery();
     const preorderQuery = useGetPreOrderProductQuery();
@@ -88,6 +89,7 @@ export default function CategoryProduct({params}: Props) {
                                     category_name={product.category_name}
                                     created_at={product.created_at}
                                     order_count={product.order_count}
+                                    userData={userData}
                                 />
                             ))}
                         </div>

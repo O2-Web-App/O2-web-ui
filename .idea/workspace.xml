@@ -6,26 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0e850377-6cbe-4c30-b80a-640d70491732" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/privacy-policy/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/privacy-policy/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/product.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/service/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/service/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthComponents/LoginComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/workbox-4754cb34.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/categories-product/[name]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/search&amp;filter/[value]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavbarPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/Cart/CardItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/Cart/CardItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/ProductDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductDetail/SimiliarProductCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductDetail/SimiliarProductCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/about-us/AboutUsComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/about-us/AboutUsComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByColumnComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CardProductByRowComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CategoryComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/CouponBannerSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/CouponBannerSlide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/DiscountProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackSlide.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/HomePageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/HomePageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PopularProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PreOrderProductComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/RecommendationComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/FeedbackComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/FeedbackComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +34,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "Merging dev",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "22.14.0",
     "javascript.nodejs.core.library.typings.version": "22.13.10",
@@ -150,7 +137,7 @@
       <workItem from="1745455190247" duration="5060000" />
       <workItem from="1745541661315" duration="10260000" />
       <workItem from="1745640032689" duration="7028000" />
-      <workItem from="1745679392526" duration="10296000" />
+      <workItem from="1745679392526" duration="11228000" />
     </task>
     <servers />
   </component>

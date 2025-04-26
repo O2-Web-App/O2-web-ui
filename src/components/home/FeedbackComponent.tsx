@@ -28,7 +28,7 @@ export default function FeedbackComponent() {
 
                     <section className="flex flex-col">
                         <div className="flex justify-between items-end">
-                            <h1 className="text-2xl font-normal">មតិយោបល់របស់អតិថិជន</h1>
+                            <h1 className="text-2xl font-normal">មតិយោបល់អតិថិជន</h1>
                             <FeedbackDrawerComponent/>
                         </div>
                         <div className="flex gap-3 overflow-auto scrollbar-hide py-3">

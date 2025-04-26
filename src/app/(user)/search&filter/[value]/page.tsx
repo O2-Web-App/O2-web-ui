@@ -9,6 +9,7 @@ import {FiSearch} from "react-icons/fi";
 import FilterComponent from "@/components/home/FilterComponent";
 import CardProductByColumnComponent from "@/components/home/CardProductByColumnComponent";
 import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductDiscountComponent";
+import {useGetUserQuery} from "@/app/redux/service/user";
 
 type Props = {
     params: Promise<{ value: string }>;
@@ -19,6 +20,7 @@ export default function SearchAndFilter({params}: Props) {
     const router = useRouter();
     const resolvedParams = React.use(params);
     const {value} = resolvedParams;
+    const {data: userData} = useGetUserQuery();
 
     const isSearch = value.startsWith('s-');
     const isFilter = value.startsWith('f-');
@@ -38,7 +40,7 @@ export default function SearchAndFilter({params}: Props) {
     const {data, isLoading} = isSearch ? searchQuery : filterQuery;
     const products = data?.data || [];
     const title = isSearch ? `Search: ${searchTerm}` : 'Filtered Products';
-    console.log("title:",title)
+    console.log("title:", title)
     const [searchValue, setSearchValue] = useState('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +98,7 @@ export default function SearchAndFilter({params}: Props) {
                                         category_name={product.category_name}
                                         created_at={product.created_at}
                                         order_count={product.order_count}
+                                        userData={userData}
                                     />
                                 ))
                             ) : (
