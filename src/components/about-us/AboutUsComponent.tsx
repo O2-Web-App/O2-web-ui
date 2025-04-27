@@ -130,16 +130,15 @@ export default function AboutUsComponent() {
                 <div className="px-4 mb-6">
                     <h2 className="text-blue-500 font-medium mb-8 text-2xl">ទស្សនវិស័យ៖</h2>
                     <p className="text-black/70 text-lg mb-6">
-                        ជាការលើកកម្ពស់ប្រព័ន្ធកសិកម្មប្រកបដោយចីរភាពដែលផ្តល់ផលប្រយោជន៍ដល់កសិករ ពង្រឹងសន្តិសុខស្បៀង
-                        ក្នុងការចូលរួមកាត់បន្ថយភាពក្រីក្រនិងការប្រែប្រួលអាកាសធាតុ
-                        ដើម្បីធានាបាននូវការអភិវឌ្ឍប្រកបដោយចីរភាពនិងសមធម៌សង្គម។
+                        ជាកាតាលីករសម្រាប់ការអភិវឌ្ឍប្រកបដោយចីរភាពនៅកម្ពុជា លើកកម្ពស់អាជីវកម្មកសិកម្ម
+                        គុណតម្លៃសហគ្រាសធុនតូចនិងមធ្យម កំណើនសេច្ចកិច្ចបៃតង ការពង្រឹងសិទ្ធិអំណាចដល់យុវជន និងស្ត្រី
+                        ព្រមទាំងការអភិវឌ្ឍសម្រាប់សហគ្រិនភាព និងការគ្រប់គ្រងធុរៈកិច្ច។
                     </p>
 
                     <h2 className="text-blue-500 font-medium mb-8 text-2xl">បេសកកម្ម៖</h2>
                     <p className="text-black/70 text-lg mb-6">
-                        O2 បង្កើតប្រព័ន្ធកសិកម្មប្រកបដោយចីរភាពតាមរយៈការបណ្តុះបណ្តាល ស្រាវជ្រាវនិងអភិវឌ្ឍន៍បច្ចេកវិទ្យា
-                        ការផ្សព្វផ្សាយ
-                        ពង្រឹងសមត្ថភាពនិងការតស៊ូមតិដើម្បីការ និងជួយដល់កសិករខ្នាតតូច។
+                        O2 ប្ដេជ្ញាផ្តល់នូវក្របខណ្ឌសង្គមមួយដែលបើកឱ្យយុវជន និងស្ត្រីក្លាយជាអ្នកមានសេចក្ដីសម្រេចចិត្ត
+                        ប្រកាន់ខ្ជាប់នូវគុណភាពជាអ្នកដឹកនាំ ការគ្រប់គ្រងដោយមាននិរន្តរភាព និងផ្ដល់ទំនុកចិត្តខ្ពស់។
                     </p>
                 </div>
 
@@ -219,7 +218,7 @@ export default function AboutUsComponent() {
                         <div className="flex items-center gap-3">
                             <Phone className="w-6 h-6 text-gray-600"/>
                             <a href="tel:061200558" className="text-gray-700 hover:text-blue-500 transition">
-                            061 200 558
+                                061 200 558
                             </a>
                         </div>
 
@@ -235,7 +234,8 @@ export default function AboutUsComponent() {
                         {/* Facebook */}
                         <div className="flex items-center gap-3">
                             <Facebook className="w-6 h-6 text-gray-600"/>
-                            <a href="https://www.facebook.com/share/1BaLiMVK2K/" target="_blank" rel="noopener noreferrer"
+                            <a href="https://www.facebook.com/share/1BaLiMVK2K/" target="_blank"
+                               rel="noopener noreferrer"
                                className="text-gray-700 hover:text-blue-500 transition">
                                 One-House One-Garden
                             </a>
