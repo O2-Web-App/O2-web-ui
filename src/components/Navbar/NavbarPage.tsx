@@ -380,6 +380,7 @@ export default function NavbarPage() {
                                 alt="Logo"
                                 width={50}
                                 height={50}
+                                unoptimized
                                 className="w-full h-full object-cover"
                             />
                         </Link>
@@ -420,7 +421,8 @@ export default function NavbarPage() {
                                                 </div>
                                             ) : (
                                                 <div>
-                                                    <SheetTitle className="text-xl flex justify-start items-center gap-2 font-normal">
+                                                    <SheetTitle
+                                                        className="text-xl flex justify-start items-center gap-2 font-normal">
                                                         {/*<Image*/}
                                                         {/*    src="/new-logo-o2.png"*/}
                                                         {/*    alt="Logo"*/}

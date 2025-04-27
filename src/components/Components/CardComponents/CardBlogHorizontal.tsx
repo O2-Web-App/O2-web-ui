@@ -78,7 +78,7 @@ const CardBlogHorizontal = ({
           <div className="flex justify-between gap-y-3">
             {/* Blog Title */}
           <Link href={`/blog/${id}`}>
-            <h1 className="text-xl font-semibold tracking-tight truncate max-w-[250px]">
+            <h1 className="text-xl tracking-tight truncate max-w-[250px]">
               {title}
             </h1>
           </Link>
@@ -133,7 +133,7 @@ const CardBlogHorizontal = ({
           </div>
 
           {/* Date and Views */}
-          <div className="flex justify-end text-xs text-gray-500">
+          <div className="flex justify-start text-xs text-gray-500">
             <span>{formatDate(date)} • {view} views</span>
           </div>
 
