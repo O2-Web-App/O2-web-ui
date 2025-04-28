@@ -64,7 +64,7 @@ export default function AboutUsComponent() {
                         <h1 className="text-primary font-semibold leading-[54px] text-3xl mb-4 text-center ">
                             ជាមួយពួកយើងលោកអ្នកអាចស្វែងរកគ្រប់ទំនិញដែលអ្នកចង់បាន ព្រមជាមួយគុណភាព
                         </h1>
-                        <Link href="/privacy"
+                        <Link href="/privacy-policy"
                             className="bg-secondary text-white py-1.5 px-3 rounded-md w-24 text-center mx-auto">ឯកជនភាព</Link>
                     </div>
                 </div>
