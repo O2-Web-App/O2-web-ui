@@ -20,7 +20,7 @@ const MyBlogPage = () => {
     <div className="max-w-md px-4 mx-auto">
       <div className="flex items-center p-4">
         <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
-        <h1 className="flex-1 text-center text-2xl font-meduim">ប្លុករបស់ខ្ញុំ</h1>
+        <h1 className="flex-1 text-center text-2xl font-meduim">My Blog</h1>
       </div>
 
       {isLoading ? (

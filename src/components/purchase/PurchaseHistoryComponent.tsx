@@ -10,6 +10,8 @@ import isToday from "dayjs/plugin/isToday";
 import isYesterday from "dayjs/plugin/isYesterday";
 import "dayjs/locale/km";
 import SkeletonPurchaseHistory from "@/components/purchase/SkeletonPurchaseHistory";
+import Lottie from "lottie-react";
+import animationData from "../../../public/assets/no-data.json"
 
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
@@ -67,7 +69,10 @@ export default function PurchaseHistoryComponent() {
                 { isLoading ? (
                     <SkeletonPurchaseHistory />
                 ) :orders.length === 0 ? (
-                        <p className="text-lg text-center text-red-500 py-2">មិនមានប្រវត្តិការទិញ</p>
+                        <div className="grid justify-center py-3">
+                                  <Lottie animationData={animationData} loop={true} className="w-40 h-40 object-none"/>;
+                                  <p className="text-red-500 text-center text-lg">មិនមានទន្និន័យ</p>
+                                </div>
                 ) :(
                     <>
                         {todayOrders.length > 0 && (
