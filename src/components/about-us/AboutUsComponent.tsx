@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import {Phone, Mail, Facebook, MapPin} from "lucide-react";
+import { Phone, Mail, Facebook, MapPinned } from "lucide-react";
 import Link from "next/link";
-import {useContactUsMutation} from "@/app/redux/service/blog";
-import {toast} from "sonner";
-import {Formik, Field, Form, ErrorMessage} from "formik";
+import { useContactUsMutation } from "@/app/redux/service/blog";
+import { toast } from "sonner";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {Label} from "@/components/ui/label";
+import { Label } from "@/components/ui/label";
 
 export default function AboutUsComponent() {
     const [contact] = useContactUsMutation();
@@ -21,11 +21,11 @@ export default function AboutUsComponent() {
     // Form submission handler
     const handleContact = async (
         values: { name: string; email: string; message: string },
-        {setSubmitting, resetForm}: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void }
+        { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void }
     ) => {
         setSubmitting(true);
         try {
-            await contact({name: values.name, email: values.email, message: values.message}).unwrap();
+            await contact({ name: values.name, email: values.email, message: values.message }).unwrap();
             resetForm();
             toast.success("ការបញ្ចេញមតិយោបលរបស់អ្នកជោគជ័យ", {
                 style: {
@@ -65,7 +65,7 @@ export default function AboutUsComponent() {
                             ជាមួយពួកយើងលោកអ្នកអាចស្វែងរកគ្រប់ទំនិញដែលអ្នកចង់បាន ព្រមជាមួយគុណភាព
                         </h1>
                         <Link href="/privacy"
-                              className="bg-secondary text-white py-1.5 px-3 rounded-md w-24 text-center mx-auto">ឯកជនភាព</Link>
+                            className="bg-secondary text-white py-1.5 px-3 rounded-md w-24 text-center mx-auto">ឯកជនភាព</Link>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@ export default function AboutUsComponent() {
                             className="flex-shrink-0 w-44 bg-white rounded-lg shadow-sm p-4 py-5 flex flex-col items-center snap-center">
                             <div className="w-14 h-14 flex items-center justify-center mx-auto">
                                 <Image src="/assets/teamwork.png" alt="សមធម៌ និងបរិយាបន្ន" width={60} height={60}
-                                       className="object-contain"/>
+                                    className="object-contain" />
                             </div>
                             <span className="text-lg text-center mt-6">សមធម៌ និងបរិយាបន្ន</span>
                         </div>
@@ -89,7 +89,7 @@ export default function AboutUsComponent() {
                             className="flex-shrink-0 w-44 bg-white rounded-lg shadow-sm p-4 py-5 flex flex-col items-center snap-center">
                             <div className="w-14 h-14 flex items-center justify-center mx-auto">
                                 <Image src="/assets/planet-earth.png" alt="ទីផ្សារ" width={60} height={60}
-                                       className="object-contain"/>
+                                    className="object-contain" />
                             </div>
                             <span className="text-lg text-center mt-6">ចីរភាព</span>
                         </div>
@@ -99,7 +99,7 @@ export default function AboutUsComponent() {
                             className="flex-shrink-0 w-44 bg-white rounded-lg shadow-sm p-4 py-5 flex flex-col items-center snap-center">
                             <div className="w-14 h-14 flex items-center justify-center mx-auto">
                                 <Image src="/assets/collaboration.png" alt="ការចូលរួម" width={60} height={60}
-                                       className="object-contain"/>
+                                    className="object-contain" />
                             </div>
                             <span className="text-lg text-center mt-6">ការចូលរួម</span>
                         </div>
@@ -109,7 +109,7 @@ export default function AboutUsComponent() {
                             className="flex-shrink-0 w-44 bg-white rounded-lg shadow-sm p-4 py-5 flex flex-col items-center snap-center">
                             <div className="w-14 h-14 flex items-center justify-center mx-auto">
                                 <Image src="/assets/integration.png" alt="សុចរិតភាព" width={60} height={60}
-                                       className="object-contain"/>
+                                    className="object-contain" />
                             </div>
                             <span className="text-lg text-center mt-6">សុចរិតភាព</span>
                         </div>
@@ -119,7 +119,7 @@ export default function AboutUsComponent() {
                             className="flex-shrink-0 w-44 bg-white rounded-lg shadow-sm p-4 py-5 flex flex-col items-center snap-center">
                             <div className="w-14 h-14 flex items-center justify-center mx-auto">
                                 <Image src="/assets/transparency.png" alt="តម្លាភាព" width={60} height={60}
-                                       className="object-contain"/>
+                                    className="object-contain" />
                             </div>
                             <span className="text-lg text-center mt-6">តម្លាភាព</span>
                         </div>
@@ -157,11 +157,11 @@ export default function AboutUsComponent() {
                 <div className="px-4 mb-6 ">
                     <h2 className="text-blue-500 font-medium mb-5 text-2xl">ទំនាក់ទំនងមកកាន់ពួកយើង៖</h2>
                     <Formik
-                        initialValues={{name: "", email: "", message: ""}}
+                        initialValues={{ name: "", email: "", message: "" }}
                         validationSchema={validationSchema}
                         onSubmit={handleContact}
                     >
-                        {({isSubmitting}) => (
+                        {({ isSubmitting }) => (
                             <Form className="space-y-6">
                                 <div className={` space-y-1`}>
                                     <div className={` flex gap-1`}>
@@ -174,7 +174,7 @@ export default function AboutUsComponent() {
                                         placeholder="បញ្ចូលឈ្មោះរបស់អ្នក"
                                         className="w-full p-4 text-sm rounded-lg mb-3"
                                     />
-                                    <ErrorMessage name="name" component="div" className="text-red-500 text-sm"/>
+                                    <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
                                 </div>
                                 <div className={` space-y-1`}>
                                     <div className={` flex gap-1`}>
@@ -187,7 +187,7 @@ export default function AboutUsComponent() {
                                         placeholder="បញ្ចូលអ៊ីមែលរបស់អ្នក"
                                         className="w-full p-4 text-sm rounded-lg"
                                     />
-                                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm"/>
+                                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                                 </div>
                                 <div className={` space-y-1`}>
                                     <div className={` flex gap-1`}>
@@ -200,14 +200,14 @@ export default function AboutUsComponent() {
                                         placeholder="មតិយោបលរបស់អ្នក..."
                                         className="text-sm rounded-lg p-4 w-full h-36"
                                     />
-                                    <ErrorMessage name="message" component="div" className="text-red-500 text-sm"/>
+                                    <ErrorMessage name="message" component="div" className="text-red-500 text-sm" />
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
                                     className="bg-secondary text-white py-2.5 px-4 rounded-md mb-8 text-center w-full"
                                 >
-                                    {isSubmitting ? "កំពង់បញ្ចូន..." : "បញ្ជាក់ព័ត៌មានបន្ថែម"}
+                                    {isSubmitting ? "កំពុងបញ្ចូន..." : "បញ្ជាក់ព័ត៌មានបន្ថែម"}
                                 </button>
                             </Form>
                         )}
@@ -216,7 +216,7 @@ export default function AboutUsComponent() {
                     <div className="space-y-3 my-10">
                         {/* Phone */}
                         <div className="flex items-center gap-3">
-                            <Phone className="w-6 h-6 text-gray-600"/>
+                            <Phone className="w-6 h-6 text-gray-600 pl-1.5" />
                             <a href="tel:061200558" className="text-gray-700 hover:text-blue-500 transition">
                                 061 200 558
                             </a>
@@ -224,30 +224,30 @@ export default function AboutUsComponent() {
 
                         {/* Email */}
                         <div className="flex items-center gap-3">
-                            <Mail className="w-6 h-6 text-gray-600"/>
+                            <Mail className="w-6 h-6 text-gray-600 pl-1.5" />
                             <a href="mailto:O2Project@proton.me"
-                               className="text-gray-700 hover:text-blue-500 transition">
+                                className="text-gray-700 hover:text-blue-500 transition">
                                 O2Project@proton.me
                             </a>
                         </div>
 
                         {/* Facebook */}
                         <div className="flex items-center gap-3">
-                            <Facebook className="w-6 h-6 text-gray-600"/>
+                            <Facebook className="w-6 h-6 text-gray-600 pl-1" />
                             <a href="https://www.facebook.com/share/1BaLiMVK2K/" target="_blank"
-                               rel="noopener noreferrer"
-                               className="text-gray-700 hover:text-blue-500 transition">
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-blue-500 transition">
                                 One-House One-Garden
                             </a>
                         </div>
 
                         {/* Location (Google Maps) */}
-                        <div className="flex items-center gap-3">
-                            <MapPin className="w-6 h-6 text-gray-600"/>
+                        <div className="flex  gap-3">
+                            <MapPinned  className="w-9 h-9 text-gray-600 pl-2" />
                             <a href="https://www.google.com/maps/search/?api=1&query=Sangkat+Tonle+Bassac,+Khan+Chamkarmon,+Phnom+Penh"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               className="text-gray-700 hover:text-blue-500 transition">
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-blue-500 transition">
                                 Chamkar O'luk Village, Sangkat Kakap II, Khan Pou Senchey, Phnom Penh
                             </a>
                         </div>
@@ -255,10 +255,9 @@ export default function AboutUsComponent() {
                 </div>
 
                 {/* Map */}
-                <div className="w-full h-36 mx-3 w-80">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!4v1727062217787!6m8!1m7!1sVHp0enuXkiJTlB9z39M4zQ!2m2!1d11.55663474906035!2d104.8862034768563!3f357.8562378182402!4f2.568982036305343!5f0.9516337819776355"
-                        width="370" height="300"></iframe>
+                <div className="w-full h-42 mx-3 w-80 mb-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!4v1745856904180!6m8!1m7!1sSsQXCOpuMO07uyJ555ubyw!2m2!1d11.56600326169911!2d104.8402005605115!3f272.66!4f0!5f1.1924812503605782"
+                        width="400" height="250" className="rounded rounded-xl"></iframe>
                 </div>
             </section>
         </section>
