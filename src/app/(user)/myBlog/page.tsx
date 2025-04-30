@@ -56,7 +56,7 @@ const MyBlogPage = () => {
                   : "/assets/placeholder.png"
             }
             bookmarks={() =>
-              console.log(`Bookmark toggle for ${blog.uuid}`) // replace with your handler if needed
+              console.log(`Bookmark toggle for ${blog.uuid}`)
             }
             disabledBookmark={false} // optional, you can make it dynamic
           />

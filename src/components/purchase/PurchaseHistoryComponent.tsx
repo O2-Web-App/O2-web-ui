@@ -1,22 +1,25 @@
 "use client";
 
-import { ArrowLeft, ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useGetOrdersQuery } from "@/app/redux/service/orderHistory";
-import { Order } from "@/app/types/purchaseHistoryType";
+import {ArrowLeft, ChevronLeft} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useGetOrdersQuery} from "@/app/redux/service/orderHistory";
+import {Order} from "@/app/types/purchaseHistoryType";
 import OrderItem from "@/components/Components/OrderHistory";
 import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import isYesterday from "dayjs/plugin/isYesterday";
 import "dayjs/locale/km";
 import SkeletonPurchaseHistory from "@/components/purchase/SkeletonPurchaseHistory";
+import Lottie from "lottie-react";
+import animationData from "@/../public/assets/no-data.json"
+
 
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 
 export default function PurchaseHistoryComponent() {
 
-    const { data, isLoading } = useGetOrdersQuery();
+    const {data, isLoading} = useGetOrdersQuery();
     const orders = data?.data || [];
     const router = useRouter();
 
@@ -54,7 +57,7 @@ export default function PurchaseHistoryComponent() {
             <section className="sticky top-0 z-10 border-b">
                 <div className="flex items-center p-4">
                     <div className="p-2 bg-gray-100 rounded-full">
-                        <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary" />
+                        <ChevronLeft size={24} onClick={() => router.back()} className="cursor-pointer text-primary"/>
                     </div>
                     <h1 className="flex-1 text-center text-2xl font-medium">
                         ប្រវត្តិការទិញ
@@ -64,18 +67,21 @@ export default function PurchaseHistoryComponent() {
 
 
             <div className="px-4 py-2">
-                { isLoading ? (
-                    <SkeletonPurchaseHistory />
-                ) :orders.length === 0 ? (
-                        <p className="text-lg text-center text-red-500 py-2">មិនមានប្រវត្តិការទិញ</p>
-                ) :(
+                {isLoading ? (
+                    <SkeletonPurchaseHistory/>
+                ) : orders.length === 0 ? (
+                    <div className="grid justify-center py-3">
+                        <Lottie animationData={animationData} loop={true} className="w-40 h-40 object-none"/>;
+                        <p className="text-red-500 text-center text-lg">មិនមានទន្និន័យ</p>
+                    </div>
+                ) : (
                     <>
                         {todayOrders.length > 0 && (
                             <section className={` flex flex-col gap-2 my-5`}>
                                 <div className="text-gray-500 text-sm "><span
                                     className="text-lg text-black/70">ថ្ងៃនេះ</span></div>
                                 {todayOrders.map((order: Order) => (
-                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
+                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order}/>
                                 ))}
                             </section>
                         )}
@@ -85,7 +91,7 @@ export default function PurchaseHistoryComponent() {
                                 <div className="text-gray-500 text-sm"><span
                                     className="text-lg text-black/70">ថ្ងៃម្សិលមិញ</span></div>
                                 {yesterdayOrders.map((order: Order) => (
-                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
+                                    <OrderItem key={order.uuid} uuid={order.uuid} order={order}/>
                                 ))}
                             </section>
                         )}
@@ -98,7 +104,7 @@ export default function PurchaseHistoryComponent() {
                                             <div className="text-gray-500 text-sm  "><span
                                                 className="text-lg text-black/70">{date}</span></div>
                                             {orders.map((order: Order) => (
-                                                <OrderItem key={order.uuid} uuid={order.uuid} order={order} />
+                                                <OrderItem key={order.uuid} uuid={order.uuid} order={order}/>
                                             ))}
                                         </div>
                                     )

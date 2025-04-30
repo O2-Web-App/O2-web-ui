@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {Phone, Mail, Facebook, MapPin} from "lucide-react";
+import {Phone, Mail, Facebook, MapPin, MapPinned, Mails} from "lucide-react";
 import Link from "next/link";
 import {useContactUsMutation} from "@/app/redux/service/blog";
 import {toast} from "sonner";
@@ -224,7 +224,7 @@ export default function AboutUsComponent() {
 
                         {/* Email */}
                         <div className="flex items-center gap-3">
-                            <Mail className="w-6 h-6 text-gray-600"/>
+                            <Mails className="w-6 h-6 text-gray-600"/>
                             <a href="mailto:O2Project@proton.me"
                                className="text-gray-700 hover:text-blue-500 transition">
                                 O2Project@proton.me
@@ -242,13 +242,13 @@ export default function AboutUsComponent() {
                         </div>
 
                         {/* Location (Google Maps) */}
-                        <div className="flex items-center gap-3">
-                            <MapPin className="w-6 h-6 text-gray-600"/>
+                        <div className="flex items-start gap-3">
+                            <MapPinned className="w-7 h-7 text-gray-600"/>
                             <a href="https://www.google.com/maps/search/?api=1&query=Sangkat+Tonle+Bassac,+Khan+Chamkarmon,+Phnom+Penh"
                                target="_blank"
                                rel="noopener noreferrer"
                                className="text-gray-700 hover:text-blue-500 transition">
-                                Chamkar O'luk Village, Sangkat Kakap II, Khan Pou Senchey, Phnom Penh
+                                2, Kakap 2, Pur Senchey, Phnom Penh 120801, Cambodia
                             </a>
                         </div>
                     </div>

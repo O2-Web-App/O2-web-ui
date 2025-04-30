@@ -104,7 +104,10 @@ export default function UserProfile() {
                         className="w-28 h-28 rounded-full object-cover"
                     />
                 ) : (
-                    <p className="text-center text-gray-500">Click to upload</p>
+                    <div
+                        className={` w-28 h-28 rounded-full border border-dashed bg-gray-200 flex items-center justify-center`}>
+                        <p className="text-center text-gray-500">Click to upload</p>
+                    </div>
                 )}
                 <input type="file" onChange={handleFileChange} className="hidden" id="avatar-upload"/>
                 <label htmlFor="avatar-upload"
