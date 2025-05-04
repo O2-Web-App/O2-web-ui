@@ -8,7 +8,6 @@ export default function FeedbackComponent() {
     const {data, error, isLoading} = useGetFeedbackQuery();
     const env = process.env.NEXT_PUBLIC_O2_API_URL;
 
-    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading feedback</div>;
 
     const feedback = data?.data.map((item: any) => ({

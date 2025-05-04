@@ -195,7 +195,7 @@ export default function BlogDetailComponent({uuid , linkMetadata}: PropsType) {
 
             {/* YouTube Videos as Thumbnails */}
             <div className="flex gap-4 overflow-x-auto py-4">
-                {blogDetail.youtube_videos.map((videoUrl, index) => {
+                {/* {blogDetail.youtube_videos.map((videoUrl, index) => {
                     const thumbnailUrl = getYouTubeThumbnail(videoUrl, "hq");
                     if (!thumbnailUrl) return null;
                     const url = new URL(videoUrl);
@@ -209,7 +209,27 @@ export default function BlogDetailComponent({uuid , linkMetadata}: PropsType) {
                                  className="rounded-lg object-cover w-42 h-24"/>
                         </Link>
                     );
-                })}
+                })} */}
+
+{blogDetail.youtube_videos.map((videoUrl, index) => {
+    const url = new URL(videoUrl);
+    const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+    return (
+        <div key={index} className="w-42 max-w-md my-4 bg-red-100">
+            <iframe
+                src={embedUrl}
+                title={`YouTube Video ${index + 1}`}
+                className="w-full h-32 rounded-lg"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+            />
+        </div>
+    );
+})}
+
             </div>
 
             {/* Blog Title & Author */}

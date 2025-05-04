@@ -1,10 +1,10 @@
 import React from "react";
-import {useGetPreOrderProductQuery} from "@/app/redux/service/product";
+import {useGetLimitPreOrderProductsQuery} from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
-import {UserPayload, UserResponse} from "@/app/redux/service/user";
+import { UserResponse} from "@/app/redux/service/user";
 
 // const PreOrderHeader = ({handleSeeMore}: { handleSeeMore: () => void }) => (
 //
@@ -15,7 +15,7 @@ type Props = {
 
 export default function PreOrderProductComponent({userData}: Props) {
 
-    const {data, isLoading, error} = useGetPreOrderProductQuery();
+    const {data, isLoading, error} = useGetLimitPreOrderProductsQuery();
     const router = useRouter();
 
     if (error) return <div>Error loading pre-orders</div>;

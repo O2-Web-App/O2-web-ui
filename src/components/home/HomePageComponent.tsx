@@ -94,9 +94,10 @@ export default function HomePageComponent() {
                     {/*Discount section*/}
                     <DiscountProductComponent userData={userData} />
 
-
                     {/* Feedback section */}
                     <FeedbackComponent/>
+
+
                 </section>
             )}
         </section>

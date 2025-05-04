@@ -12,7 +12,6 @@ import PasswordField from "./PasswordField";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
 
-// import { useToast } from "@/hook/use-toast";
 import {setAccessToken} from "@/app/redux/features/auth/authSlice";
 import {useAppDispatch} from "@/app/redux/hooks";
 import {FcGoogle} from "react-icons/fc";

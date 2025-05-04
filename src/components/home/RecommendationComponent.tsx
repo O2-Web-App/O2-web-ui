@@ -1,17 +1,17 @@
 import React from "react";
-import {useGetRecommendationProductQuery} from "@/app/redux/service/product";
+import {useGetLimitRecommendationProductsQuery} from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
-import {UserPayload, UserResponse} from "@/app/redux/service/user";
+import {UserResponse} from "@/app/redux/service/user";
 
 type Props = {
-    userData : UserResponse | undefined;
+    userData: UserResponse | undefined;
 }
 
-export default function RecommendationComponent( {userData} : Props) {
-    const {data, isLoading, error} = useGetRecommendationProductQuery();
+export default function RecommendationComponent({userData}: Props) {
+    const {data, isLoading, error} = useGetLimitRecommendationProductsQuery();
     const router = useRouter();
 
     if (error) return <div>Error loading recommendations</div>;

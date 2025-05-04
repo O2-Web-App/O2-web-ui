@@ -4,6 +4,7 @@ import {BaseQueryArg} from "@reduxjs/toolkit/query";
 
 export const productApi = o2API.injectEndpoints({
     endpoints: (builder) => ({
+
         // get product detail
         getProductDetailByUUID: builder.query<any, { uuid: string }>({
             query: ({uuid}) => ({
@@ -13,6 +14,38 @@ export const productApi = o2API.injectEndpoints({
             providesTags: ["Product"],
         }),
 
+        // get Limit Discount Products
+        getLimitDiscountProducts: builder.query<any, void>({
+            query: () => ({
+                url: `api/products/limited-discounted`,
+                method: "GET",
+            }),
+        }),
+
+        // get Limit Popular Products
+        getLimitPopularProducts: builder.query<any, void>({
+            query: () => ({
+                url: `api/products/limited-popular-products`,
+                method: "GET",
+            }),
+        }),
+
+        // get Limit Recommendation Products
+        getLimitRecommendationProducts: builder.query<any, void>({
+            query: () => ({
+                url: `api/products/limited-recommended`,
+                method: "GET",
+            }),
+        }),
+
+
+        //get Limit PreOrder Products
+        getLimitPreOrderProducts: builder.query<any, void>({
+            query: () => ({
+                url: `api/products/limited-preorders`,
+                method: "GET",
+            }),
+        }),
 
         // get recommendation product
         getRecommendationProduct: builder.query<RecommendationType, void>({
@@ -124,6 +157,10 @@ export const productApi = o2API.injectEndpoints({
 });
 
 export const {
+    useGetLimitDiscountProductsQuery,
+    useGetLimitPopularProductsQuery,
+    useGetLimitRecommendationProductsQuery,
+    useGetLimitPreOrderProductsQuery,
     useGetProductDetailByUUIDQuery,
     useGetRecommendationProductQuery,
     useGetPopularProductQuery,

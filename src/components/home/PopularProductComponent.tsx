@@ -1,22 +1,22 @@
 'use client';
 import React from "react";
-import {useGetPopularProductQuery} from "@/app/redux/service/product";
+import {useGetLimitPopularProductsQuery} from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import {SkeletonProductComponent} from "@/components/home/SkeletonProductComponent";
 import CardProductByRowComponent from "@/components/home/CardProductByRowComponent";
-import {UserPayload, UserResponse} from "@/app/redux/service/user";
+import {UserResponse} from "@/app/redux/service/user";
 
 type Props = {
-    userData : UserResponse | undefined;
+    userData: UserResponse | undefined;
 }
 
 export default function PopularProductComponent(
-    {userData} : Props
+    {userData}: Props
 ) {
     const router = useRouter();
     // Fetch recommended products using the RTK Query hook
-    const {data, isLoading, error} = useGetPopularProductQuery();
+    const {data, isLoading, error} = useGetLimitPopularProductsQuery();
 
     // Handle loading and error states
     if (error) return <div>Error loading popular</div>;

@@ -1,18 +1,18 @@
 import React from "react";
-import {useGetDiscountProductQuery} from "@/app/redux/service/product";
+import {useGetLimitDiscountProductsQuery} from "@/app/redux/service/product";
 import {DataType} from "@/app/types/ProductDetail";
 import {useRouter} from "next/navigation";
 import CardProductByColumnComponent from "@/components/home/CardProductByColumnComponent";
 import SkeletonProductDiscountComponent from "@/components/home/SkeletonProductDiscountComponent";
-import {UserPayload, UserResponse} from "@/app/redux/service/user";
+import {UserResponse} from "@/app/redux/service/user";
 
 type Props = {
-    userData : UserResponse | undefined;
+    userData: UserResponse | undefined;
 }
 
-export default function DiscountProductComponent({userData} : Props ) {
+export default function DiscountProductComponent({userData}: Props) {
     // Fetch discount products using the RTK Query hook
-    const {data, isLoading, error} = useGetDiscountProductQuery();
+    const {data, isLoading, error} = useGetLimitDiscountProductsQuery();
     const router = useRouter();
 
     // Handle loading and error states

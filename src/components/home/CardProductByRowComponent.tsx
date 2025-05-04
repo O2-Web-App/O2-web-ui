@@ -1,12 +1,11 @@
 import {useRouter} from "next/navigation";
 import {FaHeart} from "react-icons/fa";
-import {GoClock, GoHeart} from "react-icons/go";
-import { FaRegHeart } from "react-icons/fa6";
+import {GoClock} from "react-icons/go";
+import {FaRegHeart} from "react-icons/fa6";
 import {HiOutlineFire} from "react-icons/hi2";
 import TimeDifferenceComponent from "@/components/home/TimeDifferenceComponent";
 import {toast} from "sonner";
 import {useCreateWishListProductMutation} from "@/app/redux/service/wishlist";
-import {useGetUserQuery} from "@/app/redux/service/user";
 
 type Props = {
     uuid: string;
@@ -25,7 +24,6 @@ export default function CardProductByRowComponent({
                                                       uuid,
                                                       single_image,
                                                       name,
-                                                      //   discounted_price,
                                                       price,
                                                       category_name,
                                                       created_at,
@@ -35,10 +33,9 @@ export default function CardProductByRowComponent({
     const router = useRouter();
     const env = process.env.NEXT_PUBLIC_O2_API_URL;
     const [createWishlist] = useCreateWishListProductMutation();
-    const {data} = useGetUserQuery();
 
     const addToWishList = async (e: React.MouseEvent) => {
-        e.stopPropagation(); // Prevents the click from bubbling up to the parent div
+        e.stopPropagation();
         try {
             const response = await createWishlist({product_uuid: uuid});
             if (response.data) {
